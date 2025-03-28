@@ -28,14 +28,6 @@ cd ()
                 builtin cd ~ && ls
         fi
 }
-DISTRIBUTION=$(distribution)
-if command -v bat &> /dev/null || command -v batcat &> /dev/null; then
-    if [ "$DISTRIBUTION" = "redhat" ] || [ "$DISTRIBUTION" = "arch" ]; then
-        alias cat='bat'
-    else
-        alias cat='batcat'
-    fi
-fi
 
 # Automatically install the needed support files for this .bashrc file                                                               install_bashrc_support() {                                                                                                                   local dtype                                                                                                                          dtype=$(distribution)                                                                                                                                                                                                                                                     case $dtype in                                                                                                                               "redhat")                                                                                                                                    sudo yum install multitail tree zoxide trash-cli fzf bash-completion fastfetch                                                       ;;                                                                                                                           "suse")                                                                                                                                      sudo zypper install multitail tree zoxide trash-cli fzf bash-completion fastfetch                                                    ;;                                                                                                                           "debian")                                                                                                                                    sudo apt-get install multitail tree zoxide trash-cli fzf bash-completion                                                             # Fetch the latest fastfetch release URL for linux-amd64 deb file                                                                    FASTFETCH_URL=$(curl -s https://api.github.com/repos/fastfetch-cli/fastfetch/releases/latest | grep "browser_download_url.*linux-amd64.deb" | cut -d '"' -f 4)
 
