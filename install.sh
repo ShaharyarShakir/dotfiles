@@ -58,7 +58,7 @@ DOTFILES_DIR="$HOME/dotfiles"
 # Clone dotfiles repo if not already cloned
 if [ ! -d "$DOTFILES_DIR" ]; then
     echo -e "${YELLOW}📂 Cloning dotfiles...${RESET}"
-    git clone https://github.com/ShaharyarShakir/dotfiles.git "$DOTFILES_DIR"
+    git clone git@github.com:ShaharyarShakir/dotfiles.git "$DOTFILES_DIR"
 else
     echo -e "${GREEN}✅ Dotfiles already exist, skipping clone.${RESET}"
 fi
@@ -82,4 +82,9 @@ else
 fi
 
 echo -e "${GREEN}🎉 Setup complete! Restart your terminal.${RESET}"
-
+# Stow only actual config directories
+for dir in */; do
+    if [[ "$dir" != "README.md" ]]; then
+        stow --verbose "$dir"
+    fi
+done
