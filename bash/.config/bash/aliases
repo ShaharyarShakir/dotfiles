@@ -1,4 +1,5 @@
 # Aliases for common commands
+if command -v eza &> /dev/null; then
 alias ls='eza --icons -lah --group-directories-first --git'
 alias lt='eza -T --icons'
 alias ll='eza -lh --icons'
@@ -6,6 +7,10 @@ alias la='eza -la --icons'
 alias lsize='eza -lh --icons -s size -r'
 alias lmod='eza -lh --icons -s modified'
 alias lg='eza -lh --icons --git'
+
+else
+    alias ls='ls --color=auto'
+fi
 
 # bash
 alias vb='nvim ~/.bashrc'
