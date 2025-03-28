@@ -1,4 +1,10 @@
 # ~/.bashrc - Main shell config, sources additional modular files
+if command -v fastfetch &> /dev/null; then
+    # Only run fastfetch if we're in an interactive shell
+    if [[ $- == *i* ]]; then
+        fastfetch
+    fi
+fi
 
 # If not running interactively, exit
 case $- in
