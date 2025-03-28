@@ -7,7 +7,7 @@ alias la='eza -la --icons'
 alias lsize='eza -lh --icons -s size -r'
 alias lmod='eza -lh --icons -s modified'
 alias lg='eza -lh --icons --git'
-
+alias l='eza -l --icons --git -a'
 else
     alias ls='ls --color=auto'
 fi
@@ -15,6 +15,7 @@ fi
 alias ga='git add .'
 alias gc='git commit -m'
 alias gs='git status'
+alias glog="git log --graph --topo-order --pretty='%w(100,0,6)%C(yellow)%h%C(bold)%C(black)%d %C(cyan)%ar %C(green)%an%n%C(bold)%C(white)%s %N' --abbrev-commit"
 alias gp='git push'
 alias lg='lazygit'
 alias gu='gitui'
@@ -22,7 +23,7 @@ alias gb='git branch-i'
 # bat/cat aliases
 if command -v batcat &> /dev/null; then
 alias bat='batcat'
-alias cat="batcat --style=plain"
+alias cat="batcat --style=grid --pager=never"
 alias batn="batcat --style=number"
 alias batp="batcat --paging=always"
 alias batall="batcat --show-all"	
