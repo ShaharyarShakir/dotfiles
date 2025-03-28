@@ -11,7 +11,29 @@ alias lg='eza -lh --icons --git'
 else
     alias ls='ls --color=auto'
 fi
-
+# git
+alias ga='git add .'
+alias gc='git commit -m'
+alias gs='git status'
+alias gp='git push'
+alias lg='lazygit'
+alias gu='gitui'
+alias gb='git branch-i'
+# bat/cat aliases
+if command -v batcat &> /dev/null; then
+alias bat='batcat'
+alias cat="batcat --style=plain"
+alias batn="batcat --style=number"
+alias batp="batcat --paging=always"
+alias batall="batcat --show-all"	
+alias batfzf="fzf --preview 'batcat --style=numbers --color=always {}'"
+else
+alias cat='cat'
+fi
+# fzf 
+alias fh='history | fzf'
+alias fo='find . -type f | fzf'
+alias vf='nvim $(fzf)'
 # bash
 alias vb='nvim ~/.bashrc'
 alias sb='source ~/.bashrc'

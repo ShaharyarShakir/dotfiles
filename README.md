@@ -2,7 +2,7 @@
 - clone this repo cd into this repo
 # install these packages
 ```
-pacman -S vim 
+pacman -S vim bat fzf git curl wget unzip zip lazygit gitui tmux neovim
 ```
 ```
 chmod +x install.sh
