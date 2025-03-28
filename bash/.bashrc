@@ -28,3 +28,4 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi  # <-- Corrected closing of if statement
 fi  
+
