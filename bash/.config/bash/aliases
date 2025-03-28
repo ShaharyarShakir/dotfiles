@@ -1,0 +1,20 @@
+# Aliases for common commands
+alias ls='eza --icons -lah --group-directories-first --git'
+alias lt='eza -T --icons'
+alias ll='eza -lh --icons'
+alias la='eza -la --icons'
+alias lsize='eza -lh --icons -s size -r'
+alias lmod='eza -lh --icons -s modified'
+alias lg='eza -lh --icons --git'
+
+# bash
+alias vb='nvim ~/.bashrc'
+alias sb='source ~/.bashrc'
+# Vim / Neovim
+alias vim='nvim'
+alias v='nvim'
+alias v.='nvim .'
+
+# Clear screen
+alias cls='clear'
+

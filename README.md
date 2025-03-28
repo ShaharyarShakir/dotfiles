@@ -8,4 +8,8 @@ chmod +x install.sh
 ./install.sh
 ```
 
+```
+stow -d ~/dotfiles -t ~ bash nvim zsh
+```
+
 
