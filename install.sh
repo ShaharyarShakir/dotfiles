@@ -1,90 +1,36 @@
 #!/bin/bash
 
-# Colors for output
-GREEN="\e[32m"
-YELLOW="\e[33m"
-RED="\e[31m"
-RESET="\e[0m"
+echo "🔍 Detecting Linux Distribution..."
+OS=$(lsb_release -is | tr '[:upper:]' '[:lower:]')
+echo "✅ Detected: $OS"
 
-echo -e "${GREEN}🔍 Detecting Linux Distribution...${RESET}"
-
-# Detect Linux distribution
-if [[ -f /etc/os-release ]]; then
-    . /etc/os-release
-    DISTRO=$ID
+# Install dependencies based on distro
+echo "📦 Installing required packages..."
+if [[ "$OS" == "ubuntu" || "$OS" == "debian" ]]; then
+    sudo apt update && sudo apt install -y stow bat git neovim
+elif [[ "$OS" == "arch" ]]; then
+    sudo pacman -Syu --noconfirm stow bat git neovim
+elif [[ "$OS" == "fedora" ]]; then
+    sudo dnf install -y stow bat git neovim
 else
-    echo -e "${RED}❌ Unsupported Linux distribution!${RESET}"
+    echo "❌ Unsupported OS. Please install packages manually."
     exit 1
 fi
 
-echo -e "${GREEN}✅ Detected: $DISTRO${RESET}"
+# Move into dotfiles directory
+cd "$HOME/dotfiles" || exit
 
-# Define package installation function
-install_packages() {
-    echo -e "${YELLOW}📦 Installing required packages...${RESET}"
-
-    case "$DISTRO" in
-        ubuntu | debian)
-            sudo apt update && sudo apt install -y \
-                git stow neovim tmux fzf ripgrep bat eza \
-                zsh htop tree make gcc curl wget unzip \
-                build-essential starship
-            ;;
-        arch)
-            sudo pacman -Syu --noconfirm \
-                git stow neovim tmux fzf ripgrep bat eza \
-                zsh htop tree make gcc curl wget unzip \
-                starship
-            ;;
-        fedora)
-            sudo dnf install -y \
-                git stow neovim tmux fzf ripgrep bat eza \
-                zsh htop tree make gcc curl wget unzip \
-                starship
-            ;;
-        *)
-            echo -e "${RED}❌ Distro not supported!${RESET}"
-            exit 1
-            ;;
-    esac
-}
-
-# Run package installation
-install_packages
-
-# Define Dotfiles Directory
-DOTFILES_DIR="$HOME/dotfiles"
-
-# Clone dotfiles repo if not already cloned
-if [ ! -d "$DOTFILES_DIR" ]; then
-    echo -e "${YELLOW}📂 Cloning dotfiles...${RESET}"
-    git clone git@github.com:ShaharyarShakir/dotfiles.git "$DOTFILES_DIR"
-else
-    echo -e "${GREEN}✅ Dotfiles already exist, skipping clone.${RESET}"
-fi
-
-# Change to Dotfiles Directory
-cd "$DOTFILES_DIR" || exit
-
-# Use Stow to Symlink Dotfiles
-echo -e "${YELLOW}🔗 Symlinking dotfiles using stow...${RESET}"
-stow --verbose *
-
-echo -e "${GREEN}✅ All dotfiles linked using stow!${RESET}"
-
-# Reload shell configuration
-if [[ "$SHELL" == *"zsh"* ]]; then
-    echo -e "${YELLOW}🔄 Reloading .zshrc...${RESET}"
-    source "$HOME/.zshrc"
-else
-    echo -e "${YELLOW}🔄 Reloading .bashrc...${RESET}"
-    source "$HOME/.bashrc"
-fi
-
-echo -e "${GREEN}🎉 Setup complete! Restart your terminal.${RESET}"
-# Stow only actual config directories
+# Stow dotfiles (ignore README.md)
+echo "🔗 Symlinking dotfiles using stow..."
 for dir in */; do
-    if [[ "$dir" != "README.md" ]]; then
-        stow --verbose "$dir"
+    if [[ "$dir" != "README.md" && -d "$dir" ]]; then
+        echo "🔗 Stowing $dir..."
+        stow --verbose --restow --adopt "$dir"
     fi
 done
+
+# Reload shell configuration
+echo "🔄 Reloading .bashrc..."
+source "$HOME/.bashrc"
+
+echo "🎉 Setup complete! Restart your terminal."
