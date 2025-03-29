@@ -54,15 +54,7 @@ alias lg='lazygit'
 alias gu='gitui'
 alias gb='git branch-i'
 
-# bat/cat aliases
-DISTRIBUTION=$(distribution)
-if command -v bat &> /dev/null || command -v batcat &> /dev/null; then
-    if [ "$DISTRIBUTION" = "redhat" ] || [ "$DISTRIBUTION" = "arch" ]; then
-        alias cat='bat'
-    else
-        alias cat='batcat'
-    fi
-fi
+
 # fzf 
 alias fh='history | fzf'
 alias fo='find . -type f | fzf'
@@ -291,6 +283,15 @@ install_bashrc_support() {
 	esac
 }
 
+# bat/cat aliases
+DISTRIBUTION=$(distribution)
+if command -v bat &> /dev/null || command -v batcat &> /dev/null; then
+    if [ "$DISTRIBUTION" = "redhat" ] || [ "$DISTRIBUTION" = "arch" ]; then
+        alias cat='bat'
+    else
+        alias cat='batcat'
+    fi
+fi
 
 # Enable history settings
 HISTCONTROL=ignoreboth
