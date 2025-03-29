@@ -3,7 +3,9 @@
 ```
 figlet lolcat git tmux neovim curl wget 
 ```
-
+```
+stow -t tmux
+```
 ## Install with stow:
 
 ```

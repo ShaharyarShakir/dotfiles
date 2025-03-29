@@ -62,16 +62,17 @@ alias gb='git branch-i'
 alias fh='history | fzf'
 alias fo='find . -type f | fzf'
 alias vf='nvim $(fzf)'
+
 # bash
 alias vb='nvim ~/.bashrc'
 alias sb='source ~/.bashrc'
+
 # Vim / Neovim
 alias vim='nvim'
 alias v='nvim'
 alias v.='nvim .'
 
-# Clear screen
-alias cls='clear'
+
 # aliases to modified commands
 alias cp='cp -i'
 alias mv='mv -i'
@@ -316,6 +317,6 @@ fi
 
 # Enable fancy prompt using starship
 eval "$(starship init bash)"
-
+eval "$(zoxide init bash)" 
 
 
