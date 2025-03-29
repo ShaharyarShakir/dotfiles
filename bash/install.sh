@@ -228,7 +228,17 @@ install_figlet_and_lolcat() {
 install_eza() {
     if ! command_exists eza; then
         print_colored "$YELLOW" "Installing eza (ls replacement)..."
-        ${SUDO_CMD} ${PACKAGER} install -y eza || ${SUDO_CMD} ${PACKAGER} install -y exa  # Some distros use 'exa'
+
+        case "$PACKAGER" in
+            apt) ${SUDO_CMD} apt install -y eza || ${SUDO_CMD} apt install -y exa ;;
+            dnf) ${SUDO_CMD} dnf install -y eza || ${SUDO_CMD} dnf install -y exa ;;
+            yum) ${SUDO_CMD} yum install -y eza || ${SUDO_CMD} yum install -y exa ;;
+            pacman) ${SUDO_CMD} pacman -S --noconfirm eza || ${SUDO_CMD} pacman -S --noconfirm exa ;;
+            zypper) ${SUDO_CMD} zypper install -y eza || ${SUDO_CMD} zypper install -y exa ;;
+            brew) brew install eza || brew install exa ;; # macOS/Homebrew
+            *) print_colored "$RED" "Unsupported package manager: $PACKAGER" && return 1 ;;
+        esac
+
         print_colored "$GREEN" "eza installed successfully!"
     else
         print_colored "$GREEN" "eza is already installed."
