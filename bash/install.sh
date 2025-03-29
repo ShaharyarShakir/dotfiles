@@ -239,7 +239,7 @@ link_config() {
 }
 
 # Main execution
-setup_directories
+# setup_directories
 check_environment
 install_dependencies
 install_starship_and_fzf
