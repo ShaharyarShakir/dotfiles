@@ -21,26 +21,7 @@ command_exists() {
     command -v "$1" >/dev/null 2>&1
 }
 
-# Setup functions
-setup_directories() {
-    if [ ! -d "$LINUXTOOLBOXDIR" ]; then
-        print_colored "$YELLOW" "Creating linuxtoolbox directory: $LINUXTOOLBOXDIR"
-        mkdir -p "$LINUXTOOLBOXDIR"
-        print_colored "$GREEN" "linuxtoolbox directory created: $LINUXTOOLBOXDIR"
-    fi
 
-    if [ -d "$LINUXTOOLBOXDIR/mybash" ]; then rm -rf "$LINUXTOOLBOXDIR/mybash"; fi
-
-    print_colored "$YELLOW" "Cloning mybash repository into: $LINUXTOOLBOXDIR/mybash"
-    if git clone git@github.com:ShaharyarShakir/dotfiles.git "$LINUXTOOLBOXDIR/mybash"; then
-        print_colored "$GREEN" "Successfully cloned mybash repository"
-    else
-        print_colored "$RED" "Failed to clone mybash repository"
-        exit 1
-    fi
-
-    cd "$LINUXTOOLBOXDIR/mybash" || exit
-}
 
 check_environment() {
     # Check for required commands
