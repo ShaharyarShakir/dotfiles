@@ -283,7 +283,7 @@ link_config() {
 check_environment
 install_dependencies
 install_starship_and_fzf
-install_zoxideinstall_tmux
+install_zoxide
 install_neovim
 install_figlet_and_lolcat
 install_eza
