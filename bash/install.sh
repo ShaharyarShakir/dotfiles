@@ -195,6 +195,46 @@ install_zoxide() {
     fi
 }
 
+install_tmux() {
+    if ! command_exists tmux; then
+        print_colored "$YELLOW" "Installing Tmux..."
+        ${SUDO_CMD} ${PACKAGER} install -y tmux
+        print_colored "$GREEN" "Tmux installed successfully!"
+    else
+        print_colored "$GREEN" "Tmux is already installed."
+    fi
+}
+
+install_neovim() {
+    if ! command_exists nvim; then
+        print_colored "$YELLOW" "Installing Neovim..."
+        ${SUDO_CMD} ${PACKAGER} install -y neovim
+        print_colored "$GREEN" "Neovim installed successfully!"
+    else
+        print_colored "$GREEN" "Neovim is already installed."
+    fi
+}
+
+install_figlet_and_lolcat() {
+    if ! command_exists figlet || ! command_exists lolcat; then
+        print_colored "$YELLOW" "Installing Figlet and Lolcat..."
+        ${SUDO_CMD} ${PACKAGER} install -y figlet lolcat
+        print_colored "$GREEN" "Figlet and Lolcat installed successfully!"
+    else
+        print_colored "$GREEN" "Figlet and Lolcat are already installed."
+    fi
+}
+
+install_eza() {
+    if ! command_exists eza; then
+        print_colored "$YELLOW" "Installing eza (ls replacement)..."
+        ${SUDO_CMD} ${PACKAGER} install -y eza || ${SUDO_CMD} ${PACKAGER} install -y exa  # Some distros use 'exa'
+        print_colored "$GREEN" "eza installed successfully!"
+    else
+        print_colored "$GREEN" "eza is already installed."
+    fi
+}
+
 create_fastfetch_config() {
     USER_HOME=$(getent passwd "${SUDO_USER:-$USER}" | cut -d: -f6)
     CONFIG_DIR="$USER_HOME/.config/fastfetch"
@@ -243,8 +283,12 @@ link_config() {
 check_environment
 install_dependencies
 install_starship_and_fzf
-install_zoxide
+install_zoxideinstall_tmux
+install_neovim
+install_figlet_and_lolcat
+install_eza
 create_fastfetch_config
+link_config
 
 if link_config; then
     print_colored "$GREEN" "Done!\nrestart your shell to see the changes."

@@ -27,8 +27,9 @@ alias lsize='eza -lh --icons -s size -r'
 alias lmod='eza -lh --icons -s modified'
 alias lg='eza -lh --icons --git'
 alias l='eza -l --icons --git -a'
+
 else
-    alias la='ls -Alh'                # show hidden files
+alias la='ls -Alh'                # show hidden files
 alias ls='ls -aFh --color=always' # add colors and file type extensions
 alias lx='ls -lXBh'               # sort by extension
 alias lk='ls -lSrh'               # sort by size
@@ -46,6 +47,7 @@ alias lla='ls -Al'                # List and Hidden Files
 alias las='ls -A'                 # Hidden Files
 alias lls='ls -l'                 # List
 fi
+
 # git
 alias ga='git add .'
 alias gc='git commit -m'
@@ -55,7 +57,6 @@ alias gp='git push'
 alias lg='lazygit'
 alias gu='gitui'
 alias gb='git branch-i'
-
 
 # fzf 
 alias fh='history | fzf'
