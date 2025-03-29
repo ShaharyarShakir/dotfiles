@@ -1,4 +1,0 @@
-# Define environment variables
-export EDITOR="nvim"
-export VISUAL="nvim"
-export PATH="$HOME/bin:$PATH"

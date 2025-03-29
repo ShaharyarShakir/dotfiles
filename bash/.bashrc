@@ -12,10 +12,286 @@ case $- in
       *) return;;
 esac
 
-# Load all additional modular configurations
-for file in ~/.config/bash/{aliases,exports,functions,prompt,completion,starship}; do
-    [ -r "$file" ] && source "$file"
-done
+####################################################################
+####################### Aliases ####################################
+#####################################################################
+# Aliases for common commands
+if command -v eza &> /dev/null; then
+alias ls='eza --icons -lah --group-directories-first --git'
+alias lt='eza -T --icons'
+alias ll='eza -lh --icons'
+alias la='eza -la --icons'
+alias lsize='eza -lh --icons -s size -r'
+alias lmod='eza -lh --icons -s modified'
+alias lg='eza -lh --icons --git'
+alias l='eza -l --icons --git -a'
+else
+    alias la='ls -Alh'                # show hidden files
+alias ls='ls -aFh --color=always' # add colors and file type extensions
+alias lx='ls -lXBh'               # sort by extension
+alias lk='ls -lSrh'               # sort by size
+alias lc='ls -ltcrh'              # sort by change time
+alias lu='ls -lturh'              # sort by access time
+alias lr='ls -lRh'                # recursive ls
+alias lt='ls -ltrh'               # sort by date
+alias lm='ls -alh |more'          # pipe through 'more'
+alias lw='ls -xAh'                # wide listing format
+alias ll='ls -Fls'                # long listing format
+alias labc='ls -lap'              # alphabetical sort
+alias lf="ls -l | egrep -v '^d'"  # files only
+alias ldir="ls -l | egrep '^d'"   # directories only
+alias lla='ls -Al'                # List and Hidden Files
+alias las='ls -A'                 # Hidden Files
+alias lls='ls -l'                 # List
+fi
+# git
+alias ga='git add .'
+alias gc='git commit -m'
+alias gs='git status'
+alias glog="git log --graph --topo-order --pretty='%w(100,0,6)%C(yellow)%h%C(bold)%C(black)%d %C(cyan)%ar %C(green)%an%n%C(bold)%C(white)%s %N' --abbrev-commit"
+alias gp='git push'
+alias lg='lazygit'
+alias gu='gitui'
+alias gb='git branch-i'
+
+# bat/cat aliases
+DISTRIBUTION=$(distribution)
+if command -v bat &> /dev/null || command -v batcat &> /dev/null; then
+    if [ "$DISTRIBUTION" = "redhat" ] || [ "$DISTRIBUTION" = "arch" ]; then
+        alias cat='bat'
+    else
+        alias cat='batcat'
+    fi
+fi
+fi
+# fzf 
+alias fh='history | fzf'
+alias fo='find . -type f | fzf'
+alias vf='nvim $(fzf)'
+# bash
+alias vb='nvim ~/.bashrc'
+alias sb='source ~/.bashrc'
+# Vim / Neovim
+alias vim='nvim'
+alias v='nvim'
+alias v.='nvim .'
+
+# Clear screen
+alias cls='clear'
+# aliases to modified commands
+alias cp='cp -i'
+alias mv='mv -i'
+alias mkdir='mkdir -p'
+alias ps='ps auxf'
+alias less='less -R'
+alias cls='clear'
+alias apt-get='sudo apt-get'
+alias multitail='multitail --no-repeat -c'
+alias freshclam='sudo freshclam'
+alias vi='nvim'
+alias svi='sudo vi'
+alias vis='nvim "+set si"'
+
+# cd into the old directory
+alias bd='cd "$OLDPWD"'
+
+# Count all files (recursively) in the current folder
+alias countfiles="for t in files links directories; do echo \`find . -type \${t:0:1} | wc -l\` \$t; done 2> /dev/null"
+
+# aliases to show disk space and space used in a folder
+alias diskspace="du -S | sort -n -r |more"
+alias folders='du -h --max-depth=1'
+alias folderssort='find . -maxdepth 1 -type d -print0 | xargs -0 du -sk | sort -rn'
+alias tree='tree -CAhF --dirsfirst'
+alias treed='tree -CAFd'
+alias mountedinfo='df -hT'
+
+# alias to cleanup unused docker containers, images, networks, and volumes
+
+alias docker-clean=' \
+  docker container prune -f ; \
+  docker image prune -f ; \
+  docker network prune -f ; \
+  docker volume prune -f '
+
+# Load programmable completion if available
+if ! shopt -oq posix; then
+  if [ -f /usr/share/bash-completion/bash_completion ]; then
+    . /usr/share/bash-completion/bash_completion
+  elif [ -f /etc/bash_completion ]; then
+    . /etc/bash_completion
+  fi
+fi
+
+#################################################################
+################## Functions ####################################
+#################################################################
+
+# Function to extract various archive formats
+extract() {
+    if [ -f "$1" ]; then
+        case "$1" in
+            *.tar.bz2) tar xjf "$1" ;;
+            *.tar.gz) tar xzf "$1" ;;
+            *.bz2) bunzip2 "$1" ;;
+            *.rar) unrar x "$1" ;;
+            *.gz) gunzip "$1" ;;
+            *.tar) tar xf "$1" ;;
+            *.tbz2) tar xjf "$1" ;;
+            *.tgz) tar xzf "$1" ;;
+            *.zip) unzip "$1" ;;
+            *.Z) uncompress "$1" ;;
+            *.7z) 7z x "$1" ;;
+            *) echo "'$1' cannot be extracted via extract()" ;;
+        esac
+    else
+        echo "'$1' is not a valid file"
+    fi
+}
+
+distribution () {
+    local dtype="unknown"  # Default to unknown
+
+    # Use /etc/os-release for modern distro identification
+    if [ -r /etc/os-release ]; then
+        source /etc/os-release
+        case $ID in
+            fedora|rhel|centos)
+                dtype="redhat"
+                ;;
+            sles|opensuse*)
+                dtype="suse"
+                ;;
+            ubuntu|debian)
+                dtype="debian"
+                ;;
+            gentoo)
+                dtype="gentoo"
+                ;;
+            arch|manjaro)
+                dtype="arch"
+                ;;
+            slackware)
+                dtype="slackware"
+                ;;
+            *)
+                # Check ID_LIKE only if dtype is still unknown
+                if [ -n "$ID_LIKE" ]; then
+                    case $ID_LIKE in
+                        *fedora*|*rhel*|*centos*)
+                            dtype="redhat"
+                            ;;
+                        *sles*|*opensuse*)
+                            dtype="suse"
+                            ;;
+                        *ubuntu*|*debian*)
+                            dtype="debian"
+                            ;;
+                        *gentoo*)
+                            dtype="gentoo"
+                            ;;
+                        *arch*)
+                            dtype="arch"
+                            ;;
+                        *slackware*)
+                            dtype="slackware"
+                            ;;
+                    esac
+                fi
+
+                # If ID or ID_LIKE is not recognized, keep dtype as unknown
+                ;;
+        esac
+    fi
+
+    echo $dtype
+}
+
+
+DISTRIBUTION=$(distribution)
+if command -v bat &> /dev/null || command -v batcat &> /dev/null; then
+    if [ "$DISTRIBUTION" = "redhat" ] || [ "$DISTRIBUTION" = "arch" ]; then
+        alias cat='bat'
+    else
+        alias cat='batcat'
+    fi
+fi
+
+# Show the current version of the operating system
+ver() {
+    local dtype
+    dtype=$(distribution)
+
+    case $dtype in
+        "redhat")
+            if [ -s /etc/redhat-release ]; then
+                cat /etc/redhat-release
+            else
+                cat /etc/issue
+            fi
+            uname -a
+            ;;
+        "suse")
+            cat /etc/SuSE-release
+            ;;
+        "debian")
+            lsb_release -a
+            ;;
+        "gentoo")
+            cat /etc/gentoo-release
+            ;;
+        "arch")
+            cat /etc/os-release
+            ;;
+        "slackware")
+            cat /etc/slackware-version
+            ;;
+        *)
+            if [ -s /etc/issue ]; then
+                cat /etc/issue
+            else
+                echo "Error: Unknown distribution"
+                exit 1
+            fi
+            ;;
+    esac
+}
+
+# Automatically install the needed support files for this .bashrc file
+install_bashrc_support() {
+	local dtype
+	dtype=$(distribution)
+
+	case $dtype in
+		"redhat")
+			sudo yum install multitail tree zoxide trash-cli fzf bash-completion fastfetch
+			;;
+		"suse")
+			sudo zypper install multitail tree zoxide trash-cli fzf bash-completion fastfetch
+			;;
+		"debian")
+			sudo apt-get install multitail tree zoxide trash-cli fzf bash-completion
+			# Fetch the latest fastfetch release URL for linux-amd64 deb file
+			FASTFETCH_URL=$(curl -s https://api.github.com/repos/fastfetch-cli/fastfetch/releases/latest | grep "browser_download_url.*linux-amd64.deb" | cut -d '"' -f 4)
+
+			# Download the latest fastfetch deb file
+			curl -sL $FASTFETCH_URL -o /tmp/fastfetch_latest_amd64.deb
+
+			# Install the downloaded deb file using apt-get
+			sudo apt-get install /tmp/fastfetch_latest_amd64.deb
+			;;
+		"arch")
+			sudo paru multitail tree zoxide trash-cli fzf bash-completion fastfetch
+			;;
+		"slackware")
+			echo "No install support for Slackware"
+			;;
+		*)
+			echo "Unknown distribution"
+			;;
+	esac
+}
+
 
 # Enable history settings
 HISTCONTROL=ignoreboth
@@ -34,4 +310,9 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi  # <-- Corrected closing of if statement
 fi  
+
+# Enable fancy prompt using starship
+eval "$(starship init bash)"
+
+
 

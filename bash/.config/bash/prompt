@@ -1,3 +1,0 @@
-# Enable fancy prompt using starship
-eval "$(starship init bash)"
-

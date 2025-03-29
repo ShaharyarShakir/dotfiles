@@ -4,13 +4,9 @@
 ```
 pacman -S vim bat fzf git curl wget unzip zip lazygit gitui tmux neovim
 ```
+
 ```
-chmod +x install.sh
-```
-```
-./install.sh
-```
-```
+# use stow to source them
 stow -d ~/dotfiles -t ~ bash nvim zsh
 ```
 
