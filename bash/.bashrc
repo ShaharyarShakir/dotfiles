@@ -63,7 +63,6 @@ if command -v bat &> /dev/null || command -v batcat &> /dev/null; then
         alias cat='batcat'
     fi
 fi
-fi
 # fzf 
 alias fh='history | fzf'
 alias fo='find . -type f | fzf'
