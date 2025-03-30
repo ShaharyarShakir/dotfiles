@@ -3,6 +3,10 @@
 ```
 figlet lolcat git tmux neovim curl wget stow 
 ```
+# install fzf-git
+```
+git clone https://github.com/junegunn/fzf-git.sh.git
+```
 ```
 stow -t tmux
 ```
