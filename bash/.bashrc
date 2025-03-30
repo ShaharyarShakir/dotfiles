@@ -73,6 +73,8 @@ alias v='nvim'
 alias vi='nvim'
 alias v.='nvim .'
 
+# yazi
+alias y="yazi"
 
 # aliases to modified commands
 alias cp='cp -i'
@@ -315,6 +317,29 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi  # <-- Corrected closing of if statement
 fi  
+#################################################################################
+###################### Environment Variables ####################################
+#################################################################################
+
+# Set default editor to Neovim
+export EDITOR=nvim
+export VISUAL=nvim
+export YAZI_EDITOR="nvim"
+
+# Set language and encoding
+export LANG=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
+
+# Path modifications (ensure binaries are found)
+export PATH="$HOME/.local/bin:$HOME/bin:$PATH"
+
+# Use bat as default pager (if installed)
+export BAT_THEME="Dracula"
+export MANPAGER="sh -c 'col -bx | bat --paging=always -l man'"
+
+# fzf integration (if installed)
+export FZF_DEFAULT_OPTS="--height 40% --layout=reverse --border"
+
 
 # Enable fancy prompt using starship
 eval "$(starship init bash)"

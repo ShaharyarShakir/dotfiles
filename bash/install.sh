@@ -252,27 +252,26 @@ install_yazi() {
 
     print_colored "$YELLOW" "Installing Yazi and dependencies..."
 
-    # Detect OS
     if [[ -f /etc/arch-release ]]; then
-        echo "📦 Installing on Arch Linux..."
-        sudo pacman -Sy --noconfirm yazi
+        print_colored "$" "Installing on Arch Linux..."
+        sudo pacman -Sy --noconfirm yazi ffmpeg p7zip jq poppler fd ripgrep fzf zoxide imagemagick
 
     elif [[ -f /etc/debian_version ]]; then
-        echo "📦 Installing on Debian/Ubuntu..."
-        sudo apt update && sudo apt install -y cargo
+       print_colored "$YELLOW" "Installing on Debian/Ubuntu..."
+        sudo apt update && sudo apt install -y cargo ffmpeg p7zip jq poppler-utils fd-find ripgrep fzf zoxide imagemagick
         cargo install yazi-fm
 
     elif [[ -f /etc/fedora-release ]]; then
-        echo "📦 Installing on Fedora..."
-        sudo dnf install -y cargo
+        print_colored "$YELLOW" "Installing on Fedora..."
+        sudo dnf install -y cargo ffmpeg p7zip jq poppler fd-find ripgrep fzf zoxide ImageMagick
         cargo install yazi-fm
 
     else
-        echo "❌ Unsupported OS!"
+       print_colored "$RED" "Unsupported OS!"
         return 1
     fi
 
-    print_colored "$GREEN" "Yazi installation complete!"
+   print_colored "$GREEN" "Yazi installation complete!"
 }
 
 
