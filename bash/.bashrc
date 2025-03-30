@@ -1,4 +1,11 @@
 # ~/.bashrc - Main shell config, sources additional modular files
+# # Run fastfetch only once per login session
+FLAG_FILE="/tmp/fastfetch_ran_$USER"
+
+if [[ ! -f "$FLAG_FILE" ]]; then
+    fastfetch  # Run Fastfetch
+    touch "$FLAG_FILE"  # Create the flag file to prevent re-running
+fi
 if command -v fastfetch &> /dev/null; then
     # Only run fastfetch if we're in an interactive shell
     if [[ $- == *i* ]]; then
@@ -107,6 +114,8 @@ alias tree='tree -CAhF --dirsfirst'
 alias treed='tree -CAFd'
 alias mountedinfo='df -hT'
 
+# ---- Zoxide (better cd) ----
+alias cd="z "
 # alias to cleanup unused docker containers, images, networks, and volumes
 
 alias docker-clean=' \
@@ -320,6 +329,10 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi  # <-- Corrected closing of if statement
 fi  
+
+cd(){
+command cd "$1" && ls "$1"
+}
 #################################################################################
 ###################### Environment Variables ####################################
 #################################################################################
@@ -393,5 +406,11 @@ eval "$(zoxide init bash)"
 # Set up fzf key bindings and fuzzy completion
 eval "$(fzf --bash)"
 
+# thefuck alias
+eval $(thefuck --alias)
+eval $(thefuck --alias fk)
+
+# ---- Zoxide (better cd) ----
+eval "$(zoxide init --cmd cd bash)"
 
 source ~/fzf-git.sh/fzf-git.sh
