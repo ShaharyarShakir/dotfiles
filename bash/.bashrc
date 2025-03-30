@@ -74,8 +74,9 @@ alias v='nvim'
 alias vi='nvim'
 alias v.='nvim .'
 
-# yazi
+# yazi / tmux
 alias y="yazi"
+alias t='tmux'
 
 # aliases to modified commands
 alias cp='cp -i'
@@ -340,10 +341,33 @@ export MANPAGER="sh -c 'col -bx | bat --paging=always -l man'"
 
 # fzf integration (if installed)
 export FZF_DEFAULT_OPTS="--height 40% --layout=reverse --border"
+# -- Use fd instead of fzf --
 
+export FZF_DEFAULT_COMMAND="fd --hidden --strip-cwd-prefix --exclude .git"
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+export FZF_ALT_C_COMMAND="fd --type=d --hidden --strip-cwd-prefix --exclude .git"
+_fzf_compgen_path() {
+  fd --hidden --exclude .git . "$1"
+}
+
+# Use fd to generate the list for directory completion
+_fzf_compgen_dir() {
+  fd --type=d --hidden --exclude .git . "$1"
+}
+# --- setup fzf theme ---
+fg="#CBE0F0"
+bg="#011628"
+bg_highlight="#143652"
+purple="#B388FF"
+blue="#06BCE4"
+cyan="#2CF9ED"
+
+export FZF_DEFAULT_OPTS="--color=fg:${fg},bg:${bg},hl:${purple},fg+:${fg},bg+:${bg_highlight},hl+:${purple},info:${blue},prompt:${cyan},pointer:${cyan},marker:${cyan},spinner:${cyan},header:${cyan}"
 
 # Enable fancy prompt using starship
 eval "$(starship init bash)"
 eval "$(zoxide init bash)" 
 
 
+
+source ~/fzf-git.sh/fzf-git.sh
