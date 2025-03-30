@@ -3,7 +3,7 @@
 ```
 figlet lolcat git tmux neovim curl wget stow 
 ```
-# install fzf-git
+# install fzf-git [link](https://www.josean.com/posts/7-amazing-cli-tools)
 ```
 git clone https://github.com/junegunn/fzf-git.sh.git
 ```
