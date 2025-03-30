@@ -244,6 +244,37 @@ install_eza() {
         print_colored "$GREEN" "eza is already installed."
     fi
 }
+install_yazi() {
+    if command -v yazi &>/dev/null; then
+        print_colored "$GREEN" "Yazi is already installed!"
+        return
+    fi
+
+    print_colored "$YELLOW" "Installing Yazi and dependencies..."
+
+    # Detect OS
+    if [[ -f /etc/arch-release ]]; then
+        echo "📦 Installing on Arch Linux..."
+        sudo pacman -Sy --noconfirm yazi
+
+    elif [[ -f /etc/debian_version ]]; then
+        echo "📦 Installing on Debian/Ubuntu..."
+        sudo apt update && sudo apt install -y cargo
+        cargo install yazi-fm
+
+    elif [[ -f /etc/fedora-release ]]; then
+        echo "📦 Installing on Fedora..."
+        sudo dnf install -y cargo
+        cargo install yazi-fm
+
+    else
+        echo "❌ Unsupported OS!"
+        return 1
+    fi
+
+    print_colored "$GREEN" "Yazi installation complete!"
+}
+
 
 create_fastfetch_config() {
     USER_HOME=$(getent passwd "${SUDO_USER:-$USER}" | cut -d: -f6)
@@ -297,6 +328,7 @@ install_zoxide
 install_neovim
 install_figlet_and_lolcat
 install_eza
+install_yazi
 create_fastfetch_config
 link_config
 

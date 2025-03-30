@@ -70,6 +70,7 @@ alias sb='source ~/.bashrc'
 # Vim / Neovim
 alias vim='nvim'
 alias v='nvim'
+alias vi='nvim'
 alias v.='nvim .'
 
 
