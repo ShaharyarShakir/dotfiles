@@ -11,3 +11,7 @@ stow -t tmux
 ```
 stow .
 ```
+######## if starship don't load 
+```
+ln -sf ~/dotfiles/bash/starship.toml ~/.config/starship.toml
+```

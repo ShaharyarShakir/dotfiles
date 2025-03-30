@@ -254,7 +254,7 @@ install_yazi() {
 
     if [[ -f /etc/arch-release ]]; then
         print_colored "$" "Installing on Arch Linux..."
-        sudo pacman -Sy --noconfirm yazi ffmpeg p7zip jq poppler fd ripgrep fzf zoxide imagemagick
+        sudo pacman -Sy --noconfirm yazi ffmpeg p7zip jq poppler fd ripgrep fzf zoxide imagemagick 
 
     elif [[ -f /etc/debian_version ]]; then
        print_colored "$YELLOW" "Installing on Debian/Ubuntu..."
