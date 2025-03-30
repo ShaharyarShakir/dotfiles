@@ -1,7 +1,7 @@
 # Dotfiles symlinked on my machine
 ### install
 ```
-figlet lolcat git tmux neovim curl wget stow 
+figlet lolcat git tmux neovim curl wget stow tldr
 ```
 # install fzf-git [link](https://www.josean.com/posts/7-amazing-cli-tools)
 ```
