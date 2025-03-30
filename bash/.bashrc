@@ -19,7 +19,8 @@ esac
 #####################################################################
 # Aliases for common commands
 if command -v eza &> /dev/null; then
-alias ls='eza --icons -lah --group-directories-first --git'
+alias lss='eza --icons -lah --group-directories-first --git'
+alias ls="eza --color=always --long --git --no-filesize --icons=always --no-time --no-user --no-permissions"
 alias lt='eza -T --icons'
 alias ll='eza -lh --icons'
 alias la='eza -la --icons'
@@ -364,10 +365,33 @@ cyan="#2CF9ED"
 
 export FZF_DEFAULT_OPTS="--color=fg:${fg},bg:${bg},hl:${purple},fg+:${fg},bg+:${bg_highlight},hl+:${purple},info:${blue},prompt:${cyan},pointer:${cyan},marker:${cyan},spinner:${cyan},header:${cyan}"
 
+# --- Setup fzf previews ----
+show_file_or_dir_preview="if [ -d {} ]; then eza --tree --color=always {} | head -200; else bat -n --color=always --line-range :500 {}; fi"
+
+export FZF_CTRL_T_OPTS="--preview '$show_file_or_dir_preview'"
+export FZF_ALT_C_OPTS="--preview 'eza --tree --color=always {} | head -200'"
+
+# Advanced customization of fzf options via _fzf_comprun function
+# - The first argument to the function is the name of the command.
+# - You should make sure to pass the rest of the arguments to fzf.
+_fzf_comprun() {
+  local command=$1
+  shift
+
+  case "$command" in
+    cd)           fzf --preview 'eza --tree --color=always {} | head -200' "$@" ;;
+    export|unset) fzf --preview "eval 'echo ${}'"         "$@" ;;
+    ssh)          fzf --preview 'dig {}'                   "$@" ;;
+    *)            fzf --preview "$show_file_or_dir_preview" "$@" ;;
+  esac
+}
 # Enable fancy prompt using starship
 eval "$(starship init bash)"
 eval "$(zoxide init bash)" 
+# ---- FZF -----
 
+# Set up fzf key bindings and fuzzy completion
+eval "$(fzf --bash)"
 
 
 source ~/fzf-git.sh/fzf-git.sh
