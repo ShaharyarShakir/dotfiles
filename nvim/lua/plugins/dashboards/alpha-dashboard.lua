@@ -1,6 +1,6 @@
 return {
 	"goolord/alpha-nvim",
-	--	enabled = false,
+	enabled = true,
 	config = function()
 		local alpha = require("alpha")
 		local dashboard = require("alpha.themes.dashboard")
@@ -34,7 +34,7 @@ return {
 		dashboard.section.footer.val = footer()
 
 		dashboard.section.footer.opts.hl = "Type"
-		dashboard.section.header.opts.hl = "Include"
+		dashboard.section.header.opts.hl = nil
 		dashboard.section.buttons.opts.hl = "Keyword"
 
 		dashboard.opts.opts.noautocmd = true
