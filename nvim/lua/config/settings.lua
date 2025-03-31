@@ -13,6 +13,9 @@ o.smartcase = true -- if you include mixed case in your search, assumes you want
 -- increment/decrement numbers
 keymap.set("n", "<leader>+", "<C-a>", { desc = "Increment number" }) -- increment
 keymap.set("n", "<leader>-", "<C-x>", { desc = "Decrement number" }) -- decrement
+-- open Lazy
+keymap.set('n', "<leader>l", ":Lazy<CR>", {desc = "Open Lazy dashboard"})
+
 -- window management
 keymap.set("n", "<leader>sv", "<C-w>v", { desc = "Split window vertically" }) -- split window vertically
 keymap.set("n", "<leader>sh", "<C-w>s", { desc = "Split window horizontally" }) -- split window horizontally
