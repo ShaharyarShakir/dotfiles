@@ -414,3 +414,10 @@ eval $(thefuck --alias fk)
 eval "$(zoxide init --cmd cd bash)"
 
 source ~/fzf-git.sh/fzf-git.sh
+
+# fnm
+FNM_PATH="/home/shakir/.local/share/fnm"
+if [ -d "$FNM_PATH" ]; then
+  export PATH="$FNM_PATH:$PATH"
+  eval "`fnm env`"
+fi
