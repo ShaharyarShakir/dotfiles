@@ -4,16 +4,17 @@ FLAG_FILE="/tmp/fastfetch_ran_$USER"
 
 if [[ ! -f "$FLAG_FILE" ]]; then
     fastfetch  # Run Fastfetch
+         figlet -w 120 "Shaharyar Shakir" | lolcat
     touch "$FLAG_FILE"  # Create the flag file to prevent re-running
 fi
-if command -v fastfetch &> /dev/null; then
-    # Only run fastfetch if we're in an interactive shell
-    if [[ $- == *i* ]]; then
-        fastfetch
-        figlet -w 120 "Shaharyar Shakir" | lolcat
+# if command -v fastfetch &> /dev/null; then
+#     # Only run fastfetch if we're in an interactive shell
+#     if [[ $- == *i* ]]; then
+#         fastfetch
+#         figlet -w 120 "Shaharyar Shakir" | lolcat
 
-    fi
-fi
+#     fi
+# fi
 
 # If not running interactively, exit
 case $- in
@@ -85,6 +86,10 @@ alias v.='nvim .'
 # yazi / tmux
 alias y="yazi"
 alias t='tmux'
+alias tn='tmux new -s '
+alias tl='tmux ls'
+alias ta='tmux attach -t '
+alias zj='zellij'
 
 # aliases to modified commands
 alias cp='cp -i'

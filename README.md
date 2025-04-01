@@ -1,7 +1,7 @@
 # Dotfiles symlinked on my machine
 ### install
 ```
-figlet lolcat git tmux neovim curl wget stow tldr thefuck
+figlet lolcat git tmux neovim curl wget stow tldr thefuck zellij
 ```
 # install fzf-git [link](https://www.josean.com/posts/7-amazing-cli-tools)
 ```
@@ -15,7 +15,9 @@ stow -t tmux
 ```
 stow .
 ```
-######## if starship don't load 
+
+###### if starship don't load 
+
 ```
 ln -sf ~/dotfiles/bash/starship.toml ~/.config/starship.toml
 ```
