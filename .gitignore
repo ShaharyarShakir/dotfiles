@@ -1,5 +1,6 @@
 .DS_Store
 tmux/plugins/
+~/.config/yazi/flavors/
 raycast
 fzf
 history.txt
