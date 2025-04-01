@@ -1,6 +1,7 @@
 return {
   {  -- Nvim-tree Configuration
     "nvim-tree/nvim-tree.lua",
+    enabled = true,
     dependencies = "nvim-tree/nvim-web-devicons",
     config = function()
       local nvimtree = require("nvim-tree")
@@ -32,7 +33,7 @@ return {
         actions = {
           open_file = {
             window_picker = {
-              enable = false,
+              enable = true,
             },
           },
         },
@@ -54,6 +55,7 @@ return {
   },
   {  -- Neo-tree Configuration
     "nvim-neo-tree/neo-tree.nvim",
+    enabled = false,
     branch = "v3.x",
     dependencies = {
       "nvim-lua/plenary.nvim",
