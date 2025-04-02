@@ -79,6 +79,7 @@ alias sb='source ~/.bashrc'
 
 # Vim / Neovim
 alias vim='neovim'
+alias nvim='neovim'
 alias v='neovim'
 alias vi='neovim'
 alias v.='neovim .'
@@ -101,9 +102,9 @@ alias cls='clear'
 alias apt-get='sudo apt-get'
 alias multitail='multitail --no-repeat -c'
 alias freshclam='sudo freshclam'
-alias vi='nvim'
+alias vi='neovim'
 alias svi='sudo vi'
-alias vis='nvim "+set si"'
+alias vis='neovim "+set si"'
 
 # cd into the old directory
 alias bd='cd "$OLDPWD"'
@@ -147,7 +148,7 @@ alias nvim-chad="XDG_CONFIG_HOME=~/.config/nvim NVIM_APPNAME=NvChad nvim"
 alias neovim='XDG_CONFIG_HOME=~/.config/nvim NVIM_APPNAME=neovim nvim'
 
 function nvims() {
-  items=("default" "kickstart" "lazyVim" "NvChad" "AstroNvim")
+  items=("neovim" "kickstart" "lazyVim" "NvChad" "AstroNvim")
   config=$(printf "%s\n" "${items[@]}" | fzf --prompt=" Neovim Config  " --height=~50% --layout=reverse --border --exit-0)
   if [[ -z $config ]]; then
     echo "Nothing selected"
