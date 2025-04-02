@@ -78,11 +78,10 @@ alias vb='nvim ~/.bashrc'
 alias sb='source ~/.bashrc'
 
 # Vim / Neovim
-alias vim='neovim'
-alias nvim='neovim'
-alias v='neovim'
-alias vi='neovim'
-alias v.='neovim .'
+alias vim='nvim'
+alias v='nvim'
+alias vi='nvim'
+alias v.='nvim .'
 
 # yazi / tmux
 alias y="yazi"
@@ -102,9 +101,9 @@ alias cls='clear'
 alias apt-get='sudo apt-get'
 alias multitail='multitail --no-repeat -c'
 alias freshclam='sudo freshclam'
-alias vi='neovim'
+alias vi='nvim'
 alias svi='sudo vi'
-alias vis='neovim "+set si"'
+alias vis='nvim "+set si"'
 
 # cd into the old directory
 alias bd='cd "$OLDPWD"'
@@ -140,24 +139,21 @@ if ! shopt -oq posix; then
 fi
 
 # neoVim Starter
-
-alias nvim-astro="XDG_CONFIG_HOME=~/.config/nvim NVIM_APPNAME=AstroNvim nvim"
-alias nvim-lazy='XDG_CONFIG_HOME=~/.config/nvim NVIM_APPNAME=lazyVim nvim'
-alias nvim-kick="XDG_CONFIG_HOME=~/.config/nvim NVIM_APPNAME=kickstart nvim"
-alias nvim-chad="XDG_CONFIG_HOME=~/.config/nvim NVIM_APPNAME=NvChad nvim"
-alias neovim='XDG_CONFIG_HOME=~/.config/nvim NVIM_APPNAME=neovim nvim'
+alias nvim-lazy="NVIM_APPNAME=LazyVim nvim"
+alias nvim-kick="NVIM_APPNAME=kickstart nvim"
+alias nvim-chad="NVIM_APPNAME=NvChad nvim"
+alias nvim-astro="NVIM_APPNAME=AstroNvim nvim"
 
 function nvims() {
-  items=("neovim" "kickstart" "lazyVim" "NvChad" "AstroNvim")
+  items=("default" "kickstart" "LazyVim" "NvChad" "AstroNvim")
   config=$(printf "%s\n" "${items[@]}" | fzf --prompt=" Neovim Config  " --height=~50% --layout=reverse --border --exit-0)
   if [[ -z $config ]]; then
     echo "Nothing selected"
     return 0
   elif [[ $config == "default" ]]; then
     config=""
-
   fi
-    XDG_CONFIG_HOME=~/.config/nvim NVIM_APPNAME=$config nvim "$@"
+  NVIM_APPNAME=$config nvim $@
 }
    bind -x '"\C-n": nvims'
 
