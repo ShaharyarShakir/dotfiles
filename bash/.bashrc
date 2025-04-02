@@ -78,10 +78,10 @@ alias vb='nvim ~/.bashrc'
 alias sb='source ~/.bashrc'
 
 # Vim / Neovim
-alias vim='nvim'
-alias v='nvim'
-alias vi='nvim'
-alias v.='nvim .'
+alias vim='neovim'
+alias v='neovim'
+alias vi='neovim'
+alias v.='neovim .'
 
 # yazi / tmux
 alias y="yazi"
@@ -137,6 +137,32 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
+
+# neoVim Starter
+
+alias nvim-astro="XDG_CONFIG_HOME=~/.config/nvim NVIM_APPNAME=AstroNvim nvim"
+alias nvim-lazy='XDG_CONFIG_HOME=~/.config/nvim NVIM_APPNAME=lazyVim nvim'
+alias nvim-kick="XDG_CONFIG_HOME=~/.config/nvim NVIM_APPNAME=kickstart nvim"
+alias nvim-chad="XDG_CONFIG_HOME=~/.config/nvim NVIM_APPNAME=NvChad nvim"
+alias neovim='XDG_CONFIG_HOME=~/.config/nvim NVIM_APPNAME=neovim nvim'
+
+function nvims() {
+  items=("default" "kickstart" "lazyVim" "NvChad" "AstroNvim")
+  config=$(printf "%s\n" "${items[@]}" | fzf --prompt=" Neovim Config  " --height=~50% --layout=reverse --border --exit-0)
+  if [[ -z $config ]]; then
+    echo "Nothing selected"
+    return 0
+  elif [[ $config == "default" ]]; then
+    config=""
+
+  fi
+    XDG_CONFIG_HOME=~/.config/nvim NVIM_APPNAME=$config nvim "$@"
+}
+   bind -x '"\C-n": nvims'
+
+################################################################
+################## END #########################################
+################################################################
 
 #################################################################
 ################## Functions ####################################
@@ -338,6 +364,11 @@ fi
 cd(){
 command cd "$1" && ls "$1"
 }
+
+################################################################################
+###################### END #####################################################
+################################################################################
+
 #################################################################################
 ###################### Environment Variables ####################################
 #################################################################################
@@ -346,7 +377,7 @@ command cd "$1" && ls "$1"
 export EDITOR=nvim
 export VISUAL=nvim
 export YAZI_EDITOR="nvim"
-
+:
 # Set language and encoding
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
@@ -403,6 +434,7 @@ _fzf_comprun() {
     *)            fzf --preview "$show_file_or_dir_preview" "$@" ;;
   esac
 }
+
 # Enable fancy prompt using starship
 eval "$(starship init bash)"
 eval "$(zoxide init bash)" 
