@@ -527,6 +527,5 @@ fi
 
 . "$HOME/.atuin/bin/env"
 
-[[ -f ~/.bash-preexec.sh ]] && source ~/.bash-preexec.sh
+source /usr/share/blesh/ble.sh
 eval "$(atuin init bash)"
-source ~/.local/share/blesh/ble.sh
