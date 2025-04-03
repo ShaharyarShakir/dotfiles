@@ -419,6 +419,19 @@ lazyg() {
 	git push
 }
 
+# using fzf to search history in atuin
+atuin_fzf_history() {
+  local selected_command
+  selected_command=$(atuin history list --cmd-only | fzf --height 40% --reverse --info inline)
+  if [ -n "$selected_command" ]; then
+    READLINE_LINE="$selected_command"
+    READLINE_POINT=${#READLINE_LINE}
+  fi
+}
+
+bind -x '"\C-r": atuin_fzf_history'
+
+
 ################################################################################
 ###################### END #####################################################
 ################################################################################
@@ -442,6 +455,9 @@ export PATH="$HOME/.local/bin:$HOME/bin:$PATH"
 # Use bat as default pager (if installed)
 export BAT_THEME="Dracula"
 export MANPAGER="sh -c 'col -bx | bat --paging=always -l man'"
+
+# for atuin commadline history
+  export ATUIN_NOBIND=true
 
 # fzf integration (if installed)
 export FZF_DEFAULT_OPTS="--height 40% --layout=reverse --border"
@@ -527,5 +543,4 @@ fi
 
 . "$HOME/.atuin/bin/env"
 
-source /usr/share/blesh/ble.sh
 eval "$(atuin init bash)"
