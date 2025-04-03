@@ -1,7 +1,6 @@
 # ~/.bashrc - Main shell config, sources additional modular files
 # # Run fastfetch only once per login session
 # ble.sh
-[[ $- == *i* ]] && source  /usr/share/blesh/ble.sh --noattach
 FLAG_FILE="/tmp/fastfetch_ran_$USER"
 
 if [[ ! -f "$FLAG_FILE" ]]; then
@@ -530,4 +529,4 @@ fi
 
 [[ -f ~/.bash-preexec.sh ]] && source ~/.bash-preexec.sh
 eval "$(atuin init bash)"
-[[ ! ${BLE_VERSION-} ]] || ble-attach
+source ~/.local/share/blesh/ble.sh
