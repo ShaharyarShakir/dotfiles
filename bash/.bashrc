@@ -1,5 +1,7 @@
 # ~/.bashrc - Main shell config, sources additional modular files
 # # Run fastfetch only once per login session
+# ble.sh
+[[ $- == *i* ]] && source  /usr/share/blesh/ble.sh --noattach
 FLAG_FILE="/tmp/fastfetch_ran_$USER"
 
 if [[ ! -f "$FLAG_FILE" ]]; then
@@ -21,6 +23,14 @@ case $- in
     *i*) ;;
       *) return;;
 esac
+
+
+# Enable bash programmable completion features in interactive shells
+if [ -f /usr/share/bash-completion/bash_completion ]; then
+	. /usr/share/bash-completion/bash_completion
+elif [ -f /etc/bash_completion ]; then
+	. /etc/bash_completion
+fi
 
 ####################################################################
 ####################### Aliases ####################################
@@ -78,10 +88,19 @@ alias vb='nvim ~/.bashrc'
 alias sb='source ~/.bashrc'
 
 # Vim / Neovim
+if command -v nvim &> /dev/null; then
 alias vim='nvim'
 alias v='nvim'
 alias vi='nvim'
 alias v.='nvim .'
+alias vi='nvim'
+alias svi='sudo vi'
+alias vis='nvim "+set si"'
+
+else
+    export EDITOR=vim
+    export VISUAL=vim
+fi
 
 # yazi / tmux
 alias y="yazi"
@@ -101,12 +120,28 @@ alias cls='clear'
 alias apt-get='sudo apt-get'
 alias multitail='multitail --no-repeat -c'
 alias freshclam='sudo freshclam'
-alias vi='nvim'
-alias svi='sudo vi'
-alias vis='nvim "+set si"'
+
+
+# Change directory aliases
+alias home='cd ~'
+alias cd..='cd ..'
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+alias .....='cd ../../../..'
 
 # cd into the old directory
 alias bd='cd "$OLDPWD"'
+
+# Check if ripgrep is installed
+if command -v rg &> /dev/null; then
+    # Alias grep to rg if ripgrep is installed
+    alias grep='rg'
+else
+    # Alias grep to /usr/bin/grep with GREP_OPTIONS if ripgrep is not installed
+    alias grep="/usr/bin/grep $GREP_OPTIONS"
+fi
+unset GREP_OPTIONS
 
 # Count all files (recursively) in the current folder
 alias countfiles="for t in files links directories; do echo \`find . -type \${t:0:1} | wc -l\` \$t; done 2> /dev/null"
@@ -358,8 +393,31 @@ if ! shopt -oq posix; then
   fi  # <-- Corrected closing of if statement
 fi  
 
-cd(){
-command cd "$1" && ls "$1"
+# Create and go to the directory
+mkdirg() {
+	mkdir -p "$1"
+	cd "$1"
+}
+
+# Automatically do an ls after each cd, z, or zoxide
+cd ()
+{
+	if [ -n "$1" ]; then
+		builtin cd "$@" && ls
+	else
+		builtin cd ~ && ls
+	fi
+}
+# GitHub Titus Additions
+
+gcom() {
+	git add .
+	git commit -m "$1"
+}
+lazyg() {
+	git add .
+	git commit -m "$1"
+	git push
 }
 
 ################################################################################
@@ -455,3 +513,21 @@ if [ -d "$FNM_PATH" ]; then
   export PATH="$FNM_PATH:$PATH"
   eval "`fnm env`"
 fi
+
+#######################################################
+# Set the ultimate amazing command prompt
+#######################################################
+
+alias hug="hugo server -F --bind=10.0.0.97 --baseURL=http://10.0.0.97"
+
+# Check if the shell is interactive
+if [[ $- == *i* ]]; then
+    # Bind Ctrl+f to insert 'zi' followed by a newline
+    bind '"\C-f":"zi\n"'
+fi
+
+. "$HOME/.atuin/bin/env"
+
+[[ -f ~/.bash-preexec.sh ]] && source ~/.bash-preexec.sh
+eval "$(atuin init bash)"
+[[ ! ${BLE_VERSION-} ]] || ble-attach
