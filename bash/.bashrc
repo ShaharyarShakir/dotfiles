@@ -453,7 +453,7 @@ export LC_ALL=en_US.UTF-8
 export PATH="$HOME/.local/bin:$HOME/bin:$PATH"
 
 # Use bat as default pager (if installed)
-export BAT_THEME="Dracula"
+export BAT_THEME="tokyonight_night"
 export MANPAGER="sh -c 'col -bx | bat --paging=always -l man'"
 
 # for atuin commadline history
@@ -504,6 +504,7 @@ _fzf_comprun() {
     *)            fzf --preview "$show_file_or_dir_preview" "$@" ;;
   esac
 }
+   bind -x '"\C-f": _fzf_comprun'
 
 # Enable fancy prompt using starship
 eval "$(starship init bash)"
