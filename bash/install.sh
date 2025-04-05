@@ -256,17 +256,44 @@ install_yazi() {
 
     if [[ -f /etc/arch-release ]]; then
         print_colored "$" "Installing on Arch Linux..."
-        sudo pacman -Sy --noconfirm yazi ffmpeg p7zip jq poppler fd ripgrep  imagemagick 
+        sudo pacman -Sy --noconfirm yazi ffmpeg  imagemagick 
 
     elif [[ -f /etc/debian_version ]]; then
        print_colored "$YELLOW" "Installing on Debian/Ubuntu..."
-        sudo apt update && sudo apt install -y cargo ffmpeg p7zip jq poppler-utils fd-find ripgrep fzf zoxide imagemagick
+        sudo apt update && sudo apt install -y cargo ffmpeg  imagemagick
         cargo install yazi-fm
 
     elif [[ -f /etc/fedora-release ]]; then
         print_colored "$YELLOW" "Installing on Fedora..."
-        sudo dnf install -y cargo ffmpeg p7zip jq poppler fd-find ripgrep fzf zoxide ImageMagick
+        sudo dnf install -y cargo ffmpeg  ImageMagick
         cargo install yazi-fm
+
+    else
+       print_colored "$RED" "Unsupported OS!"
+        return 1
+    fi
+
+   print_colored "$GREEN" "Yazi installation complete!"
+}
+install_fd() {
+    if command -v yazi &>/dev/null; then
+        print_colored "$GREEN" "Yazi is already installed!"
+        return
+    fi
+
+    print_colored "$YELLOW" "Installing Yazi and dependencies..."
+
+    if [[ -f /etc/arch-release ]]; then
+        print_colored "$" "Installing on Arch Linux..."
+        sudo pacman -Sy --noconfirm  p7zip jq poppler fd ripgrep  
+
+    elif [[ -f /etc/debian_version ]]; then
+       print_colored "$YELLOW" "Installing on Debian/Ubuntu..."
+        sudo apt update && sudo apt install -y cargo  p7zip jq poppler-utils fd-find ripgrep 
+
+    elif [[ -f /etc/fedora-release ]]; then
+        print_colored "$YELLOW" "Installing on Fedora..."
+        sudo dnf install -y cargo  p7zip jq poppler fd-find ripgrep 
 
     else
        print_colored "$RED" "Unsupported OS!"
@@ -330,6 +357,7 @@ install_neovim
 install_figlet_and_lolcat
 install_eza
 install_yazi
+install_fd
 create_fastfetch_config
 link_config
 
