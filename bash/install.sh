@@ -198,7 +198,8 @@ install_zoxide() {
 install_tmux() {
     if ! command_exists tmux; then
         print_colored "$YELLOW" "Installing Tmux..."
-        ${SUDO_CMD} ${PACKAGER} install -y tmux
+        ${SUDO_CMD} ${PACKAGER} install  tmux
+
         print_colored "$GREEN" "Tmux installed successfully!"
     else
         print_colored "$GREEN" "Tmux is already installed."
@@ -208,7 +209,7 @@ install_tmux() {
 install_neovim() {
     if ! command_exists nvim; then
         print_colored "$YELLOW" "Installing Neovim..."
-        ${SUDO_CMD} ${PACKAGER} install -y neovim
+        ${SUDO_CMD} ${PACKAGER} install  neovim
         print_colored "$GREEN" "Neovim installed successfully!"
     else
         print_colored "$GREEN" "Neovim is already installed."
@@ -218,7 +219,8 @@ install_neovim() {
 install_figlet_and_lolcat() {
     if ! command_exists figlet || ! command_exists lolcat; then
         print_colored "$YELLOW" "Installing Figlet and Lolcat..."
-        ${SUDO_CMD} ${PACKAGER} install -y figlet lolcat
+        ${SUDO_CMD} ${PACKAGER} install -y  figlet lolcat 
+
         print_colored "$GREEN" "Figlet and Lolcat installed successfully!"
     else
         print_colored "$GREEN" "Figlet and Lolcat are already installed."
@@ -254,7 +256,7 @@ install_yazi() {
 
     if [[ -f /etc/arch-release ]]; then
         print_colored "$" "Installing on Arch Linux..."
-        sudo pacman -Sy --noconfirm yazi ffmpeg p7zip jq poppler fd ripgrep fzf zoxide imagemagick 
+        sudo pacman -Sy --noconfirm yazi ffmpeg p7zip jq poppler fd ripgrep  imagemagick 
 
     elif [[ -f /etc/debian_version ]]; then
        print_colored "$YELLOW" "Installing on Debian/Ubuntu..."
