@@ -22,10 +22,9 @@ return {
       ensure_installed = {
         "prettier", -- JS/TS formatter
         "stylua", -- Lua formatter
-        "isort", -- Python formatter
-        "black", -- Python formatter
-        "pylint",
         "eslint_d",
+	"checkstyle",
+	"google-java-format", 
       },
     })
     

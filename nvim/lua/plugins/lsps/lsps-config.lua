@@ -51,6 +51,7 @@ return {
       html = {},
       cssls = {},
       tailwindcss = {},
+      
       svelte = {
         on_attach = function(client, bufnr)
           vim.api.nvim_create_autocmd("BufWritePost", {

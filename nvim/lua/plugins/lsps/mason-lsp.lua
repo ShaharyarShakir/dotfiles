@@ -14,6 +14,7 @@ return {
 				"svelte",
 				"lua_ls",
 				"graphql",
+				"jdtls",
 				"emmet_ls",
 				"prismals",
 				"pyright",
