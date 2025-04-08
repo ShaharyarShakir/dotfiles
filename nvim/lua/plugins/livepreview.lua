@@ -17,8 +17,7 @@ return {
 		port = 3000,     -- change if port is in use
 	},
 	config = function(_, opts)
-		require("live-preview").setup(opts)
-		vim.keymap.set("n", "<C-l>", function()
+		vim.keymap.set("n", "<C-L>", function()
 			vim.cmd("LivePreview start")
 			vim.fn.jobstart({ "cmd.exe", "/C", "start", "http://localhost:3000" }, { detach = true })
 		end, { desc = "Start Live Preview and Open in Browser" })
