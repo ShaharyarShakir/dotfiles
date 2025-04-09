@@ -51,6 +51,7 @@ return {
       html = {},
       cssls = {},
       tailwindcss = {},
+      jdtls = {},
       
       svelte = {
         on_attach = function(client, bufnr)

@@ -1,9 +1,16 @@
 return {
   "CRAG666/code_runner.nvim",
-  lazy = true,
+  lazy = false,
+  dependencies = {
+    "akinsho/toggleterm.nvim",
+  },
   config = function()
     require("code_runner").setup({
-      mode = "float", -- Show output in floating terminal
+      mode = "toggleterm", -- <-- Use toggleterm to open terminals
+      toggleterm = {
+        direction = "float", -- use a floating terminal from toggleterm
+        -- optional: override float_opts here if you want custom style
+      },
       startinsert = true,
       filetype = {
         python = "python3 -u",
@@ -17,17 +24,18 @@ return {
         sh = "bash",
       },
       project = {
-        -- Optional: Add custom projects here
+        -- add project configs if needed
       },
     })
 
-    vim.keymap.set("n", "<leader>rr", ":RunCode<CR>", { noremap = true, silent = false, desc = "Run Last Code" })
-    vim.keymap.set("n", "<leader>rf", ":RunFile<CR>", { noremap = true, silent = false, desc = "Run Current File" })
-    vim.keymap.set("n", "<leader>rft", ":RunFile tab<CR>", { noremap = true, silent = false, desc = "Run File in Tab" })
-    vim.keymap.set("n", "<leader>rp", ":RunProject<CR>", { noremap = true, silent = false, desc = "Run Project" })
-    vim.keymap.set("n", "<leader>rc", ":RunClose<CR>", { noremap = true, silent = false, desc = "Close Runner" })
-    vim.keymap.set("n", "<leader>crf", ":CRFiletype<CR>", { noremap = true, silent = false, desc = "Show Filetype Command" })
-    vim.keymap.set("n", "<leader>crp", ":CRProjects<CR>", { noremap = true, silent = false, desc = "Show Projects List" })
+    -- with descriptions for which-key
+    vim.keymap.set("n", "<leader>rr", ":RunCode<CR>", { desc = "Run Last Code", noremap = true, silent = false })
+    vim.keymap.set("n", "<leader>rf", ":RunFile<CR>", { desc = "Run Current File", noremap = true, silent = false })
+    vim.keymap.set("n", "<leader>rft", ":RunFile tab<CR>", { desc = "Run File in Tab", noremap = true, silent = false })
+    vim.keymap.set("n", "<leader>rp", ":RunProject<CR>", { desc = "Run Project", noremap = true, silent = false })
+    vim.keymap.set("n", "<leader>rc", ":RunClose<CR>", { desc = "Close Runner", noremap = true, silent = false })
+    vim.keymap.set("n", "<leader>crf", ":CRFiletype<CR>", { desc = "Show Filetype Command", noremap = true, silent = false })
+    vim.keymap.set("n", "<leader>crp", ":CRProjects<CR>", { desc = "Show Projects List", noremap = true, silent = false })
   end,
 }
 
