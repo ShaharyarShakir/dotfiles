@@ -38,18 +38,17 @@ return {
 			end,
 		})
 
-		-- Diagnostic symbols (new style to avoid deprecation warnings)
-		local signs = { Error = " ", Warn = " ", Hint = "󰠠 ", Info = " " }
-
+		-- Diagnostic symbols (fully updated, no deprecated API)
 		vim.diagnostic.config({
-			signs = true,
+			signs = {
+				text = {
+					[vim.diagnostic.severity.ERROR] = "",
+					[vim.diagnostic.severity.WARN] = "",
+					[vim.diagnostic.severity.HINT] = "󰠠",
+					[vim.diagnostic.severity.INFO] = "",
+				},
+			},
 		})
-
-		for type, icon in pairs(signs) do
-			local hl = "DiagnosticSign" .. type
-			vim.api.nvim_set_hl(0, hl, { default = true })
-			vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
-		end
 
 		-- Setup LSP servers
 		local servers = {
