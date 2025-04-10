@@ -86,6 +86,7 @@ alias vf='nvim $(fzf)'
 # bash
 alias vb='nvim ~/.bashrc'
 alias sb='source ~/.bashrc'
+alias cb='cd /d/BSCS/git-repos'
 
 # Vim / Neovim
 if command -v nvim &> /dev/null; then

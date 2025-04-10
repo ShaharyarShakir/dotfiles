@@ -1,5 +1,25 @@
 #!/bin/sh -e
 
+# Print the logo
+print_logo() {
+    cat << "EOF"
+    ______                _ __    __     
+   / ____/______  _______(_) /_  / /__   
+  / /   / ___/ / / / ___/ / __ \/ / _ \  
+ / /___/ /  / /_/ / /__/ / /_/ / /  __/   Linux System Crafting Tool
+ \____/_/   \__,_/\___/_/_.___/_/\___/   by: shaharyar
+
+EOF
+}
+
+# Clear screen and show logo
+clear
+print_logo
+
+# Exit on any error
+set -e
+
+
 # Define color codes using tput for better compatibility
 RC=$(tput sgr0)
 RED=$(tput setaf 1)
