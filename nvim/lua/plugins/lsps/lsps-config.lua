@@ -50,8 +50,21 @@ return {
 			ts_ls = {},
 			html = {},
 			cssls = {},
-			tailwindcss = {},
 			jdtls = {},
+			tailwindcss = {
+				on_attach = function(client, bufnr)
+					vim.api.nvim_create_autocmd("BufWritePost", {
+						pattern = { "*.js", "*.ts", "*.jsx", "*.tsx" },
+						callback = function(ctx)
+							client.notify("$/onDidChangeTsOrJsFile", { uri = ctx.match })
+						end,
+					})
+				end,
+				treesitter = {
+					enabled = true,
+					filetypes = { "html", "css", "javascript", "typescript", "jsx", "tsx" },
+				},
+			},
 
 			svelte = {
 				on_attach = function(client, bufnr)
