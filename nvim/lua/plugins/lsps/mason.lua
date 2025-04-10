@@ -25,7 +25,6 @@ return {
 				"eslint_d",
 				"checkstyle",
 				"google-java-format",
-				"tailwindcss-language-server",
 			},
 		})
 

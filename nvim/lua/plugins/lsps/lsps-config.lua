@@ -38,10 +38,16 @@ return {
 			end,
 		})
 
-		-- Diagnostic symbols
+		-- Diagnostic symbols (new style to avoid deprecation warnings)
 		local signs = { Error = " ", Warn = " ", Hint = "󰠠 ", Info = " " }
+
+		vim.diagnostic.config({
+			signs = true,
+		})
+
 		for type, icon in pairs(signs) do
 			local hl = "DiagnosticSign" .. type
+			vim.api.nvim_set_hl(0, hl, { default = true })
 			vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
 		end
 
@@ -52,20 +58,28 @@ return {
 			cssls = {},
 			jdtls = {},
 			tailwindcss = {
-				on_attach = function(client, bufnr)
-					vim.api.nvim_create_autocmd("BufWritePost", {
-						pattern = { "*.js", "*.ts", "*.jsx", "*.tsx" },
-						callback = function(ctx)
-							client.notify("$/onDidChangeTsOrJsFile", { uri = ctx.match })
-						end,
-					})
-				end,
-				treesitter = {
-					enabled = true,
-					filetypes = { "html", "css", "javascript", "typescript", "jsx", "tsx" },
+				filetypes = {
+					"html",
+					"css",
+					"scss",
+					"javascript",
+					"javascriptreact",
+					"typescript",
+					"typescriptreact",
+					"svelte",
+				},
+				root_dir = lspconfig.util.root_pattern("package.json", "tailwind.config.js", "tailwind.config.ts"),
+				settings = {
+					tailwindCSS = {
+						classAttributes = { "class", "className", "ngClass" },
+						experimental = {
+							classRegex = {
+								{ 'class\\s*=\\s*"([^"]*)"', '"([^"]*)"' }, -- Match class="..."
+							},
+						},
+					},
 				},
 			},
-
 			svelte = {
 				on_attach = function(client, bufnr)
 					vim.api.nvim_create_autocmd("BufWritePost", {
@@ -76,9 +90,20 @@ return {
 					})
 				end,
 			},
-			graphql = { filetypes = { "graphql", "gql", "svelte", "typescriptreact", "javascriptreact" } },
+			graphql = {
+				filetypes = { "graphql", "gql", "svelte", "typescriptreact", "javascriptreact" },
+			},
 			emmet_ls = {
-				filetypes = { "html", "typescriptreact", "javascriptreact", "css", "sass", "scss", "less", "svelte" },
+				filetypes = {
+					"html",
+					"typescriptreact",
+					"javascriptreact",
+					"css",
+					"sass",
+					"scss",
+					"less",
+					"svelte",
+				},
 			},
 			lua_ls = {
 				settings = {
