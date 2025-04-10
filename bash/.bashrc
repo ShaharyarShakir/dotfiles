@@ -5,7 +5,19 @@ FLAG_FILE="/tmp/fastfetch_ran_$USER"
 
 if [[ ! -f "$FLAG_FILE" ]]; then
     fastfetch  # Run Fastfetch
-         figlet -w 120 "Shaharyar Shakir" | lolcat
+    print_logo(){    cat << "EOF"
+    
+ ██████╗ ██████╗ ██████╗ ███████╗███████╗ ██████╗ ██████╗  ██████╗ ███████╗
+██╔════╝██╔═══██╗██╔══██╗██╔════╝██╔════╝██╔═══██╗██╔══██╗██╔════╝ ██╔════╝
+██║     ██║   ██║██║  ██║█████╗  █████╗  ██║   ██║██████╔╝██║  ███╗█████╗  
+██║     ██║   ██║██║  ██║██╔══╝  ██╔══╝  ██║   ██║██╔══██╗██║   ██║██╔══╝  
+╚██████╗╚██████╔╝██████╔╝███████╗██║     ╚██████╔╝██║  ██║╚██████╔╝███████╗
+ ╚═════╝ ╚═════╝ ╚═════╝ ╚══════╝╚═╝      ╚═════╝ ╚═╝  ╚═╝ ╚═════╝ ╚══════╝
+                                                                           
+EOF
+}
+print_logo
+         figlet -f small  -w 120 "Shaharyar Shakir" | lolcat
     touch "$FLAG_FILE"  # Create the flag file to prevent re-running
 fi
 # if command -v fastfetch &> /dev/null; then
@@ -179,9 +191,11 @@ alias nvim-lazy="NVIM_APPNAME=LazyVim nvim"
 alias nvim-kick="NVIM_APPNAME=kickstart nvim"
 alias nvim-chad="NVIM_APPNAME=NvChad nvim"
 alias nvim-astro="NVIM_APPNAME=AstroNvim nvim"
+alias nvim-astro="NVIM_APPNAME=neobean nvim"
+
 
 function nvims() {
-  items=("default" "kickstart" "LazyVim" "NvChad" "AstroNvim")
+  items=("default" "kickstart" "LazyVim" "NvChad" "AstroNvim", "neobean")
   config=$(printf "%s\n" "${items[@]}" | fzf --prompt=" Neovim Config  " --height=~50% --layout=reverse --border --exit-0)
   if [[ -z $config ]]; then
     echo "Nothing selected"
