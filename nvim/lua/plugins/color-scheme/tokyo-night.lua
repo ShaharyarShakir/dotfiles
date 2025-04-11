@@ -17,7 +17,7 @@ return {
 
     require("tokyonight").setup({
       style = "night",
-      transparent = transparent,
+      transparent = true,
       styles = {
         sidebars = transparent and "transparent" or "dark",
         floats = transparent and "transparent" or "dark",
