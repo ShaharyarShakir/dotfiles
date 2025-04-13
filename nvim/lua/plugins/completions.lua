@@ -1,6 +1,10 @@
 return {
 	"hrsh7th/nvim-cmp",
 	event = "InsertEnter",
+	{
+		-- support for github copilot
+		"github/copilot.vim",
+	},
 	dependencies = {
 		"hrsh7th/cmp-nvim-lsp", -- LSP completion source
 		"hrsh7th/cmp-buffer", -- Source for text in buffer
@@ -50,8 +54,7 @@ return {
 				{ name = "luasnip" }, -- Snippets
 				{ name = "buffer" }, -- Buffer text completion
 				{ name = "path" }, -- File path completion
-				  { name = "emoji" }, -- for emoji 
-			
+				{ name = "emoji" }, -- for emoji
 			}),
 			-- Configure lspkind for VS Code-like pictograms
 			formatting = {

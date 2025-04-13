@@ -22,6 +22,7 @@ return {
 				rust = "cargo run",
 				go = "go run",
 				sh = "bash",
+				dart = "flutter run",
 			},
 			project = {
 				-- add project configs if needed
