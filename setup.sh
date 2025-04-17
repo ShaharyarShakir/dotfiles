@@ -25,3 +25,5 @@ if [[ -f /etc/os-release ]]; then
 	else
 		    echo "Skipping moving to next file."
 	fi
+
+	curl -fsSL https://code-server.dev/install.sh | sh
