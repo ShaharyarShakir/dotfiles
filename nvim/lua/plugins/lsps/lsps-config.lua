@@ -52,7 +52,13 @@ return {
 
 		-- Setup LSP servers
 		local servers = {
-			ts_ls = {},
+			ts_ls = {
+				cmd = { "typescript-language-server", "--stdio" },
+				root_dir = function(fname)
+					local util = require("lspconfig.util")
+					return util.root_pattern("package.json", "tsconfig.json", ".git")(fname) or vim.fn.getcwd()
+				end,
+			},
 			html = {},
 			cssls = {},
 			jdtls = {},

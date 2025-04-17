@@ -1,6 +1,7 @@
 
 return {
   "pieces-app/plugin_neovim",
+  enabled = false,
   lazy = false, -- load immediately; set to true for lazy loading
   config = function()
     local map = vim.keymap.set

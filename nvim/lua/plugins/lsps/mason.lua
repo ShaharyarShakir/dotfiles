@@ -23,7 +23,6 @@ return {
 				"prettier", -- JS/TS formatter
 				"stylua", -- Lua formatter
 				"eslint_d",
-				"checkstyle",
 				"google-java-format",
 			},
 		})

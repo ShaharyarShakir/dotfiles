@@ -2,11 +2,10 @@ return {
 	"hrsh7th/nvim-cmp",
 	event = "InsertEnter",
 	{
-		-- support for github copilot
-		"github/copilot.vim",
 	},
 	dependencies = {
 		"hrsh7th/cmp-nvim-lsp", -- LSP completion source
+	     --"github/copilot.vim",		-- support for github copilot
 		"hrsh7th/cmp-buffer", -- Source for text in buffer
 		"hrsh7th/cmp-path", -- Source for file system paths
 		"saadparwaiz1/cmp_luasnip", -- Snippet completions

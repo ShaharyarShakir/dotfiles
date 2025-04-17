@@ -17,7 +17,6 @@ return {
 				"jdtls",
 				"emmet_ls",
 				"prismals",
-				"pyright",
 				"markdown_oxide",
 			},
 		})
