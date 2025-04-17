@@ -1,3 +1,4 @@
+
 return {
 	"williamboman/mason.nvim",
 	lazy = false,
@@ -31,3 +32,4 @@ return {
 		vim.keymap.set("n", "<leader>m", ":Mason<CR>", { desc = "Open Mason" })
 	end,
 }
+

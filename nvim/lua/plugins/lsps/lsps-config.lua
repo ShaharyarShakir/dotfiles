@@ -1,3 +1,4 @@
+
 return {
 	"neovim/nvim-lspconfig",
 	lazy = false,
@@ -127,3 +128,4 @@ return {
 		end
 	end,
 }
+
