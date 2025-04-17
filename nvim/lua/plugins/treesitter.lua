@@ -42,6 +42,8 @@ return {
 				"query",
 				"vimdoc",
 				"c",
+				"sql",
+				"mongodb"
 			},
 			incremental_selection = {
 				enable = true,
