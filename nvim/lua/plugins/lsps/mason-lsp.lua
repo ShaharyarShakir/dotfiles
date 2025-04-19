@@ -11,6 +11,7 @@ return {
 				"ts_ls",
 				"html",
 				"cssls",
+				"clangd",
 				"tailwindcss",
 				"svelte",
 				"lua_ls",

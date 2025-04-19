@@ -560,4 +560,7 @@ fi
 
 . "$HOME/.atuin/bin/env"
 
+# ~/.bashrc
+export CARAPACE_BRIDGES='zsh,fish,bash,inshellisense' # optional
+source <(carapace _carapace)
 eval "$(atuin init bash)"

@@ -1,4 +1,3 @@
-
 return {
 	"williamboman/mason.nvim",
 	lazy = false,
@@ -24,6 +23,7 @@ return {
 				"prettier", -- JS/TS formatter
 				"stylua", -- Lua formatter
 				"eslint_d",
+				"clang-format",
 				"google-java-format",
 			},
 		})
@@ -32,4 +32,3 @@ return {
 		vim.keymap.set("n", "<leader>m", ":Mason<CR>", { desc = "Open Mason" })
 	end,
 }
-
