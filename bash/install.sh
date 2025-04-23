@@ -3,11 +3,11 @@
 # Print the logo
 print_logo() {
     cat << "EOF"
-    ______                _ __    __     
-   / ____/______  _______(_) /_  / /__   
-  / /   / ___/ / / / ___/ / __ \/ / _ \  
+    ______                _ __    __
+   / ____/______  _______(_) /_  / /__
+  / /   / ___/ / / / ___/ / __ \/ / _ \
  / /___/ /  / /_/ / /__/ / /_/ / /  __/   Linux System Crafting Tool
- \____/_/   \__,_/\___/_/_.___/_/\___/   by: codeforge
+ \____/_/   \__,_/\___/_/_.___/_/\___/   by: codeforge - Shaharyar Shakir
 
 EOF
 }
@@ -102,7 +102,7 @@ check_environment() {
 }
 
 install_dependencies() {
-    DEPENDENCIES='bash bash-completion tar bat tree multitail fastfetch wget unzip fontconfig trash-cli'
+    DEPENDENCIES='bash bash-completion tar bat tree multitail fastfetch wget unzip fontconfig trash-cli kitty hyprland ghostty'
     if ! command_exists nvim; then
         DEPENDENCIES="${DEPENDENCIES} neovim"
     fi
@@ -239,7 +239,7 @@ install_neovim() {
 install_figlet_and_lolcat() {
     if ! command_exists figlet || ! command_exists lolcat; then
         print_colored "$YELLOW" "Installing Figlet and Lolcat..."
-        ${SUDO_CMD} ${PACKAGER} install -y  figlet lolcat 
+        ${SUDO_CMD} ${PACKAGER} install -y  figlet lolcat
 
         print_colored "$GREEN" "Figlet and Lolcat installed successfully!"
     else
@@ -276,7 +276,7 @@ install_yazi() {
 
     if [[ -f /etc/arch-release ]]; then
         print_colored "$" "Installing on Arch Linux..."
-        sudo pacman -Sy --noconfirm yazi ffmpeg  imagemagick 
+        sudo pacman -Sy --noconfirm yazi ffmpeg  imagemagick
 
     elif [[ -f /etc/debian_version ]]; then
        print_colored "$YELLOW" "Installing on Debian/Ubuntu..."
@@ -305,15 +305,15 @@ install_fd() {
 
     if [[ -f /etc/arch-release ]]; then
         print_colored "$" "Installing on Arch Linux..."
-        sudo pacman -Sy --noconfirm  p7zip jq poppler fd ripgrep  
+        sudo pacman -Sy --noconfirm  p7zip jq poppler fd ripgrep
 
     elif [[ -f /etc/debian_version ]]; then
        print_colored "$YELLOW" "Installing on Debian/Ubuntu..."
-        sudo apt update && sudo apt install -y cargo  p7zip jq poppler-utils fd-find ripgrep 
+        sudo apt update && sudo apt install -y cargo  p7zip jq poppler-utils fd-find ripgrep
 
     elif [[ -f /etc/fedora-release ]]; then
         print_colored "$YELLOW" "Installing on Fedora..."
-        sudo dnf install -y cargo  p7zip jq poppler fd-find ripgrep 
+        sudo dnf install -y cargo  p7zip jq poppler fd-find ripgrep
 
     else
        print_colored "$RED" "Unsupported OS!"
@@ -328,10 +328,10 @@ create_fastfetch_config() {
     USER_HOME=$(getent passwd "${SUDO_USER:-$USER}" | cut -d: -f6)
     CONFIG_DIR="$USER_HOME/.config/fastfetch"
     CONFIG_FILE="$CONFIG_DIR/config.jsonc"
-    
+
     mkdir -p "$CONFIG_DIR"
     [ -e "$CONFIG_FILE" ] && rm -f "$CONFIG_FILE"
-    
+
     if ! ln -svf "$GITPATH/config.jsonc" "$CONFIG_FILE"; then
         print_colored "$RED" "Failed to create symbolic link for fastfetch config"
         exit 1
@@ -342,7 +342,7 @@ link_config() {
     USER_HOME=$(getent passwd "${SUDO_USER:-$USER}" | cut -d: -f6)
     OLD_BASHRC="$USER_HOME/.bashrc"
     BASH_PROFILE="$USER_HOME/.bash_profile"
-    
+
     if [ -e "$OLD_BASHRC" ]; then
         print_colored "$YELLOW" "Moving old bash config file to $USER_HOME/.bashrc.bak"
         if ! mv "$OLD_BASHRC" "$USER_HOME/.bashrc.bak"; then
