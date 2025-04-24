@@ -48,15 +48,15 @@ fi
 #####################################################################
 # Aliases for common commands
 if command -v eza &> /dev/null; then
-alias lss='eza --icons -lah --group-directories-first --git'
-alias ls="eza --color=always --long --git --no-filesize --icons=always --no-time --no-user --no-permissions"
+alias ls='eza --icons -lah --group-directories-first --git'
+alias lss="eza --color=always --long --git --no-filesize --icons=always --no-time --no-user --no-permissions"
 alias lt='eza -T --icons'
 alias ll='eza -lh --icons'
 alias la='eza -la --icons'
 alias lsize='eza -lh --icons -s size -r'
 alias lmod='eza -lh --icons -s modified'
 alias lg='eza -lh --icons --git'
-alias l='eza -l --icons --git -a'
+alias l='eza -l --icons --git'
 
 else
 alias la='ls -Alh'                # show hidden files
@@ -216,6 +216,19 @@ function nvims() {
 #################################################################
 
 # Function to extract various archive formats
+fancy_ls() {
+  printf "\e[1;32m%-3s %-40s %-8s %-10s %-20s\e[0m\n" "#" "📄 name" "📦 type" "💾 size" "🕒 modified"
+  local i=0
+  for file in *; do
+    [ -e "$file" ] || continue
+    name="$file"
+    type=$( [ -d "$file" ] && echo "dir 📁" || echo "file 📄" )
+    size=$(du -sh "$file" 2>/dev/null | cut -f1)
+    mod=$(date -r "$file" "+%b %d %Y %H:%M")
+    printf "%-3s \e[1;34m%-40s\e[0m %-8s \e[1;36m%-10s\e[0m \e[1;35m%-20s\e[0m\n" "$i" "$name" "$type" "$size" "$mod"
+    i=$((i + 1))
+  done
+}
 extract() {
     if [ -f "$1" ]; then
         case "$1" in
