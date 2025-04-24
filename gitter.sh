@@ -1,5 +1,5 @@
 #!/bin/bash
-
+git status
 read -p "Git commit messsage: 	" Commit
 git add .
 git commit -m "$Commit"
