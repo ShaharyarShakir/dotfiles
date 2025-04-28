@@ -102,7 +102,7 @@ check_environment() {
 }
 
 install_dependencies() {
-    DEPENDENCIES='bash bash-completion tar bat tree multitail fastfetch wget unzip fontconfig trash-cli kitty hyprland ghostty'
+    DEPENDENCIES='bash bash-completion tar bat tree multitail fastfetch wget unzip fontconfig trash-cli kitty hyprland ghostty duf tldr'
     if ! command_exists nvim; then
         DEPENDENCIES="${DEPENDENCIES} neovim"
     fi

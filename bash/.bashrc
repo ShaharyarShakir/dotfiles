@@ -83,7 +83,7 @@ alias ga='git add .'
 alias gc='git commit -m'
 alias gac='git add . && git commit -m "Updated: $(git diff --name-only --cached | tr "\n" " ")"'
 alias gs='git status'
-alias glog="git log --graph --topo-order --pretty='%w(100,0,6)%C(yellow)%h%C(bold)%C(black)%d %C(cyan)%ar %C(green)%an%n%C(bold)%C(white)%s %N' --abbrev-commit"
+alias glog="git log --oneline --graph --topo-order --pretty='%w(100,0,6)%C(yellow)%h%C(bold)%C(black)%d %C(cyan)%ar %C(green)%an%n%C(bold)%C(white)%s %N' --abbrev-commit"
 alias gp='git push'
 alias gP='git pull'
 alias lg='lazygit'
@@ -93,7 +93,7 @@ alias gb='git branch-i'
 # fzf 
 alias fh='history | fzf'
 alias fo='find . -type f | fzf'
-alias vf='nvim $(fzf)'
+alias vf='nvim $(fzf --preview "bat --color=always {}")'
 
 # bash
 alias vb='nvim ~/.bashrc'
@@ -115,13 +115,14 @@ else
     export VISUAL=vim
 fi
 
-# yazi / tmux
+# yazi / tmux / kill
 alias y="yazi"
 alias t='tmux'
 alias tn='tmux new -s '
 alias tl='tmux ls'
 alias ta='tmux attach -t '
 alias zj='zellij'
+
 
 # aliases to modified commands
 alias cp='cp -i'
@@ -134,6 +135,9 @@ alias apt-get='sudo apt-get'
 alias multitail='multitail --no-repeat -c'
 alias freshclam='sudo freshclam'
 
+# posting - an http client to view data can also use httpie, curlie, kulala.nvim
+
+alias pos='posting'
 
 # Change directory aliases
 alias home='cd ~'
@@ -169,22 +173,17 @@ alias mountedinfo='df -hT'
 
 # ---- Zoxide (better cd) ----
 alias cd="z "
-# alias to cleanup unused docker containers, images, networks, and volumes
 
+# alias for oldfiles
+
+alias nlof='list_oldfiles'
+
+# alias to cleanup unused docker containers, images, networks, and volumes
 alias docker-clean=' \
   docker container prune -f ; \
   docker image prune -f ; \
   docker network prune -f ; \
   docker volume prune -f '
-
-# Load programmable completion if available
-if ! shopt -oq posix; then
-  if [ -f /usr/share/bash-completion/bash_completion ]; then
-    . /usr/share/bash-completion/bash_completion
-  elif [ -f /etc/bash_completion ]; then
-    . /etc/bash_completion
-  fi
-fi
 
 # neoVim Starter
 alias nvim-lazy="NVIM_APPNAME=LazyVim nvim"
@@ -216,19 +215,40 @@ function nvims() {
 #################################################################
 
 # Function to extract various archive formats
-fancy_ls() {
-  printf "\e[1;32m%-3s %-40s %-8s %-10s %-20s\e[0m\n" "#" "📄 name" "📦 type" "💾 size" "🕒 modified"
-  local i=0
-  for file in *; do
-    [ -e "$file" ] || continue
-    name="$file"
-    type=$( [ -d "$file" ] && echo "dir 📁" || echo "file 📄" )
-    size=$(du -sh "$file" 2>/dev/null | cut -f1)
-    mod=$(date -r "$file" "+%b %d %Y %H:%M")
-    printf "%-3s \e[1;34m%-40s\e[0m %-8s \e[1;36m%-10s\e[0m \e[1;35m%-20s\e[0m\n" "$i" "$name" "$type" "$size" "$mod"
-    i=$((i + 1))
-  done
+
+# Script to list recent files and open nvim using fzf
+list_oldfiles() {
+    # Get the oldfiles list from Neovim
+    local oldfiles
+    IFS=$'\n' read -r -d '' -a oldfiles < <(nvim -u NONE --headless +'lua io.write(table.concat(vim.v.oldfiles, "\n"))' +qa && printf '\0')
+
+    # Filter invalid paths or files not found
+    local valid_files=()
+    for file in "${oldfiles[@]}"; do
+        if [[ -f "$file" ]]; then
+            valid_files+=("$file")
+        fi
+    done
+
+    # Use fzf to select from valid files
+    local files
+    files=$(printf "%s\n" "${valid_files[@]}" | \
+        grep -v '\[.*' | \
+        fzf --multi \
+            --preview 'bat -n --color=always --line-range=:500 {} 2>/dev/null || cat {} 2>/dev/null || echo "Error previewing file"' \
+            --height=70% \
+            --layout=default)
+
+    # If files are selected, open them in Neovim
+    if [[ -n "$files" ]]; then
+        nvim $(echo "$files")
+    fi
 }
+
+# binding the function to ctrl l
+
+bind -x '"\C-l" : list_oldfiles'
+
 extract() {
     if [ -f "$1" ]; then
         case "$1" in
@@ -418,8 +438,8 @@ if ! shopt -oq posix; then
     . /usr/share/bash-completion/bash_completion
   elif [ -f /etc/bash_completion ]; then
     . /etc/bash_completion
-  fi  # <-- Corrected closing of if statement
-fi  
+fi
+fi
 
 # Create and go to the directory
 mkdirg() {
