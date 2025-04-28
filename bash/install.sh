@@ -102,7 +102,7 @@ check_environment() {
 }
 
 install_dependencies() {
-    DEPENDENCIES='bash bash-completion tar bat tree multitail fastfetch wget unzip fontconfig trash-cli kitty hyprland ghostty duf tldr'
+    DEPENDENCIES='bash zsh bash-completion tar bat tree multitail fastfetch wget unzip fontconfig trash-cli kitty hyprland ghostty duf tldr'
     if ! command_exists nvim; then
         DEPENDENCIES="${DEPENDENCIES} neovim"
     fi
@@ -367,6 +367,45 @@ link_config() {
     fi
 }
 
+# link config for zsh
+
+link_zsh() {
+    USER_HOME=$(getent passwd "${SUDO_USER:-$USER}" | cut -d: -f6)
+    OLD_ZSHRC="$USER_HOME/.zshrc"
+    ZSH_CONFIG_DIR="$USER_HOME/.config/zsh"
+    ZSHENV="$USER_HOME/.zshenv"
+
+    # Backup old .zshrc if it exists
+    if [ -e "$OLD_ZSHRC" ]; then
+        print_colored "$YELLOW" "Moving old zsh config file to $USER_HOME/.zshrc.bak"
+        if ! mv "$OLD_ZSHRC" "$USER_HOME/.zshrc.bak"; then
+            print_colored "$RED" "Can't move the old zsh config file!"
+            exit 1
+        fi
+    fi
+
+    # Ensure the ~/.config/zsh directory exists
+    mkdir -p "$ZSH_CONFIG_DIR"
+
+    # Link the new .zshrc
+    print_colored "$YELLOW" "Linking new zsh config file..."
+    if ! ln -svf "$GITPATH/zsh/.zshrc" "$ZSH_CONFIG_DIR/.zshrc"; then
+        print_colored "$RED" "Failed to create symbolic link for Zsh config"
+        exit 1
+    fi
+
+    # Create ~/.zshenv to set ZDOTDIR if not already present
+    if [ ! -f "$ZSHENV" ]; then
+        print_colored "$YELLOW" "Creating .zshenv to set ZDOTDIR..."
+        echo 'export ZDOTDIR=$HOME/.config/zsh' > "$ZSHENV"
+        print_colored "$GREEN" ".zshenv created and configured"
+    else
+        print_colored "$YELLOW" ".zshenv already exists. Please ensure it sets ZDOTDIR if needed."
+    fi
+
+    print_colored "$GREEN" "Zsh configuration linked successfully."
+}
+
 # Main execution
 # setup_directories
 check_environment
@@ -380,6 +419,7 @@ install_yazi
 install_fd
 create_fastfetch_config
 link_config
+link_zsh
 
 if link_config; then
     print_colored "$GREEN" "Done!\nrestart your shell to see the changes."

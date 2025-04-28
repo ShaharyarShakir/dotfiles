@@ -100,6 +100,17 @@ alias vb='nvim ~/.bashrc'
 alias sb='source ~/.bashrc'
 alias cb='cd /d/BSCS/git-repos'
 
+# trash-cli
+
+if command -v trash-put &>/dev/null
+then
+alias rm='trash-put'
+else
+	alias rm='rm -i'
+fi
+
+
+
 # Vim / Neovim
 if command -v nvim &> /dev/null; then
 alias vim='nvim'
@@ -215,6 +226,18 @@ function nvims() {
 #################################################################
 
 # Function to extract various archive formats
+
+# switch to zsh
+switch_zsh(){
+if [ "$SHELL" == "/usr/bin/bash" ]; then
+	echo "Switching to ZSH"
+	exec zsh
+else 
+	echo "Shell not found"
+	fi
+}
+bind -x '"\C-o" : switch_zsh' 
+
 
 # Script to list recent files and open nvim using fzf
 list_oldfiles() {
