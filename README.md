@@ -1,7 +1,7 @@
 # Dotfiles symlinked on my machine
 ### install
 ```
-figlet lolcat git tmux neovim curl wget stow tldr thefuck zellij atuin ble.sh btop yazi duf ncdu dua-cli lima-bin
+figlet lolcat git tmux neovim curl wget stow tldr thefuck zellij atuin ble.sh btop yazi duf ncdu dua-cli lima-bin 
 ```
 lima-vm => a tool to manage containers
 
