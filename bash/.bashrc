@@ -236,7 +236,7 @@ else
 	echo "Shell not found"
 	fi
 }
-bind -x '"\C-o" : switch_zsh' 
+bind -x '"\C-zs" : switch_zsh' 
 
 
 # Script to list recent files and open nvim using fzf
