@@ -494,7 +494,7 @@ lazyg() {
 # using fzf to search history in atuin
 atuin_fzf_history() {
   local selected_command
-  selected_command=$(atuin history list --cmd-only | fzf --height 40% --reverse --info inline)
+  selected_command=$( $history list --cmd-only | fzf --height 40% --reverse --info inline)
   if [ -n "$selected_command" ]; then
     READLINE_LINE="$selected_command"
     READLINE_POINT=${#READLINE_LINE}
@@ -586,9 +586,6 @@ eval "$(zoxide init bash)"
 # Set up fzf key bindings and fuzzy completion
 eval "$(fzf --bash)"
 
-# thefuck alias
-eval $(thefuck --alias)
-eval $(thefuck --alias fk)
 
 # ---- Zoxide (better cd) ----
 eval "$(zoxide init --cmd cd bash)"
@@ -614,9 +611,5 @@ if [[ $- == *i* ]]; then
     bind '"\C-f":"zi\n"'
 fi
 
-. "$HOME/.atuin/bin/env"
 
 # ~/.bashrc
-export CARAPACE_BRIDGES='zsh,fish,bash,inshellisense' # optional
-source <(carapace _carapace)
-eval "$(atuin init bash)"
