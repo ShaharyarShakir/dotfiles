@@ -102,7 +102,7 @@ check_environment() {
 }
 
 install_dependencies() {
-    DEPENDENCIES='bash zsh bash-completion tar bat tree multitail fastfetch wget unzip fontconfig trash-cli kitty hyprland ghostty duf tldr'
+    DEPENDENCIES='bash zsh bash-completion tar bat tree multitail fastfetch wget unzip fontconfig trash-cli duf'
     if ! command_exists nvim; then
         DEPENDENCIES="${DEPENDENCIES} neovim"
     fi
@@ -225,6 +225,16 @@ install_tmux() {
         print_colored "$GREEN" "Tmux is already installed."
     fi
 }
+install_kitty() {
+    if ! command_exists tmux; then
+        print_colored "$YELLOW" "Installing Kitty ghostty ..."
+        ${SUDO_CMD} ${PACKAGER}  kitty ghostty
+
+        print_colored "$GREEN" "Kitty ghostty installed successfully!"
+    else
+        print_colored "$GREEN" "Kitty ghostty is already installed."
+    fi
+}
 
 install_neovim() {
     if ! command_exists nvim; then
@@ -239,7 +249,7 @@ install_neovim() {
 install_figlet_and_lolcat() {
     if ! command_exists figlet || ! command_exists lolcat; then
         print_colored "$YELLOW" "Installing Figlet and Lolcat..."
-        ${SUDO_CMD} ${PACKAGER} install -y  figlet lolcat
+        ${SUDO_CMD} ${PACKAGER}   figlet lolcat
 
         print_colored "$GREEN" "Figlet and Lolcat installed successfully!"
     else
@@ -414,6 +424,7 @@ install_starship_and_fzf
 install_zoxide
 install_neovim
 install_figlet_and_lolcat
+install_kitty
 install_eza
 install_yazi
 install_fd

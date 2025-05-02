@@ -12,7 +12,8 @@ git clone https://github.com/junegunn/fzf-git.sh.git
 ```
 stow -t tmux
 ```
-## Install with stow:
+## Install with stow: 
+- a gnome sublink manager
 
 ```
 stow .

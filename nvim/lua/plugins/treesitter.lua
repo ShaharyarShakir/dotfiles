@@ -43,7 +43,7 @@ return {
 				"vimdoc",
 				"c",
 				"sql",
-				"mongodb"
+				"mongodb",
 			},
 			incremental_selection = {
 				enable = true,
@@ -55,6 +55,6 @@ return {
 				},
 			},
 		})
-				require("nvim-ts-autotag").setup()
+		require("nvim-ts-autotag").setup()
 	end,
 }
