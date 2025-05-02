@@ -1,6 +1,9 @@
 theme = catppuccin-mocha
-font-family = MesloLGL Nerd Font Mono
+font-family = JetBrainsMono Nerd Font
+# keybind = C+shift=space = toggle_quick_terminal
+
 # This is the configuration file for Ghostty.
+keybind = super+shift+space=toggle_quick_terminal
 #
 # This template file has been automatically created at the following
 # path since Ghostty couldn't find any existing config files on your system:

@@ -158,18 +158,19 @@ install_pacman_dependencies() {
     ${AUR_HELPER} --noconfirm -S ${DEPENDENCIES}
 }
 
+
 install_font() {
-    FONT_NAME="MesloLGS Nerd Font Mono"
+    FONT_NAME="JetBrainsMono Nerd Font Mono"
     if fc-list :family | grep -iq "$FONT_NAME"; then
         printf "Font '%s' is installed.\n" "$FONT_NAME"
     else
         printf "Installing font '%s'\n" "$FONT_NAME"
-        FONT_URL="https://github.com/ryanoasis/nerd-fonts/releases/latest/download/Meslo.zip"
+        FONT_URL="https://github.com/ryanoasis/nerd-fonts/releases/latest/download/JetBrainsMono.zip"
         FONT_DIR="$HOME/.local/share/fonts"
         if wget -q --spider "$FONT_URL"; then
             TEMP_DIR=$(mktemp -d)
-            wget -q $FONT_URL -O "$TEMP_DIR"/"${FONT_NAME}".zip
-            unzip "$TEMP_DIR"/"${FONT_NAME}".zip -d "$TEMP_DIR"
+            wget -q "$FONT_URL" -O "$TEMP_DIR"/"${FONT_NAME}.zip"
+            unzip "$TEMP_DIR"/"${FONT_NAME}.zip" -d "$TEMP_DIR"
             mkdir -p "$FONT_DIR"/"$FONT_NAME"
             mv "${TEMP_DIR}"/*.ttf "$FONT_DIR"/"$FONT_NAME"
             # Update the font cache
@@ -181,6 +182,7 @@ install_font() {
         fi
     fi
 }
+
 
 install_starship_and_fzf() {
     if ! command_exists starship; then
