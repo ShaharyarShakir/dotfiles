@@ -580,7 +580,7 @@ _fzf_comprun() {
 
 # Enable fancy prompt using starship
 eval "$(starship init bash)"
-eval "$(zoxide init bash)" 
+#`eval "$(zoxide init bash)" 
 # ---- FZF -----
 
 # Set up fzf key bindings and fuzzy completion
