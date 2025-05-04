@@ -460,7 +460,7 @@ if ! shopt -oq posix; then
   if [ -f /usr/share/bash-completion/bash_completion ]; then
     . /usr/share/bash-completion/bash_completion
   elif [ -f /etc/bash_completion ]; then
-    . /etc/bash_completion
+    /etc/bash_completion.d/000_bash_completion_compat.bash
 fi
 fi
 
@@ -596,7 +596,7 @@ source ~/fzf-git.sh/fzf-git.sh
 FNM_PATH="/home/shakir/.local/share/fnm"
 if [ -d "$FNM_PATH" ]; then
   export PATH="$FNM_PATH:$PATH"
-  eval "`fnm env`"
+  eval "$(fnm env)"
 fi
 
 #######################################################
@@ -611,6 +611,8 @@ if [[ $- == *i* ]]; then
     bind '"\C-f":"zi\n"'
 fi
 
+# doom emacs
+export PATH="$HOME/.emacs.d/bin:$PATH"
 
 # ~/.bashrc
 
