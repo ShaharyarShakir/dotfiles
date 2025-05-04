@@ -64,6 +64,11 @@ return {
 			clangd = {},
 			cssls = {},
 			jdtls = {},
+			pyright = {
+				filetypes = {
+					"python",
+				},
+			},
 			tailwindcss = {
 				filetypes = {
 					"html",

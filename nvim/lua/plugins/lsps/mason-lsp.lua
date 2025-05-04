@@ -14,6 +14,7 @@ return {
 				"clangd",
 				"tailwindcss",
 				"svelte",
+				"pyright",
 				"lua_ls",
 				"graphql",
 				"jdtls",
