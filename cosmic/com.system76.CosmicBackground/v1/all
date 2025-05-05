@@ -1,6 +1,6 @@
 (
     output: "all",
-    source: Path("/usr/share/backgrounds/"),
+    source: Path("/home/shaharyar/Pictures/wallpaperflare.com_wallpaper.jpg"),
     filter_by_theme: true,
     rotation_frequency: 300,
     filter_method: Lanczos,

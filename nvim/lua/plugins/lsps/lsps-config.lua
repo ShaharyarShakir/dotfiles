@@ -64,6 +64,19 @@ return {
 			clangd = {},
 			cssls = {},
 			jdtls = {},
+			bashls = {
+				filetypes = {
+					"bash",
+					"sh",
+					"zsh",
+				},
+				settings = {
+					bash = {
+						globPattern = "*.sh",
+						enableShellCheck = true,
+					},
+				},
+			},
 			pyright = {
 				filetypes = {
 					"python",
