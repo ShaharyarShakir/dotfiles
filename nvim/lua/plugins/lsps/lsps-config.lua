@@ -4,7 +4,7 @@ return {
 	dependencies = {
 		"hrsh7th/cmp-nvim-lsp", -- Autocompletion
 		{ "antosha417/nvim-lsp-file-operations", config = true },
-		{ "folke/neodev.nvim",                   opts = {} },
+		{ "folke/neodev.nvim", opts = {} },
 	},
 	config = function()
 		local lspconfig = require("lspconfig")
@@ -56,14 +56,26 @@ return {
 				cmd = { "typescript-language-server", "--stdio" },
 				root_dir = function(fname)
 					local util = require("lspconfig.util")
-					return util.root_pattern("package.json", "tsconfig.json", ".git")(fname) or
-					vim.fn.getcwd()
+					return util.root_pattern("package.json", "tsconfig.json", ".git")(fname) or vim.fn.getcwd()
 				end,
 			},
 			html = {},
 			clangd = {},
 			cssls = {},
 			jdtls = {},
+			gopls = {
+				filetypes = {
+					"go",
+					"gomod",
+					"gowork",
+					"gotmpl",
+				},
+				settings = {
+					gopls = {
+						completeUnimported = true,
+					},
+				},
+			},
 			bashls = {
 				filetypes = {
 					"bash",
@@ -93,8 +105,7 @@ return {
 					"typescriptreact",
 					"svelte",
 				},
-				root_dir = lspconfig.util.root_pattern("package.json", "tailwind.config.js",
-					"tailwind.config.ts"),
+				root_dir = lspconfig.util.root_pattern("package.json", "tailwind.config.js", "tailwind.config.ts"),
 				settings = {
 					tailwindCSS = {
 						classAttributes = { "class", "className", "ngClass" },

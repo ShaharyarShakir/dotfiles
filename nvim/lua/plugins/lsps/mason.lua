@@ -26,6 +26,8 @@ return {
 				"clang-format",
 				"mypy",
 				"ruff",
+				"goimports",
+				"gofumpt",
 				"black",
 				"shellcheck",
 				"shfmt",

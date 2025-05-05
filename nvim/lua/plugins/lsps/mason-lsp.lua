@@ -1,4 +1,3 @@
-
 return {
 	"williamboman/mason-lspconfig.nvim",
 	lazy = false,
@@ -15,6 +14,7 @@ return {
 				"tailwindcss",
 				"svelte",
 				"pyright",
+				"gopls",
 				"bashls",
 				"lua_ls",
 				"graphql",
@@ -26,4 +26,3 @@ return {
 		})
 	end,
 }
-
