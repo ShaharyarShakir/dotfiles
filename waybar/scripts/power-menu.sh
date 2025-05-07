@@ -2,7 +2,7 @@
 # Display a simple menu for power options using wofi
 
 # Show menu and capture the user's selection
-action=$(echo -e "Logout\nShutdown\nReboot" | wofi --dmenu --prompt "Power Options" --width 200 --height 200)
+action=$(echo -e "Logout\nShutdown\nReboot" | wofi --dmenu --prompt "Power Options" --width 300 --height 300)
 
 # Execute based on the user's choice
 case "$action" in

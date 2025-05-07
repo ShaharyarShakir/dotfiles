@@ -59,10 +59,10 @@ return {
 					return util.root_pattern("package.json", "tsconfig.json", ".git")(fname) or vim.fn.getcwd()
 				end,
 			},
-			html = {},
-			clangd = {},
-			cssls = {},
-			jdtls = {},
+			--html = {},
+			--clangd = {},
+			--cssls = {},
+			--jdtls = {},
 			gopls = {
 				filetypes = {
 					"go",
@@ -94,7 +94,7 @@ return {
 					"python",
 				},
 			},
-			tailwindcss = {
+			--[[tailwindcss = {
 				filetypes = {
 					"html",
 					"css",
@@ -116,8 +116,8 @@ return {
 						},
 					},
 				},
-			},
-			svelte = {
+			},]]
+			--[[svelte = {
 				on_attach = function(client, bufnr)
 					vim.api.nvim_create_autocmd("BufWritePost", {
 						pattern = { "*.js", "*.ts" },
@@ -126,11 +126,11 @@ return {
 						end,
 					})
 				end,
-			},
-			graphql = {
+			},]]
+			--[[graphql = {
 				filetypes = { "graphql", "gql", "svelte", "typescriptreact", "javascriptreact" },
-			},
-			emmet_ls = {
+			},]]
+			--[[emmet_ls = {
 				filetypes = {
 					"html",
 					"typescriptreact",
@@ -141,7 +141,7 @@ return {
 					"less",
 					"svelte",
 				},
-			},
+			},]]
 			lua_ls = {
 				settings = {
 					Lua = {

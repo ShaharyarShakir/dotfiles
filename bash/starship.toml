@@ -1,5 +1,5 @@
 format = """
-$username$directory $git_branch\n$character """
+$python$username$directory $git_branch\n$character """
 
 [username]
 show_always = true
@@ -9,6 +9,11 @@ format = "[$user]($style):"  # Colon after username
 [directory]
 style = "bold blue"
 format = "[$path]($style)"  # No space before directory
+
+
+[python]
+format = '([$virtualenv]($style)) '
+style = 'bold purple'
 
 [git_branch]
 symbol = ""  
