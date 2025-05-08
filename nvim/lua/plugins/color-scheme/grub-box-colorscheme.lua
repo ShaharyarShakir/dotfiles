@@ -2,7 +2,8 @@ return {
   "f4z3r/gruvbox-material.nvim",
   name = "gruvbox-material",
   lazy = false,
-  priority = 1000,
+--  enable = false,
+--  priority = 1000,
   config = function()
     -- Transparent background settings
     vim.g.gruvbox_material_background = "medium"
