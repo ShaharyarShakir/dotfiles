@@ -47,49 +47,49 @@ return {
 
       -- Set keymaps for Nvim-tree
       local keymap = vim.keymap
-      keymap.set("n", "<leader>ee", "<cmd>NvimTreeToggle<CR>", { desc = "Toggle Nvim-tree" })
-      keymap.set("n", "<leader>ef", "<cmd>NvimTreeFindFileToggle<CR>", { desc = "Find file in Nvim-tree" })
-      keymap.set("n", "<leader>r", "<cmd>NvimTreeCollapse<CR>", { desc = "Collapse Nvim-tree" })
-      keymap.set("n", "<leader>er", "<cmd>NvimTreeRefresh<CR>", { desc = "Refresh Nvim-tree" })
+      -- keymap.set("n", "<leader>ee", "<cmd>NvimTreeToggle<CR>", { desc = "Toggle Nvim-tree" })
+      -- keymap.set("n", "<leader>ef", "<cmd>NvimTreeFindFileToggle<CR>", { desc = "Find file in Nvim-tree" })
+      -- keymap.set("n", "<leader>r", "<cmd>NvimTreeCollapse<CR>", { desc = "Collapse Nvim-tree" })
+      -- keymap.set("n", "<leader>er", "<cmd>NvimTreeRefresh<CR>", { desc = "Refresh Nvim-tree" })
     end,
   },
 {
   "nvim-neo-tree/neo-tree.nvim",
   cmd = "Neotree",
-  enabled = false,
-  keys = {
-    {
-      "<leader>fe",
-      function()
-        require("neo-tree.command").execute({ toggle = true, dir = LazyVim.root() })
-      end,
-      desc = "Explorer NeoTree (Root Dir)",
-    },
-    {
-      "<leader>fE",
-      function()
-        require("neo-tree.command").execute({ toggle = true, dir = vim.uv.cwd() })
-      end,
-      desc = "Explorer NeoTree (cwd)",
-    },
-    { "<leader>e", "<leader>fe", desc = "Explorer NeoTree (Root Dir)", remap = true },
-    { "<leader>E", "<leader>fE", desc = "Explorer NeoTree (cwd)", remap = true },
-    vim.keymap.set("n", "<leader>bf", ":Neotree buffers reveal float<CR>", { desc = "Show buffers in Neo-tree float" }),
-    {
-      "<leader>ge",
-      function()
-        require("neo-tree.command").execute({ source = "git_status", toggle = true })
-      end,
-      desc = "Git Explorer",
-    },
-    {
-      "<leader>be",
-      function()
-        require("neo-tree.command").execute({ source = "buffers", toggle = true })
-      end,
-      desc = "Buffer Explorer",
-    },
-  },
+  enabled = true,
+  -- keys = {
+  --   {
+  --     "<leader>fe",
+  --     function()
+  --       require("neo-tree.command").execute({ toggle = true, dir = LazyVim.root() })
+  --     end,
+  --     desc = "Explorer NeoTree (Root Dir)",
+  --   },
+  --   {
+  --     "<leader>fE",
+  --     function()
+  --       require("neo-tree.command").execute({ toggle = true, dir = vim.uv.cwd() })
+  --     end,
+  --     desc = "Explorer NeoTree (cwd)",
+  --   },
+  --   { "<leader>e", "<leader>fe", desc = "Explorer NeoTree (Root Dir)", remap = true },
+  --   { "<leader>E", "<leader>fE", desc = "Explorer NeoTree (cwd)", remap = true },
+  --   vim.keymap.set("n", "<leader>bf", ":Neotree buffers reveal float<CR>", { desc = "Show buffers in Neo-tree float" }),
+  --   {
+  --     "<leader>ge",
+  --     function()
+  --       require("neo-tree.command").execute({ source = "git_status", toggle = true })
+  --     end,
+  --     desc = "Git Explorer",
+  --   },
+  --   {
+  --     "<leader>be",
+  --     function()
+  --       require("neo-tree.command").execute({ source = "buffers", toggle = true })
+  --     end,
+  --     desc = "Buffer Explorer",
+  --   },
+  -- },
   deactivate = function()
     vim.cmd([[Neotree close]])
   end,
