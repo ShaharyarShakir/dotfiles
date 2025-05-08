@@ -1,7 +1,7 @@
 return {
   {  -- Nvim-tree Configuration
     "nvim-tree/nvim-tree.lua",
-    enabled = true,
+    enabled = false,
     dependencies = "nvim-tree/nvim-web-devicons",
     config = function()
       local nvimtree = require("nvim-tree")
@@ -56,6 +56,7 @@ return {
 {
   "nvim-neo-tree/neo-tree.nvim",
   cmd = "Neotree",
+  enabled = false,
   keys = {
     {
       "<leader>fe",

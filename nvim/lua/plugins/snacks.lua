@@ -35,5 +35,7 @@ return {
 			end,
 			desc = "Todo",
 		},
+		            { "<leader>es", function() require("snacks").explorer() end, desc = "File Explorer" },
+
 	},
 }
