@@ -1,26 +1,35 @@
 # Dotfiles symlinked on my machine
+
 ### install
+
 ```
-figlet lolcat git tmux neovim curl wget stow tldr thefuck zellij atuin ble.sh btop yazi duf ncdu dua-cli lima-bin 
+figlet lolcat git tmux neovim curl wget stow tldr thefuck zellij atuin ble.sh btop yazi duf ncdu dua-cli lima-bin
 ```
+
 lima-vm => a tool to manage containers
 
 # install fzf-git [link](https://www.josean.com/posts/7-amazing-cli-tools)
+
 ```
 git clone https://github.com/junegunn/fzf-git.sh.git
 ```
+
 ```
 stow -t tmux
 ```
-## Install with stow: 
+
+## Install with stow:
+
 - a gnome sublink manager
 
 ```
 stow .
 ```
 
-###### if starship don't load 
+###### if starship don't load
 
 ```
 ln -sf ~/dotfiles/bash/starship.toml ~/.config/starship.toml
 ```
+
+![image](../2025-05-08-092351_hyprshot.png)

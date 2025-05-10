@@ -54,7 +54,7 @@ check_environment() {
     done
 
     # Determine package manager
-    PACKAGEMANAGER='nala apt dnf yum pacman zypper emerge xbps-install nix-env'
+    PACKAGEMANAGER='nala apt dnf yum pacman zypper emerge xbps-install nix-env apk' 
     for pgm in $PACKAGEMANAGER; do
         if command_exists "$pgm"; then
             PACKAGER="$pgm"
@@ -102,7 +102,7 @@ check_environment() {
 }
 
 install_dependencies() {
-    DEPENDENCIES='bash zsh bash-completion tar bat tree multitail fastfetch wget unzip fontconfig trash-cli duf'
+    DEPENDENCIES='bash zsh bash-completion tar bat tree multitail fastfetch wget unzip fontconfig trash-cli make '
     if ! command_exists nvim; then
         DEPENDENCIES="${DEPENDENCIES} neovim"
     fi
@@ -113,16 +113,19 @@ install_dependencies() {
             install_pacman_dependencies
             ;;
         nala)
-            ${SUDO_CMD} ${PACKAGER} install -y ${DEPENDENCIES}
+            "${SUDO_CMD} ${PACKAGER} install -y ${DEPENDENCIES}"
             ;;
+    apk)
+	    "${SUDO_CMD} ${PACKAGER} add --no-cache ${DEPENDENCIES}"
+	    ;;
         emerge)
-            ${SUDO_CMD} ${PACKAGER} -v app-shells/bash app-shells/bash-completion app-arch/tar app-editors/neovim sys-apps/bat app-text/tree app-text/multitail app-misc/fastfetch app-misc/trash-cli
+            "${SUDO_CMD} ${PACKAGER} -v app-shells/bash app-shells/bash-completion app-arch/tar app-editors/neovim sys-apps/bat app-text/tree app-text/multitail app-misc/fastfetch app-misc/trash-cli"
             ;;
         xbps-install)
-            ${SUDO_CMD} ${PACKAGER} -v ${DEPENDENCIES}
+            "${SUDO_CMD} ${PACKAGER} -v ${DEPENDENCIES}"
             ;;
         nix-env)
-            ${SUDO_CMD} ${PACKAGER} -iA nixos.bash nixos.bash-completion nixos.gnutar nixos.neovim nixos.bat nixos.tree nixos.multitail nixos.fastfetch nixos.pkgs.starship nixos.trash-cli
+            "${SUDO_CMD} ${PACKAGER} -iA nixos.bash nixos.bash-completion nixos.gnutar nixos.neovim nixos.bat nixos.tree nixos.multitail nixos.fastfetch nixos.pkgs.starship nixos.trash-clii"
             ;;
         dnf)
             ${SUDO_CMD} ${PACKAGER} install -y ${DEPENDENCIES}
@@ -238,20 +241,78 @@ install_kitty() {
     fi
 }
 
+
 install_neovim() {
     if ! command_exists nvim; then
         print_colored "$YELLOW" "Installing Neovim..."
-        ${SUDO_CMD} ${PACKAGER} install  neovim
+
+        case "$PACKAGER" in
+            apk)
+                ${SUDO_CMD} apk add --no-cache neovim
+                ;;
+            apt|nala)
+                ${SUDO_CMD} ${PACKAGER} install -y neovim
+                ;;
+            dnf|yum)
+                ${SUDO_CMD} ${PACKAGER} install -y neovim
+                ;;
+            pacman)
+                ${SUDO_CMD} ${PACKAGER} -Sy --noconfirm neovim
+                ;;
+            zypper)
+                ${SUDO_CMD} ${PACKAGER} install -y neovim
+                ;;
+            xbps-install)
+                ${SUDO_CMD} ${PACKAGER} -Sy neovim
+                ;;
+            nix-env)
+                ${SUDO_CMD} nix-env -iA nixpkgs.neovim
+                ;;
+            *)
+                print_colored "$RED" "Unsupported or unknown package manager: $PACKAGER"
+                return 1
+                ;;
+        esac
+
         print_colored "$GREEN" "Neovim installed successfully!"
     else
         print_colored "$GREEN" "Neovim is already installed."
     fi
 }
 
+
 install_figlet_and_lolcat() {
     if ! command_exists figlet || ! command_exists lolcat; then
         print_colored "$YELLOW" "Installing Figlet and Lolcat..."
-        ${SUDO_CMD} ${PACKAGER}   figlet lolcat
+
+        case "$PACKAGER" in
+            apk)
+                ${SUDO_CMD} apk add --no-cache figlet ruby ruby-dev build-base
+                ${SUDO_CMD} gem install lolcat
+                ;;
+            apt|nala)
+                ${SUDO_CMD} ${PACKAGER} install -y figlet lolcat
+                ;;
+            dnf|yum)
+                ${SUDO_CMD} ${PACKAGER} install -y figlet lolcat
+                ;;
+            pacman)
+                ${SUDO_CMD} ${PACKAGER} -Sy --noconfirm figlet lolcat
+                ;;
+            zypper)
+                ${SUDO_CMD} ${PACKAGER} install -y figlet lolcat
+                ;;
+            xbps-install)
+                ${SUDO_CMD} ${PACKAGER} -Sy figlet lolcat
+                ;;
+            nix-env)
+                ${SUDO_CMD} nix-env -iA nixpkgs.figlet nixpkgs.lolcat
+                ;;
+            *)
+                print_colored "$RED" "Unsupported or unknown package manager: $PACKAGER"
+                return 1
+                ;;
+        esac
 
         print_colored "$GREEN" "Figlet and Lolcat installed successfully!"
     else
@@ -265,7 +326,8 @@ install_eza() {
 
         case "$PACKAGER" in
             apt) ${SUDO_CMD} apt install -y eza || ${SUDO_CMD} apt install -y exa ;;
-            dnf) ${SUDO_CMD} dnf install -y eza || ${SUDO_CMD} dnf install -y exa ;;
+             apk) ${SUDO_CMD} apk add --no-cache eza || ${SUDO_CMD} apk add --no-cache exa ;;
+    dnf) ${SUDO_CMD} dnf install -y eza || ${SUDO_CMD} dnf install -y exa ;;
             yum) ${SUDO_CMD} yum install -y eza || ${SUDO_CMD} yum install -y exa ;;
             pacman) ${SUDO_CMD} pacman -S --noconfirm eza || ${SUDO_CMD} pacman -S --noconfirm exa ;;
             zypper) ${SUDO_CMD} zypper install -y eza || ${SUDO_CMD} zypper install -y exa ;;
@@ -278,34 +340,45 @@ install_eza() {
         print_colored "$GREEN" "eza is already installed."
     fi
 }
+
 install_yazi() {
-    if command -v yazi &>/dev/null; then
+    if command -v yazi &> /dev/null; then
         print_colored "$GREEN" "Yazi is already installed!"
         return
     fi
 
     print_colored "$YELLOW" "Installing Yazi and dependencies..."
 
-    if [[ -f /etc/arch-release ]]; then
-        print_colored "$" "Installing on Arch Linux..."
-        sudo pacman -Sy --noconfirm yazi ffmpeg  imagemagick
+    case "$PACKAGER" in
+        apk)
+            print_colored "$YELLOW" "Installing on Alpine Linux..."
+            # Install dependencies via apk
+            ${SUDO_CMD} apk add --no-cache cargo ffmpeg imagemagick
 
-    elif [[ -f /etc/debian_version ]]; then
-       print_colored "$YELLOW" "Installing on Debian/Ubuntu..."
-        sudo apt update && sudo apt install -y cargo ffmpeg  imagemagick
-        cargo install yazi-fm
+            # Install yazi-fm via cargo
+            ${SUDO_CMD} cargo install yazi-fm
+            ;;
+        pacman)
+            print_colored "$YELLOW" "Installing on Arch Linux..."
+            ${SUDO_CMD} pacman -Sy --noconfirm yazi ffmpeg imagemagick
+            ;;
+        apt|nala)
+            print_colored "$YELLOW" "Installing on Debian/Ubuntu..."
+            ${SUDO_CMD} apt update && ${SUDO_CMD} apt install -y cargo ffmpeg imagemagick
+            ${SUDO_CMD} cargo install yazi-fm
+            ;;
+        dnf|yum)
+            print_colored "$YELLOW" "Installing on Fedora..."
+            ${SUDO_CMD} dnf install -y cargo ffmpeg imagemagick
+            ${SUDO_CMD} cargo install yazi-fm
+            ;;
+        *)
+            print_colored "$RED" "Unsupported or unknown package manager: $PACKAGER"
+            return 1
+            ;;
+    esac
 
-    elif [[ -f /etc/fedora-release ]]; then
-        print_colored "$YELLOW" "Installing on Fedora..."
-        sudo dnf install -y cargo ffmpeg  ImageMagick
-        cargo install yazi-fm
-
-    else
-       print_colored "$RED" "Unsupported OS!"
-        return 1
-    fi
-
-   print_colored "$GREEN" "Yazi installation complete!"
+    print_colored "$GREEN" "Yazi installation complete!"
 }
 install_fd() {
     if command -v yazi &>/dev/null; then
