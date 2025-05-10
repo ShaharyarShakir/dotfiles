@@ -3,7 +3,7 @@
 ### install
 
 ```
-figlet lolcat git tmux neovim curl wget stow tldr thefuck zellij atuin ble.sh btop yazi duf ncdu dua-cli lima-bin
+figlet lolcat git tmux neovim curl wget stow tldr thefuck zellij atuin ble.sh btop yazi duf ncdu dua-cli lima-bin ncurses
 ```
 
 lima-vm => a tool to manage containers
@@ -32,4 +32,11 @@ stow .
 ln -sf ~/dotfiles/bash/starship.toml ~/.config/starship.toml
 ```
 
-![image](../2025-05-08-092351_hyprshot.png)
+# export term in docker
+
+```
+export TERM=xterm-256color
+```
+
+
+
