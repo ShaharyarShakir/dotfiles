@@ -341,23 +341,16 @@ install_eza() {
     fi
 }
 
+
 install_yazi() {
-    if command -v yazi &> /dev/null; then
-        print_colored "$GREEN" "Yazi is already installed!"
+    if command -v yazi &> /dev/null || command -v ranger &> /dev/null || command -v nnn &> /dev/null; then
+        print_colored "$GREEN" "Yazi, Ranger, or nnn is already installed!"
         return
     fi
 
-    print_colored "$YELLOW" "Installing Yazi and dependencies..."
+    print_colored "$YELLOW" "Installing terminal file managers..."
 
     case "$PACKAGER" in
-        apk)
-            print_colored "$YELLOW" "Installing on Alpine Linux..."
-            # Install dependencies via apk
-            ${SUDO_CMD} apk add --no-cache cargo ffmpeg imagemagick
-
-            # Install yazi-fm via cargo
-            ${SUDO_CMD} cargo install yazi-fm
-            ;;
         pacman)
             print_colored "$YELLOW" "Installing on Arch Linux..."
             ${SUDO_CMD} pacman -Sy --noconfirm yazi ffmpeg imagemagick
@@ -365,12 +358,17 @@ install_yazi() {
         apt|nala)
             print_colored "$YELLOW" "Installing on Debian/Ubuntu..."
             ${SUDO_CMD} apt update && ${SUDO_CMD} apt install -y cargo ffmpeg imagemagick
-            ${SUDO_CMD} cargo install yazi-fm
+            cargo install yazi-fm
             ;;
         dnf|yum)
             print_colored "$YELLOW" "Installing on Fedora..."
             ${SUDO_CMD} dnf install -y cargo ffmpeg imagemagick
-            ${SUDO_CMD} cargo install yazi-fm
+            cargo install yazi-fm
+            ;;
+        apk)
+            print_colored "$YELLOW" "Installing on Alpine Linux..."
+            ${SUDO_CMD} apk update
+            ${SUDO_CMD} apk add ranger nnn ffmpeg imagemagick
             ;;
         *)
             print_colored "$RED" "Unsupported or unknown package manager: $PACKAGER"
@@ -378,7 +376,7 @@ install_yazi() {
             ;;
     esac
 
-    print_colored "$GREEN" "Yazi installation complete!"
+    print_colored "$GREEN" "Terminal file manager installation complete!"
 }
 install_fd() {
     if command -v yazi &>/dev/null; then
@@ -399,7 +397,10 @@ install_fd() {
     elif [[ -f /etc/fedora-release ]]; then
         print_colored "$YELLOW" "Installing on Fedora..."
         sudo dnf install -y cargo  p7zip jq poppler fd-find ripgrep
-
+ elif [[ -f /etc/alpine-release ]]; then
+        print_colored "$YELLOW" "Installing on Alpine Linux..."
+        sudo apk update
+        sudo apk add p7zip jq poppler-utils fd ripgrep
     else
        print_colored "$RED" "Unsupported OS!"
         return 1
