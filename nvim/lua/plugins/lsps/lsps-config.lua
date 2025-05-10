@@ -85,6 +85,7 @@ return {
           return util.root_pattern("package.json", "tsconfig.json", ".git")(fname) or vim.fn.getcwd()
         end,
       },
+
       gopls = {
         filetypes = { "go", "gomod", "gowork", "gotmpl" },
         settings = {
@@ -123,8 +124,8 @@ return {
           },
         },
       },
-      --[[ Uncomment and configure these as needed:
-
+      html = {},
+      cssls = {},
       tailwindcss = {
         filetypes = {
           "html", "css", "scss", "javascript", "javascriptreact",
@@ -144,6 +145,16 @@ return {
           },
         },
       },
+      emmet_ls = {
+        filetypes = {
+          "html", "typescriptreact", "javascriptreact",
+          "css", "sass", "scss", "less", "svelte",
+        },
+      },
+      volar = {},
+
+      --[[ Uncomment and configure these as needed:
+
 
       svelte = {
         on_attach = function(client, bufnr)
@@ -160,12 +171,6 @@ return {
         filetypes = { "graphql", "gql", "svelte", "typescriptreact", "javascriptreact" },
       },
 
-      emmet_ls = {
-        filetypes = {
-          "html", "typescriptreact", "javascriptreact",
-          "css", "sass", "scss", "less", "svelte",
-        },
-      },
       ]]
     }
 
