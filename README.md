@@ -40,3 +40,4 @@ export TERM=xterm-256color
 
 
 
+- exec bash --login
