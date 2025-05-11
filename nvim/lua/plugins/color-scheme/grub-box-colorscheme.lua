@@ -2,7 +2,7 @@ return {
   "f4z3r/gruvbox-material.nvim",
   name = "gruvbox-material",
   lazy = false,
---  enable = false,
+  enable = false,
 --  priority = 1000,
   config = function()
     -- Transparent background settings
@@ -11,7 +11,7 @@ return {
     vim.g.gruvbox_material_enable_italic = 1
 
     -- Apply colorscheme
-    vim.cmd("colorscheme gruvbox-material")
+--    vim.cmd("colorscheme gruvbox-material")
 
     -- Extra transparency highlights
     vim.cmd([[

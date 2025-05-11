@@ -170,12 +170,14 @@ return {
 				end,
 				desc = "Lazygit Logs",
 			},
+
+
 			{
 				"<leader>es",
-				function ()
+				function()
 					require("snacks").explorer()
-				end,
-				desc = "Snacks file explorer",
+								end,
+				desc = "Snacks Explorer (right side)",
 			},
 			{
 				"<leader>rN",
@@ -257,28 +259,28 @@ return {
 		},
 	},
 
-{
-  "folke/todo-comments.nvim",
-  dependencies = { "nvim-lua/plenary.nvim" },
-  event = { "BufReadPre", "BufNewFile" },
-  config = function()
-    require("todo-comments").setup {}
-  end,
-  keys = {
-    {
-      "<leader>pt",
-      function()
-        require("snacks").picker.todo_comments()
-      end,
-      desc = "Todo",
-    },
-    {
-      "<leader>pT",
-      function()
-        require("snacks").picker.todo_comments({ keywords = { "TODO", "FIX", "FIXME" } })
-      end,
-      desc = "Todo/Fix/Fixme",
-    },
-  },
-}
+	{
+		"folke/todo-comments.nvim",
+		dependencies = { "nvim-lua/plenary.nvim" },
+		event = { "BufReadPre", "BufNewFile" },
+		config = function()
+			require("todo-comments").setup({})
+		end,
+		keys = {
+			{
+				"<leader>pt",
+				function()
+					require("snacks").picker.todo_comments()
+				end,
+				desc = "Todo",
+			},
+			{
+				"<leader>pT",
+				function()
+					require("snacks").picker.todo_comments({ keywords = { "TODO", "FIX", "FIXME" } })
+				end,
+				desc = "Todo/Fix/Fixme",
+			},
+		},
+	},
 }

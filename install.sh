@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/bash
 
 # make a dir for config
 mkdir -p ~/.config 

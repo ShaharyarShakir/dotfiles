@@ -88,7 +88,7 @@ alias gp='git push'
 alias gP='git pull'
 alias lg='lazygit'
 alias gu='gitui'
-alias gb='git branch-i'
+alias gb='git branch'
 
 # fzf 
 alias fh='history | fzf'

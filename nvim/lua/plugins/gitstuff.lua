@@ -1,4 +1,3 @@
-
 return {
   -- Git commands in nvim (e.g. :Git)
   {
@@ -88,5 +87,37 @@ return {
       vim.keymap.set("n", "<leader>gg", ":GitUi<CR>", { desc = "Open GitUI" })
     end,
   },
+
+{
+  "NeogitOrg/neogit",
+  dependencies = {
+    "nvim-lua/plenary.nvim",         -- Required
+    "sindrets/diffview.nvim",        -- Optional - Diff integration
+
+    -- Optional pickers (choose only one if needed)
+    "nvim-telescope/telescope.nvim",
+    -- "ibhagwan/fzf-lua",
+    -- "echasnovski/mini.pick",
+    -- "folke/snacks.nvim",
+  },
+  config = function()
+    local neogit = require("neogit")
+    neogit.setup({
+      kind = "floating",  -- Open in a floating window
+      -- Optional: Customize floating window appearance
+      -- remember to adjust layout if needed
+      integrations = {
+        diffview = true,  -- Enable if using diffview.nvim
+        telescope = true, -- Enable if using telescope.nvim
+      },
+    })
+
+    -- Key mapping to open Neogit
+    vim.keymap.set("n", "<leader>gn", function()
+      neogit.open()
+    end, { desc = "Open Neogit (Floating)" })
+  end
+},
+
 }
 

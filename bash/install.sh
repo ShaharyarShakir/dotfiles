@@ -1,4 +1,6 @@
-#!/bin/sh -e
+#!/bin/bash 
+
+sh -e
 
 # Print the logo
 print_logo() {
@@ -102,7 +104,7 @@ check_environment() {
 }
 
 install_dependencies() {
-    DEPENDENCIES='bash zsh bash-completion tar bat tree multitail fastfetch wget unzip fontconfig trash-cli make '
+    DEPENDENCIES='bash zsh bash-completion tar bat tree multitail fastfetch wget unzip fontconfig trash-cli make tmux'
     if ! command_exists nvim; then
         DEPENDENCIES="${DEPENDENCIES} neovim"
     fi
@@ -408,7 +410,11 @@ install_fd() {
 
    print_colored "$GREEN" "Yazi installation complete!"
 }
+ install_fzf_git(){
+	 git clone https://github.com/junegunn/fzf-git.sh.git 
+	 mv fzf-git.sh ~/
 
+ }
 
 create_fastfetch_config() {
     USER_HOME=$(getent passwd "${SUDO_USER:-$USER}" | cut -d: -f6)
@@ -510,6 +516,7 @@ link_zsh
 
 if link_config; then
     print_colored "$GREEN" "Done!\nrestart your shell to see the changes."
+exec bash --login
 else
     print_colored "$RED" "Something went wrong!"
 fi
