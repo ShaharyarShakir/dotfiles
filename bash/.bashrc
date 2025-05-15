@@ -57,6 +57,7 @@ alias lsize='eza -lh --icons -s size -r'
 alias lmod='eza -lh --icons -s modified'
 alias lg='eza -lh --icons --git'
 alias l='eza -l --icons --git'
+alias cmatrix='cmatrix -u 10 -B -f'
 
 else
 alias la='ls -Alh'                # show hidden files
