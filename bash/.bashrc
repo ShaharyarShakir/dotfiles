@@ -17,7 +17,7 @@ if [[ ! -f "$FLAG_FILE" ]]; then
 EOF
 }
 print_logo
-         figlet -f small  -w 120 "Shaharyar Shakir" | lolcat
+#         figlet -f small  -w 120 "Shaharyar Shakir" | lolcat
     touch "$FLAG_FILE"  # Create the flag file to prevent re-running
 fi
 # if command -v fastfetch &> /dev/null; then
@@ -36,12 +36,6 @@ case $- in
 esac
 
 
-# Enable bash programmable completion features in interactive shells
-if [ -f /usr/share/bash-completion/bash_completion ]; then
-	. /usr/share/bash-completion/bash_completion
-elif [ -f /etc/bash_completion ]; then
-	. /etc/bash_completion
-fi
 
 ####################################################################
 ####################### Aliases ####################################
@@ -591,14 +585,7 @@ eval "$(fzf --bash)"
 # ---- Zoxide (better cd) ----
 eval "$(zoxide init --cmd cd bash)"
 
-source ~/fzf-git.sh/fzf-git.sh
 
-# fnm
-FNM_PATH="/home/shakir/.local/share/fnm"
-if [ -d "$FNM_PATH" ]; then
-  export PATH="$FNM_PATH:$PATH"
-  eval "$(fnm env)"
-fi
 
 #######################################################
 # Set the ultimate amazing command prompt
@@ -606,32 +593,15 @@ fi
 
 alias hug="hugo server -F --bind=10.0.0.97 --baseURL=http://10.0.0.97"
 
-# Check if the shell is interactive
-if [[ $- == *i* ]]; then
-    # Bind Ctrl+f to insert 'zi' followed by a newline
-    bind '"\C-f":"zi\n"'
-fi
+zoxide-fzf() {
+  local dir
+  dir=$(zoxide query -l | fzf) && cd "$dir"
+}
 
-# anaconda
-# export PATH="$HOME/anaconda3/bin:$PATH"  # commented out by conda initialize
-# ~/.bashrc
+# Use a keyboard shortcut (Ctrl+f) to call zoxide-fzf
+bind -x '"\C-f":zoxide-fzf'
+export TERM=xterm-256color
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/home/shaharyar/anaconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "/home/shaharyar/anaconda3/etc/profile.d/conda.sh" ]; then
-        . "/home/shaharyar/anaconda3/etc/profile.d/conda.sh"
-    else
-        export PATH="/home/shaharyar/anaconda3/bin:$PATH"
-    fi
-fi
-unset __conda_setup
-# <<< conda initialize <<<
-
