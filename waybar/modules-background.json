@@ -1,5 +1,4 @@
 {
-
   "hyprland/workspaces": {
     "disable-scroll": true,
     "all-outputs": true,
@@ -71,23 +70,23 @@
     "interval": 5,
     "exec": "mpc current --format='\"title\":\"%title%\",\"artist\":\"%artist%\"'"
   },
-  "custom/cava-internal": {
-    "exec": "sh ~/.config/waybar/scripts/Cava.sh",
-    "format": "{}",
-    "tooltip": false,
-    "on-click": "hyprlandmsg reload & pkill waybar & waybar",
-    "layer": "below",
-    "output": "all"
-  },
-    "hyprland/window": {
-        "rewrite": {
-            "(.*) - Brave": "$1",
-            "(.*) - Chromium": "$1",
-            "(.*) - Brave Search": "$1",
-            "(.*) - Outlook": "$1",
-            "(.*) Microsoft Teams": "$1"
-        },
-        "separate-outputs": true,
+  // "custom/cava-internal": {
+  //  "exec": "sh ~/.config/waybar/scripts/Cava.sh",
+  // "format": "{}",
+  // "tooltip": false,
+  //"on-click": "hyprlandmsg reload & pkill waybar & waybar",
+  //"layer": "below",
+  //"output": "all"
+  // },
+  "hyprland/window": {
+    "rewrite": {
+      "(.*) - Brave": "$1",
+      "(.*) - Chromium": "$1",
+      "(.*) - Brave Search": "$1",
+      "(.*) - Outlook": "$1",
+      "(.*) Microsoft Teams": "$1"
+    },
+    "separate-outputs": true,
     "format": "<span color=\"#24273a\" style=\"italic\">{}</span>"
   },
   "idle_inhibitor": {
@@ -110,11 +109,11 @@
       "on-scroll": 1,
       "on-click-right": "mode",
       "format": {
-	"months": "<span color='#bb9af7'><b>{}</b></span>",  // Purple
-	"days": "<span color='#7aa2f7'><b>{}</b></span>",    // Blue
-	"weeks": "<span color='#9ece6a'><b>W{}</b></span>",  // Green
-	"weekdays": "<span color='#e0af68'><b>{}</b></span>",// Yellow
-	"today": "<span background='#2ac3de' color='#1a1b26'><b><u>{}</u></b></span>" // Cyan background with dark text
+        "months": "<span color='#bb9af7'><b>{}</b></span>", // Purple
+        "days": "<span color='#7aa2f7'><b>{}</b></span>", // Blue
+        "weeks": "<span color='#9ece6a'><b>W{}</b></span>", // Green
+        "weekdays": "<span color='#e0af68'><b>{}</b></span>", // Yellow
+        "today": "<span background='#2ac3de' color='#1a1b26'><b><u>{}</u></b></span>" // Cyan background with dark text
       }
     },
     "actions": {
@@ -153,31 +152,31 @@
   "disk": {
     // "interval": 30,
     "format": " {percentage_used}% ",
-    "path": "/",
+    "path": "/"
     //"on-click": "alacritty -e htop"
-  }, 
-    // Group Hardware
-    "group/hardware": {
-        "orientation": "inherit",
-        "drawer": {
-            "transition-duration": 300,
-            "children-class": "not-memory",
-            "transition-left-to-right": false
-        },        
-        "modules": [
-            "custom/system",
-            "disk",
-            "cpu",
-            "memory"
-            // "backlight",
-            //"hyprland/language"
-        ]
+  },
+  // Group Hardware
+  "group/hardware": {
+    "orientation": "inherit",
+    "drawer": {
+      "transition-duration": 300,
+      "children-class": "not-memory",
+      "transition-left-to-right": false
     },
+    "modules": [
+      "custom/system",
+      "disk",
+      "cpu",
+      "memory"
+      // "backlight",
+      //"hyprland/language"
+    ]
+  },
   "backlight": {
     // "device": "acpi_video1",
     "format": "{icon} {percent: >3}%",
     // "format-icons": ["", ""],
-        "format-icons": ["", "", "", "", "", "", "", "", ""],
+    "format-icons": ["", "", "", "", "", "", "", "", ""],
     "on-scroll-down": "brightnessctl -c backlight set 5%-",
     // "on-scroll-down": "light -A 5 && light -G | cut -d'.' -f1 > $SWAYSOCK.wob",
     "on-scroll-up": "brightnessctl -c backlight set +5%",
@@ -254,10 +253,10 @@
     "signal": 1, // SIGHUP
     "tooltip": false,
     "on-click": "~/.config/waybar/scripts/keyhint.sh"
-  },
-  "custom/launcher": {
-    "format": "",
-    "on-click": "wofi -show drun -replace",
-    "tooltip": false
   }
+  //"custom/launcher": {
+  //"format": "",
+  //"on-click": "wofi -show drun -replace",
+  //"tooltip": false
+  //}
 }

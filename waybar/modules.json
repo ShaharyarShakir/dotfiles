@@ -11,7 +11,7 @@
 
 {
   // Hyprland Workspaces
- "hyprland/workspaces": {
+  "hyprland/workspaces": {
     "disable-scroll": false,
     "all-outputs": true,
     "format": "{icon}",
@@ -27,13 +27,21 @@
       "9": "9",
       "10": "0"
     }
-},
+  },
 
   // MPD controls (unchanged)
-  "mpd": { /* ... */ },
-  "mpd#2": { /* ... */ },
-  "mpd#3": { /* ... */ },
-  "mpd#4": { /* ... */ },
+  "mpd": {
+    /* ... */
+  },
+  "mpd#2": {
+    /* ... */
+  },
+  "mpd#3": {
+    /* ... */
+  },
+  "mpd#4": {
+    /* ... */
+  },
 
   "custom/swap": {
     "on-click": "~/.config/waybar/scripts/swap.sh",
@@ -145,12 +153,7 @@
       "children-class": "not-memory",
       "transition-left-to-right": false
     },
-    "modules": [
-      "custom/system",
-      "disk",
-      "cpu",
-      "memory"
-    ]
+    "modules": ["custom/system", "disk", "cpu", "memory"]
   },
 
   // Backlight
@@ -231,13 +234,12 @@
     "signal": 1,
     "tooltip": false,
     "on-click": "~/.config/waybar/scripts/keyhint.sh"
-  },
+  }
 
   // App Launcher
-  "custom/launcher": {
-    "format": "",
-    "on-click": "rofi -show drun -replace",
-    "tooltip": false
-  }
+  // "custom/launcher": {
+  //  "format": "",
+  // "on-click": "rofi -show drun -replace",
+  // "tooltip": false
+  //}
 }
-
