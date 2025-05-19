@@ -1,9 +1,9 @@
 # ~/.bashrc - Main shell config, sources additional modular files
 # # Run fastfetch only once per login session
 # ble.sh
-FLAG_FILE="/tmp/fastfetch_ran_$USER"
+ FLAG_FILE="/tmp/fastfetch_ran_$USER"
 
-if [[ ! -f "$FLAG_FILE" ]]; then
+ if [[ ! -f "$FLAG_FILE" ]]; then
     fastfetch  # Run Fastfetch
     print_logo(){    cat << "EOF"
     
@@ -18,7 +18,7 @@ EOF
 }
 print_logo
 #         figlet -f small  -w 120 "Shaharyar Shakir" | lolcat
-    touch "$FLAG_FILE"  # Create the flag file to prevent re-running
+  touch "$FLAG_FILE"  # Create the flag file to prevent re-running
 fi
 # if command -v fastfetch &> /dev/null; then
 #     # Only run fastfetch if we're in an interactive shell
@@ -104,7 +104,8 @@ else
 	alias rm='rm -i'
 fi
 
-
+# kubectl
+alias k='kubectl'
 
 # Vim / Neovim
 if command -v nvim &> /dev/null; then
@@ -605,3 +606,7 @@ export TERM=xterm-256color
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
+export PATH="/home/shaharyar/.rd/bin:$PATH"
+### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)
