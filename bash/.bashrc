@@ -90,6 +90,16 @@ alias fh='history | fzf'
 alias fo='find . -type f | fzf'
 alias vf='nvim $(fzf --preview "bat --color=always {}")'
 
+# devpod
+alias dp='devpod'
+alias dss='devpod ssh'
+alias dl='devpod ls'
+alias dd='devpod delete'
+
+# kubectl / minikube
+alias k='kubectl'
+alias mk='minikube'
+
 # bash
 alias vb='nvim ~/.bashrc'
 alias sb='source ~/.bashrc'
@@ -104,8 +114,6 @@ else
 	alias rm='rm -i'
 fi
 
-# kubectl
-alias k='kubectl'
 
 # Vim / Neovim
 if command -v nvim &> /dev/null; then
@@ -610,3 +618,4 @@ export NVM_DIR="$HOME/.nvm"
 ### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
 export PATH="/home/shaharyar/.rd/bin:$PATH"
 ### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)
+export MPD_HOST=~/.config/mpd/socket
