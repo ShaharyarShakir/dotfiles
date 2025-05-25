@@ -22,7 +22,6 @@ return {
 				"emmet_ls",
 				---				"prismals",
 				"markdown_oxide",
-				"volar",
 			},
 		})
 	end,
