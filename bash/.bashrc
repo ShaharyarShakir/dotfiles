@@ -619,3 +619,4 @@ export NVM_DIR="$HOME/.nvm"
 export PATH="/home/shaharyar/.rd/bin:$PATH"
 ### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)
 export MPD_HOST=~/.config/mpd/socket
+export MAVEN_OPTS="--enable-native-access=ALL-UNNAMED"
