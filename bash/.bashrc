@@ -620,3 +620,7 @@ export PATH="/home/shaharyar/.rd/bin:$PATH"
 ### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)
 export MPD_HOST=~/.config/mpd/socket
 export MAVEN_OPTS="--enable-native-access=ALL-UNNAMED"
+# added homebrew config
+USER_HOME=$(eval echo ~$(whoami))
+echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >> "$USER_HOME/.bashrc"
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
