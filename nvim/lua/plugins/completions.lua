@@ -9,8 +9,8 @@ return {
 		"saadparwaiz1/cmp_luasnip",
 		"onsails/lspkind.nvim",
 	},
-config = function ()
-	local cmp = require("cmp")
+	config = function()
+		local cmp = require("cmp")
 		local luasnip = require("luasnip")
 		local lspkind = require("lspkind")
 
@@ -38,6 +38,7 @@ config = function ()
 				["<C-Space>"] = cmp.mapping.complete(),
 			}),
 			sources = cmp.config.sources({
+				{ name = "copilot" },
 				{ name = "nvim_lsp" },
 				{ name = "buffer" },
 				{ name = "path" },
