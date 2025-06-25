@@ -261,7 +261,7 @@ return {
                 ['<Down>'] = cmp.mapping(select_next_item),
                 ['<Up>'] = cmp.mapping(select_prev_item),
 
-                ['<C-y>'] = cmp.mapping(function(fallback)
+                ['<CR>'] = cmp.mapping(function(fallback)
                     if cmp.visible() then
                         local entry = cmp.get_selected_entry()
                         confirm(entry)
