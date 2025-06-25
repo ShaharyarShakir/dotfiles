@@ -43,12 +43,6 @@
     /* ... */
   },
 
-  "custom/swap": {
-    "on-click": "~/.config/waybar/scripts/swap.sh",
-    "format": "Bg  ",
-    "tooltip": true,
-    "tooltip-format": "Swap between waybar Themes"
-  },
 
   "custom/mpd": {
     "format": " {title} - {artist}",
@@ -56,15 +50,6 @@
     "exec": "mpc current --format='\"title\":\"%title%\",\"artist\":\"%artist%\"'"
   },
 
-  // Hyprland-compatible cava visualizer
-  "custom/cava-internal": {
-    "exec": "sh ~/.config/waybar/scripts/Cava.sh",
-    "format": "{}",
-    "tooltip": false,
-    "on-click": "killall waybar && waybar",
-    "layer": "below",
-    "output": "all"
-  },
 
   // Hyprland Window Title
   "hyprland/window": {
@@ -79,14 +64,6 @@
     "separate-outputs": true
   },
 
-  // Inhibitor
-  "idle_inhibitor": {
-    "format": "{icon}",
-    "format-icons": {
-      "activated": "",
-      "deactivated": ""
-    }
-  },
 
   // System Tray
   "tray": {
@@ -215,16 +192,10 @@
     "interval": 7200,
     "exec": "i=$(checkupdates); echo \"$i\" |wc -l; echo \"$i\" |column -t |tr '\n' '\r'",
     "exec-if": "exit 0",
-    "on-click": "alacritty -e sudo pacman -Syu",
+    "on-click": "kitty -e sudo pacman -Syu",
     "signal": 8
   },
 
-  // Power
-  "custom/power": {
-    "format": "⏻",
-    "on-click": "~/dotfiles/waybar/scripts/power-menu.sh",
-    "tooltip": false
-  },
 
   // Keyboard Layout (replaced hyprlandmsg with local script)
   "custom/keyboard-layout": {
