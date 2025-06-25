@@ -111,7 +111,7 @@ if command -v trash-put &>/dev/null
 then
 alias rm='trash-put'
 else
-	alias rm='rm -i'
+alias rm='rm -i'
 fi
 
 
@@ -126,8 +126,8 @@ alias svi='sudo vi'
 alias vis='nvim "+set si"'
 
 else
-    export EDITOR=vim
-    export VISUAL=vim
+export EDITOR=vim
+export VISUAL=vim
 fi
 
 # yazi / tmux / kill
@@ -155,7 +155,7 @@ alias freshclam='sudo freshclam'
 alias pos='posting'
 
 # Change directory aliases
-alias home='cd ~'
+alias he='cd ~'
 alias cd..='cd ..'
 alias ..='cd ..'
 alias ...='cd ../..'
@@ -355,7 +355,7 @@ distribution () {
     echo $dtype
 }
 
-
+# bat/cat alias
 DISTRIBUTION=$(distribution)
 if command -v bat &> /dev/null || command -v batcat &> /dev/null; then
     if [ "$DISTRIBUTION" = "redhat" ] || [ "$DISTRIBUTION" = "arch" ]; then
@@ -440,15 +440,6 @@ install_bashrc_support() {
 	esac
 }
 
-# bat/cat aliases
-DISTRIBUTION=$(distribution)
-if command -v bat &> /dev/null || command -v batcat &> /dev/null; then
-    if [ "$DISTRIBUTION" = "redhat" ] || [ "$DISTRIBUTION" = "arch" ]; then
-        alias cat='bat'
-    else
-        alias cat='batcat'
-    fi
-fi
 
 # Enable history settings
 HISTCONTROL=ignoreboth
@@ -621,6 +612,10 @@ export PATH="/home/shaharyar/.rd/bin:$PATH"
 export MPD_HOST=~/.config/mpd/socket
 export MAVEN_OPTS="--enable-native-access=ALL-UNNAMED"
 # added homebrew config
+if command -v brew &> /dev/null; then 
 USER_HOME=$(eval echo ~$(whoami))
-echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >> "$USER_HOME/.bashrc"
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+ echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >> "$USER_HOME/.bashrc"
+ eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+ eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+ eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+fi
