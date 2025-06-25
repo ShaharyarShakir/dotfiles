@@ -36,6 +36,8 @@ case $- in
 esac
 
 
+# Location to store the ssh-agent environment file
+SSH_ENV="$HOME/.ssh/ssh-agent"
 
 ####################################################################
 ####################### Aliases ####################################
@@ -97,15 +99,23 @@ alias dl='devpod ls'
 alias dd='devpod delete'
 
 
-# Start agent if not running
+# If no agent is running, start a new one
 if [ -z "$SSH_AUTH_SOCK" ]; then
-   RUNNING_AGENT=$(ps -ax | grep 'ssh-agent -s' | grep -v grep | wc -l | tr -d '[:space:]')
-   if [ "$RUNNING_AGENT" = "0" ]; then
-       ssh-agent -s &> $HOME/.ssh/ssh-agent
-   fi
-   eval "$(cat $HOME/.ssh/ssh-agent)"
+    if [ -f "$SSH_ENV" ]; then
+        source "$SSH_ENV"
+        # If the agent PID no longer exists, start a new one
+        if ! kill -0 "$SSH_AGENT_PID" 2>/dev/null; then
+            start_agent
+        fi
+    else
+        start_agent
+    fi
 fi
 
+# Auto-add id_ed25519 if agent has no identities
+if ! ssh-add -l | grep -q "id_ed25519"; then
+    ssh-add ~/.ssh/id_ed25519 &>/dev/null
+fi
 
 # kubectl / minikube
 alias k='kubectl'
@@ -240,7 +250,15 @@ function nvims() {
 ################## Functions ####################################
 #################################################################
 
-# Function to extract various archive formats
+
+
+# Function to start the ssh-agent and save its environment
+start_agent() {
+    echo "Starting new ssh-agent..."
+    ssh-agent -s > "$SSH_ENV"
+    chmod 600 "$SSH_ENV"
+    source "$SSH_ENV"
+}
 
 # switch to zsh
 switch_zsh(){
@@ -287,6 +305,7 @@ list_oldfiles() {
 
 bind -x '"\C-l" : list_oldfiles'
 
+# Function to extract various archive formats
 extract() {
     if [ -f "$1" ]; then
         case "$1" in
