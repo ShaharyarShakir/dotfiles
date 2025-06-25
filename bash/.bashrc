@@ -96,6 +96,17 @@ alias dss='devpod ssh'
 alias dl='devpod ls'
 alias dd='devpod delete'
 
+
+# Start agent if not running
+if [ -z "$SSH_AUTH_SOCK" ]; then
+   RUNNING_AGENT=$(ps -ax | grep 'ssh-agent -s' | grep -v grep | wc -l | tr -d '[:space:]')
+   if [ "$RUNNING_AGENT" = "0" ]; then
+       ssh-agent -s &> $HOME/.ssh/ssh-agent
+   fi
+   eval "$(cat $HOME/.ssh/ssh-agent)"
+fi
+
+
 # kubectl / minikube
 alias k='kubectl'
 alias mk='minikube'
@@ -611,6 +622,9 @@ export PATH="/home/shaharyar/.rd/bin:$PATH"
 ### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)
 export MPD_HOST=~/.config/mpd/socket
 export MAVEN_OPTS="--enable-native-access=ALL-UNNAMED"
+# This is important for VS Code and Dev Containers
+export SSH_AGENT_SOCK=$SSH_AUTH_SOCK
+
 # added homebrew config
 if command -v brew &> /dev/null; then 
 USER_HOME=$(eval echo ~$(whoami))
