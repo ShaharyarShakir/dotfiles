@@ -2,6 +2,8 @@
 # # Run fastfetch only once per login session
 # ble.sh
  FLAG_FILE="/tmp/fastfetch_ran_$USER"
+# Always register the trap
+trap "rm -f '$FLAG_FILE'" EXIT
 
  if [[ ! -f "$FLAG_FILE" ]]; then
     fastfetch  # Run Fastfetch
@@ -36,8 +38,6 @@ case $- in
 esac
 
 
-# Location to store the ssh-agent environment file
-SSH_ENV="$HOME/.ssh/ssh-agent"
 
 ####################################################################
 ####################### Aliases ####################################
@@ -99,23 +99,6 @@ alias dl='devpod ls'
 alias dd='devpod delete'
 
 
-# If no agent is running, start a new one
-if [ -z "$SSH_AUTH_SOCK" ]; then
-    if [ -f "$SSH_ENV" ]; then
-        source "$SSH_ENV"
-        # If the agent PID no longer exists, start a new one
-        if ! kill -0 "$SSH_AGENT_PID" 2>/dev/null; then
-            start_agent
-        fi
-    else
-        start_agent
-    fi
-fi
-
-# Auto-add id_ed25519 if agent has no identities
-if ! ssh-add -l | grep -q "id_ed25519"; then
-    ssh-add ~/.ssh/id_ed25519 &>/dev/null
-fi
 
 # kubectl / minikube
 alias k='kubectl'
@@ -250,7 +233,11 @@ function nvims() {
 ################## Functions ####################################
 #################################################################
 
-
+#################################################################
+########## Export ssh agent to dev containers ###################
+#################################################################
+# Location to store the ssh-agent environment file
+SSH_ENV="$HOME/.ssh/ssh-agent"
 
 # Function to start the ssh-agent and save its environment
 start_agent() {
@@ -259,6 +246,33 @@ start_agent() {
     chmod 600 "$SSH_ENV"
     source "$SSH_ENV"
 }
+
+
+# Only run if SSH agent socket is not set or invalid
+if [ -z "$SSH_AUTH_SOCK" ] || ! ssh-add -l &>/dev/null; then
+    if [ -f "$SSH_ENV" ]; then
+        source "$SSH_ENV"
+        # If the agent PID is dead or unusable, start a new one
+        if ! kill -0 "$SSH_AGENT_PID" 2>/dev/null || ! ssh-add -l &>/dev/null; then
+            echo "Removing stale SSH agent file and starting new agent..."
+            rm -f "$SSH_ENV"
+            start_agent
+        fi
+    else
+        start_agent
+    fi
+fi
+
+# Auto-add id_ed25519 if agent has no identities
+if ! ssh-add -l | grep -q "id_ed25519"; then
+    ssh-add ~/.ssh/id_ed25519 &>/dev/null
+fi
+
+# This is important for VS Code and Dev Containers
+export SSH_AGENT_SOCK=$SSH_AUTH_SOCK
+#################################################################
+####################  END   #####################################
+#################################################################
 
 # switch to zsh
 switch_zsh(){
@@ -641,8 +655,6 @@ export PATH="/home/shaharyar/.rd/bin:$PATH"
 ### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)
 export MPD_HOST=~/.config/mpd/socket
 export MAVEN_OPTS="--enable-native-access=ALL-UNNAMED"
-# This is important for VS Code and Dev Containers
-export SSH_AGENT_SOCK=$SSH_AUTH_SOCK
 
 # added homebrew config
 if command -v brew &> /dev/null; then 
