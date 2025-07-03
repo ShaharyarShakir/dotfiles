@@ -126,35 +126,35 @@ return {
 			},
 			html = {},
 			cssls = {},
-			-- tailwindcss = {
-			-- 	filetypes = {
-			-- 		"html",
-			-- 		"css",
-			-- 		"scss",
-			-- 		"javascript",
-			-- 		"javascriptreact",
-			-- 		"typescript",
-			-- 		"typescriptreact",
-			-- 		"svelte",
-			-- 	},
-			-- 	root_dir = require("lspconfig.util").root_pattern(
-			-- 		"tailwind.config.js",
-			-- 		"tailwind.config.ts",
-			-- 		"postcss.config.js",
-			-- 		"package.json",
-			-- 		".git"
-			-- 	),
-			-- 	settings = {
-			-- 		tailwindCSS = {
-			-- 			classAttributes = { "class", "className", "ngClass" },
-			-- 			experimental = {
-			-- 				classRegex = {
-			-- 					{ "class(?:Name)?\\s*=\\s*[\"']([^\"']*)[\"']" },
-			-- 				},
-			-- 			},
-			-- 		},
-			-- 	},
-			-- },
+			tailwindcss = {
+				filetypes = {
+					"html",
+					"css",
+					"scss",
+					"javascript",
+					"javascriptreact",
+					"typescript",
+					"typescriptreact",
+					"svelte",
+				},
+				root_dir = require("lspconfig.util").root_pattern(
+					"tailwind.config.js",
+					"tailwind.config.ts",
+					"postcss.config.js",
+					"package.json",
+					".git"
+				),
+				settings = {
+					tailwindCSS = {
+						classAttributes = { "class", "className", "ngClass" },
+						experimental = {
+							classRegex = {
+								{ "class(?:Name)?\\s*=\\s*[\"']([^\"']*)[\"']" },
+							},
+						},
+					},
+				},
+			},
 			emmet_ls = {
 				filetypes = {
 					"html",
@@ -169,7 +169,6 @@ return {
 			},
 			volar = {},
 
-			--[[ Uncomment and configure these as needed:
 
 
       svelte = {
@@ -187,7 +186,6 @@ return {
         filetypes = { "graphql", "gql", "svelte", "typescriptreact", "javascriptreact" },
       },
 
-      ]]
 		}
 
 		-- Setup all servers
