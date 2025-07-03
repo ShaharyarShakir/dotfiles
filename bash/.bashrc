@@ -75,6 +75,9 @@ alias las='ls -A'                 # Hidden Files
 alias lls='ls -l'                 # List
 fi
 
+# alias for exit
+alias :xa='exit'
+
 # git
 alias ga='git add .'
 alias gc='git commit -m'
@@ -664,3 +667,13 @@ USER_HOME=$(eval echo ~$(whoami))
  eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
  eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 fi
+alias pn="pnpm"
+alias pnx="pnpm dlx"
+
+# pnpm
+export PNPM_HOME="/home/shaharyar/.local/share/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end
