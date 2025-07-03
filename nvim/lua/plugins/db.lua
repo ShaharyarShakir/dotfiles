@@ -1,10 +1,17 @@
-return{
-  "nvim-telescope/telescope.nvim",
+return {
+  'kristijanhusak/vim-dadbod-ui',
   dependencies = {
-    "nvim-telescope/telescope-dap.nvim",
-    "kristijanhusak/vim-dadbod-ui",
+    { 'tpope/vim-dadbod', lazy = true },
+    { 'kristijanhusak/vim-dadbod-completion', ft = { 'sql', 'mysql', 'plsql' }, lazy = true }, -- Optional
   },
-  config = function()
-    require('telescope').load_extension('dap')
-  end
+  cmd = {
+    'DBUI',
+    'DBUIToggle',
+    'DBUIAddConnection',
+    'DBUIFindBuffer',
+  },
+  init = function()
+    -- Your DBUI configuration
+    vim.g.db_ui_use_nerd_fonts = 1
+  end,
 }
