@@ -22,6 +22,7 @@ return {
 				"emmet_ls",
 				---				"prismals",
 				"markdown_oxide",
+				"yamlls"
 			},
 		})
 	end,
