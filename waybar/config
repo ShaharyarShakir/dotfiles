@@ -1,52 +1,112 @@
-// __        __          _                 
-// \ \      / /_ _ _   _| |__   __ _ _ __  
-//  \ \ /\ / / _` | | | | '_ \ / _` | '__| 
-//   \ V  V / (_| | |_| | |_) | (_| | |    
-//    \_/\_/ \__,_|\__, |_.__/ \__,_|_|    
-//                 |___/                   
-//  
-// by Shaharyar Shakir
-// ----------------------------------------------------- 
-//
 {
-  "layer": "top", // Waybar at top layer
-  "position": "top", // Waybar position (top|bottom|left|right)
-  "height": 50,
-  "margin": "0 0 0 0",
-//  "width": 1350, // Waybar width
-  // Choose the order of the modules idle_inhibitor
+  "layer": "top",
+  "position": "top",
+  "mod": "dock",
+  "exclusive": true,
+  "passthrough": false,
+  "gtk-layer-shell": true,
+  "height": 36,
+  "margin-right": 5,
+  "margin-left": 5,
+
   "modules-left": [
-    "custom/launcher",
-    "hyprland/workspaces",
-    "custom/swap",
-    "tray",
-    "hyprland/window",
-   // "custom/cava-internal",
-    "mpd#2",
-    "mpd#3",
-    "mpd#4",
-    "mpd"
+    "custom/rofi",
+    "clock"
   ],
-  "modules-center": ["clock"],
+
+  "modules-center": [
+    "hyprland/workspaces"
+  ],
+
   "modules-right": [
-    "backlight",
-    "pulseaudio",
-    "custom/keyboard-layout",
-    "temperature",
-    // "cpu",
-    // "memory",
-    // "disk",
-    "group/hardware",
+    "tray",
     "battery",
-    "network",
-    "idle_inhibitor",
-    "custom/power"
+    "custom/volume",
+    "pulseaudio#microphone",
+    "backlight",
+    "network"
   ],
 
+  "custom/rofi": {
+    "format": "",
+    "on-click": "rofi -theme ~/.config/rofi/theme/onedark_mini.rasi -show drun",
+    "tooltip": false
+  },
 
-    // Load Modules
-    "include": ["~/.config/waybar/modules.json"],
+  "clock": {
+    "format": " {:%I:%M %p}",
+    "tooltip": true,
+    "tooltip-format": "{:%A, %d %B %Y}",
+    "interval": 60
+  },
 
-  // Modules configuration
+  "hyprland/workspaces": {
+    "on-click": "activate",
+    "disable-scroll": true,
+    "all-outputs": true,
+    "show-special": false,
+    "format": "{id}",
+    "format-icons": {
+      "active": "{id}",
+      "default": ""
+    }
+  },
 
+  "custom/volume": {
+    "format": " {}%",
+    "tooltip": true,
+    "interval": 1,
+    "exec": "wpctl get-volume @DEFAULT_AUDIO_SINK@ | awk '{print int($2 * 100)}'",
+    "on-click": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
+    "on-scroll-up": "wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+",
+    "on-scroll-down": "wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%-"
+  },
+
+  "pulseaudio#microphone": {
+    "format": "{format_source}",
+    "format-source": "",
+    "format-source-muted": "",
+    "on-click": "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle",
+    "on-scroll-up": "wpctl set-volume -l 1 @DEFAULT_AUDIO_SOURCE@ 5%+",
+    "on-scroll-down": "wpctl set-volume -l 1 @DEFAULT_AUDIO_SOURCE@ 5%-",
+    "tooltip": true,
+    "tooltip-format": " at {volume}%"
+  },
+
+  "backlight": {
+    "device": "intel_backlight",
+    "format": "󰃞 {percent}%",
+    "on-scroll-up": "brightnessctl set +5%",
+    "on-scroll-down": "brightnessctl set 5%-"
+  },
+
+  "battery": {
+    "states": {
+      "good": 95,
+      "warning": 30,
+      "critical": 20
+    },
+    "format": "{icon}",
+    "format-charging": " {capacity}%",
+    "format-plugged": " {capacity}%",
+    "format-alt-click": "click-right",
+    "format-alt": "{icon} {capacity}%",
+    "format-icons": ["󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"]
+  },
+
+  "network": {
+    "format-wifi": "  {essid}",
+    "format-ethernet": "  {ifname}",
+    "format-disconnected": "  Disconnected",
+    "tooltip-format": " {ifname} via {gwaddr}",
+    "tooltip-format-wifi": " {essid} ({signalStrength}%)",
+    "tooltip-format-ethernet": " {ifname} {ipaddr}/{cidr}",
+    "tooltip-format-disconnected": "Disconnected"
+  },
+
+  "tray": {
+    "icon-size": 12,
+    "spacing": 10
+  }
 }
+
