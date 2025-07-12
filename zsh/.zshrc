@@ -88,13 +88,16 @@ zinit snippet  OMZP::aws
 zinit snippet  OMZP::terraform
 zinit snippet  OMZP::kubectx
 zinit snippet  OMZP::command-not-found
-
+zinit snippet  OMZP::docker
 
 # aliases
 alias ls='ls --color'
 alias vi='nvim'
 alias c='clear'
 alias v='nvim'
+alias y='yazi'
+alias lg='lazygit'
+
 
 # shell integrations
 eval "$(fzf --zsh)"
