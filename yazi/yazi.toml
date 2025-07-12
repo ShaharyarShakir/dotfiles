@@ -31,7 +31,7 @@ ueberzug_offset = [ 0, 0, 0, 0 ]
 
 [opener]
 edit = [
-  { run = '${EDITOR:-vi} "$@"', desc = "Default Editor ($EDITOR)", block = true, for = "unix" },
+  { run = '${EDITOR:-vim} "$@"', desc = "Default Editor ($EDITOR)", block = true, for = "unix" },
   { run = 'neovim "$@"', desc = "Neovim", block = true, for = "unix" },
   { run = 'nvim "$@"', desc = "Neovim", block = true, for = "unix" },
   { run = 'vim "$@"', desc = "Vim", block = true, for = "unix" },
