@@ -1,0 +1,89 @@
+* {
+  font-family: "jetbrainsmono nerd font";
+  font-size: 18px;
+  color: #ffffff;
+  border: none;
+}
+
+window#waybar {
+  background: transparent;
+  border: none;
+}
+
+/* common styling for all modules */
+#clock,
+#custom-volume,
+#pulseaudio,
+#backlight,
+#network,
+#custom-rofi,
+#battery,
+#tray {
+  padding: 6px 12px;
+  margin: 4px 8px;
+  background-color: rgba(10, 20, 40, 0.7);
+  border-radius: 10px;
+}
+
+/* arch logo style */
+#custom-rofi {
+  color: #1793d1;
+  font-weight: bolder;
+  font-size: 18px;
+}
+
+/* workspaces */
+#workspaces button {
+  margin: 4px 6px;
+  padding: 6px 14px;
+  border-radius: 12px;
+  background: rgba(10, 20, 40, 0.7);
+  color: #cdd6f4;
+}
+
+#custom-notifications {
+  font-size: 15px;
+  color: #ffffff;
+  /* white icon color */
+  background-color: rgba(10, 20, 40, 0.7);
+  border-radius: 10px;
+  padding: 6px 12px;
+  margin: 4px 6px;
+}
+
+#custom-notifications.notify {
+  color: #ffffff;
+  /* white */
+}
+
+#custom-notifications.empty {
+  color: #ffffff;
+  /* or make it gray: #777777 */
+}
+
+#workspaces button.active {
+  background: rgba(50, 90, 150, 0.8);
+  color: #ffffff;
+}
+
+#workspaces button:hover {
+  background: rgba(50, 90, 150, 0.6);
+  color: #ffffff;
+}
+
+#battery {
+  color: #ffffff; /* default */
+  padding: 6px 12px;
+  margin: 4px 6px;
+  border-radius: 10px;
+}
+
+#battery.warning {
+  color: #fab387; /* peach for warning */
+}
+
+#battery.critical {
+  color: #f38ba8; /* red for critical */
+  font-weight: bold;
+}
+
