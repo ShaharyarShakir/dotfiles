@@ -98,6 +98,39 @@ alias v='nvim'
 alias y='yazi'
 alias lg='lazygit'
 
+# alias for ls/eza
+if command -v eza &> /dev/null; then
+alias ls='eza --icons -lah --group-directories-first --git'
+alias lss="eza --color=always --long --git --no-filesize --icons=always --no-time --no-user --no-permissions"
+alias lt='eza -T --icons'
+alias ll='eza -lh --icons'
+alias la='eza -la --icons'
+alias lsize='eza -lh --icons -s size -r'
+alias lmod='eza -lh --icons -s modified'
+alias lg='eza -lh --icons --git'
+alias l='eza -l --icons --git'
+alias cmatrix='cmatrix -u 10 -B -f'
+
+else
+alias la='ls -Alh'                # show hidden files
+alias ls='ls -aFh --color=always' # add colors and file type extensions
+alias lx='ls -lXBh'               # sort by extension
+alias lk='ls -lSrh'               # sort by size
+alias lc='ls -ltcrh'              # sort by change time
+alias lu='ls -lturh'              # sort by access time
+alias lr='ls -lRh'                # recursive ls
+alias lt='ls -ltrh'               # sort by date
+alias lm='ls -alh |more'          # pipe through 'more'
+alias lw='ls -xAh'                # wide listing format
+alias ll='ls -Fls'                # long listing format
+alias labc='ls -lap'              # alphabetical sort
+alias lf="ls -l | egrep -v '^d'"  # files only
+alias ldir="ls -l | egrep '^d'"   # directories only
+alias lla='ls -Al'                # List and Hidden Files
+alias las='ls -A'                 # Hidden Files
+alias lls='ls -l'                 # List
+fi
+
 
 # shell integrations
 eval "$(fzf --zsh)"
