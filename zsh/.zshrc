@@ -131,6 +131,13 @@ alias las='ls -A'                 # Hidden Files
 alias lls='ls -l'                 # List
 fi
 
+# Change directory aliases
+alias he='cd ~'
+alias cd..='cd ..'
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+alias .....='cd ../../../..'
 
 # shell integrations
 eval "$(fzf --zsh)"
