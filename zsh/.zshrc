@@ -143,6 +143,18 @@ alias .....='cd ../../../..'
 eval "$(fzf --zsh)"
 eval "$(zoxide init --cmd cd zsh)"
 
+# cd into the old directory
+alias bd='cd "$OLDPWD"'
+
+# Check if ripgrep is installed
+if command -v rg &> /dev/null; then
+    # Alias grep to rg if ripgrep is installed
+    alias grep='rg'
+else
+    # Alias grep to /usr/bin/grep with GREP_OPTIONS if ripgrep is not installed
+    alias grep="/usr/bin/grep $GREP_OPTIONS"
+fi
+unset GREP_OPTIONS
 
 # Set default editor to Neovim
 export EDITOR=nvim
