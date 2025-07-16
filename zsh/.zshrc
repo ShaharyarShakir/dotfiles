@@ -160,6 +160,10 @@ unset GREP_OPTIONS
 export EDITOR=nvim
 export VISUAL=nvim
 export YAZI_EDITOR="nvim"
+export TERM=xterm-256color
+
+# # To customize prompt, run `p10k configure` or edit ~/.config/zsh/.p10k.zsh.
+# [[ ! -f ~/.config/zsh/.p10k.zsh ]] || source ~/.config/zsh/.p10k.zshexport TERM=xterm-256color
 
 # To customize prompt, run `p10k configure` or edit ~/.config/zsh/.p10k.zsh.
 [[ ! -f ~/.config/zsh/.p10k.zsh ]] || source ~/.config/zsh/.p10k.zsh
