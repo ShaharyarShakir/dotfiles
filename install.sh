@@ -2,7 +2,7 @@
 
 # make a dir for config
 mkdir -p ~/.config 
- install packages and source bash
+# install packages and source bash
 chmod +x bash/install.sh
 ./bash/install.sh
 source bash/.bashrc
