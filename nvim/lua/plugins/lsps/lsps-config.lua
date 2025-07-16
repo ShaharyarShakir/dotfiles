@@ -78,22 +78,22 @@ return {
 
 		-- LSP servers
 		local servers = {
-			ts_ls = {
-				cmd = { "typescript-language-server", "--stdio" },
-				root_dir = function(fname)
-					local util = require("lspconfig.util")
-					return util.root_pattern("package.json", "tsconfig.json", ".git")(fname) or vim.fn.getcwd()
-				end,
-			},
-
-			gopls = {
-				filetypes = { "go", "gomod", "gowork", "gotmpl" },
-				settings = {
-					gopls = {
-						completeUnimported = true,
-					},
-				},
-			},
+			-- ts_ls = {
+			-- 	cmd = { "typescript-language-server", "--stdio" },
+			-- 	root_dir = function(fname)
+			-- 		local util = require("lspconfig.util")
+			-- 		return util.root_pattern("package.json", "tsconfig.json", ".git")(fname) or vim.fn.getcwd()
+			-- 	end,
+			-- },
+			--
+			-- gopls = {
+			-- 	filetypes = { "go", "gomod", "gowork", "gotmpl" },
+			-- 	settings = {
+			-- 		gopls = {
+			-- 			completeUnimported = true,
+			-- 		},
+			-- 	},
+			-- },
 			bashls = {
 				filetypes = { "bash", "sh", "zsh" },
 				settings = {
@@ -103,9 +103,9 @@ return {
 					},
 				},
 			},
-			pyright = {
-				filetypes = { "python" },
-			},
+			-- pyright = {
+			-- 	filetypes = { "python" },
+			-- },
 			lua_ls = {
 				settings = {
 					Lua = {
@@ -124,67 +124,67 @@ return {
 					},
 				},
 			},
-			html = {},
-			cssls = {},
-			tailwindcss = {
-				filetypes = {
-					"html",
-					"css",
-					"scss",
-					"javascript",
-					"javascriptreact",
-					"typescript",
-					"typescriptreact",
-					"svelte",
-				},
-				root_dir = require("lspconfig.util").root_pattern(
-					"tailwind.config.js",
-					"tailwind.config.ts",
-					"postcss.config.js",
-					"package.json",
-					".git"
-				),
-				settings = {
-					tailwindCSS = {
-						classAttributes = { "class", "className", "ngClass" },
-						experimental = {
-							classRegex = {
-								{ "class(?:Name)?\\s*=\\s*[\"']([^\"']*)[\"']" },
-							},
-						},
-					},
-				},
-			},
-			emmet_ls = {
-				filetypes = {
-					"html",
-					"typescriptreact",
-					"javascriptreact",
-					"css",
-					"sass",
-					"scss",
-					"less",
-					"svelte",
-				},
-			},
-			volar = {},
-
-
-
-      svelte = {
-        on_attach = function(client, bufnr)
-          vim.api.nvim_create_autocmd("BufWritePost", {
-            pattern = { "*.js", "*.ts" },
-            callback = function(ctx)
-              client.notify("$/onDidChangeTsOrJsFile", { uri = ctx.match })
-            end,
-          })
-        end,
-      },
-
-      graphql = {
-        filetypes = { "graphql", "gql", "svelte", "typescriptreact", "javascriptreact" },
-      },
+			-- html = {},
+			-- cssls = {},
+			-- tailwindcss = {
+			-- 	filetypes = {
+			-- 		"html",
+			-- 		"css",
+			-- 		"scss",
+			-- 		"javascript",
+			-- 		"javascriptreact",
+			-- 		"typescript",
+			-- 		"typescriptreact",
+			-- 		"svelte",
+			-- 	},
+			-- 	root_dir = require("lspconfig.util").root_pattern(
+			-- 		"tailwind.config.js",
+			-- 		"tailwind.config.ts",
+			-- 		"postcss.config.js",
+			-- 		"package.json",
+			-- 		".git"
+			-- 	),
+			-- 	settings = {
+			-- 		tailwindCSS = {
+			-- 			classAttributes = { "class", "className", "ngClass" },
+			-- 			experimental = {
+			-- 				classRegex = {
+			-- 					{ "class(?:Name)?\\s*=\\s*[\"']([^\"']*)[\"']" },
+			-- 				},
+			-- 			},
+			-- 		},
+			-- 	},
+			-- },
+			-- emmet_ls = {
+			-- 	filetypes = {
+			-- 		"html",
+			-- 		"typescriptreact",
+			-- 		"javascriptreact",
+			-- 		"css",
+			-- 		"sass",
+			-- 		"scss",
+			-- 		"less",
+			-- 		"svelte",
+			-- 	},
+			-- },
+			-- volar = {},
+			--
+			--
+			--
+   --    svelte = {
+   --      on_attach = function(client, bufnr)
+   --        vim.api.nvim_create_autocmd("BufWritePost", {
+   --          pattern = { "*.js", "*.ts" },
+   --          callback = function(ctx)
+   --            client.notify("$/onDidChangeTsOrJsFile", { uri = ctx.match })
+   --          end,
+   --        })
+   --      end,
+   --    },
+			--
+   --    graphql = {
+   --      filetypes = { "graphql", "gql", "svelte", "typescriptreact", "javascriptreact" },
+   --    },
 
 		}
 

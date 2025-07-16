@@ -7,22 +7,24 @@ return {
 
 		mason_lspconfig.setup({
 			ensure_installed = {
-				"ts_ls",
-				"html",
-				"cssls",
+				-- "ts_ls",
+				-- "html",
+				-- "cssls",
 				--				"clangd",
-				"tailwindcss",
+				--[[ "tailwindcss", ]]
 				---				"svelte",
-				"pyright",
-				"gopls",
+				-- "pyright",
+				-- "gopls",
 				"bashls",
 				"lua_ls",
 				---				"graphql",
 				---				"jdtls",
-				"emmet_ls",
+				--[[ "emmet_ls", ]]
 				---				"prismals",
 				"markdown_oxide",
-				"yamlls"
+				"yamlls",
+				"dockerls",
+				"docker_compose_language_service"
 			},
 		})
 	end,
