@@ -224,7 +224,7 @@ function nvims() {
   elif [[ $config == "default" ]]; then
     config=""
   fi
-  NVIM_APPNAME=$config nvim $@
+  NVIM_APPNAME="$config nvim $@"
 }
    bind -x '"\C-n": nvims'
 
@@ -277,16 +277,6 @@ export SSH_AGENT_SOCK=$SSH_AUTH_SOCK
 ####################  END   #####################################
 #################################################################
 
-# switch to zsh
-switch_zsh(){
-if [ "$SHELL" == "/usr/bin/bash" ]; then
-	echo "Switching to ZSH"
-	exec zsh
-else 
-	echo "Shell not found"
-	fi
-}
-bind -x '"\C-zs" : switch_zsh' 
 
 
 # Script to list recent files and open nvim using fzf
@@ -319,8 +309,7 @@ list_oldfiles() {
 }
 
 # binding the function to ctrl l
-
-bind -x '"\C-l" : list_oldfiles'
+bind -x '"\C-l": list_oldfiles'
 
 # Function to extract various archive formats
 extract() {
@@ -669,6 +658,8 @@ USER_HOME=$(eval echo ~$(whoami))
 fi
 alias pn="pnpm"
 alias pnx="pnpm dlx"
+export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+# export MANPAGER="less -R --use-color -Dd+r -Du+b"
 
 # pnpm
 export PNPM_HOME="/home/shaharyar/.local/share/pnpm"
@@ -677,3 +668,6 @@ case ":$PATH:" in
   *) export PATH="$PNPM_HOME:$PATH" ;;
 esac
 # pnpm end
+
+# Auto-Warpify
+[[ "$-" == *i* ]] && printf 'P$f{"hook": "SourcedRcFileForWarp", "value": { "shell": "bash", "uname": "Linux" }}œ' 
