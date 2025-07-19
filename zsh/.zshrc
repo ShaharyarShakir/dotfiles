@@ -138,6 +138,12 @@ alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
 alias .....='cd ../../../..'
+alias cls='clear'
+
+# kubectl
+alias k='kubectl'
+alias kx='kubectl exec -it'
+alias kg='kubectl get'
 
 # shell integrations
 eval "$(fzf --zsh)"
@@ -163,7 +169,7 @@ export YAZI_EDITOR="nvim"
 export TERM=xterm-256color
 
 # # To customize prompt, run `p10k configure` or edit ~/.config/zsh/.p10k.zsh.
-# [[ ! -f ~/.config/zsh/.p10k.zsh ]] || source ~/.config/zsh/.p10k.zshexport TERM=xterm-256color
+# [[ ! -f ~/.config/zsh/.p10k.zsh ]] || source ~/.config/zsh/.p10k.zshexport
 
 # To customize prompt, run `p10k configure` or edit ~/.config/zsh/.p10k.zsh.
 [[ ! -f ~/.config/zsh/.p10k.zsh ]] || source ~/.config/zsh/.p10k.zsh
