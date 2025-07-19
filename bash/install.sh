@@ -461,41 +461,28 @@ link_config() {
 
 # link config for zsh
 
-link_zsh() {
-    USER_HOME=$(getent passwd "${SUDO_USER:-$USER}" | cut -d: -f6)
-    OLD_ZSHRC="$USER_HOME/.zshrc"
-    ZSH_CONFIG_DIR="$USER_HOME/.config/zsh"
-    ZSHENV="$USER_HOME/.zshenv"
 
-    # Backup old .zshrc if it exists
-    if [ -e "$OLD_ZSHRC" ]; then
-        print_colored "$YELLOW" "Moving old zsh config file to $USER_HOME/.zshrc.bak"
-        if ! mv "$OLD_ZSHRC" "$USER_HOME/.zshrc.bak"; then
-            print_colored "$RED" "Can't move the old zsh config file!"
-            exit 1
-        fi
+stow_zsh() {
+    DOTFILES_DIR="$HOME/.config/dotfiles"
+    ZSHRC_PATH="$HOME/.zshrc"
+
+    if [ -e "$ZSHRC_PATH" ] || [ -L "$ZSHRC_PATH" ]; then
+        print_colored "$YELLOW" "Backing up existing .zshrc to .zshrc.bak"
+        mv -v "$ZSHRC_PATH" "$ZSHRC_PATH.bak"
     fi
 
-    # Ensure the ~/.config/zsh directory exists
-    mkdir -p "$ZSH_CONFIG_DIR"
+    cd "$DOTFILES_DIR" || {
+        print_colored "$RED" "Failed to enter $DOTFILES_DIR"
+        exit 1
+    }
 
-    # Link the new .zshrc
-    print_colored "$YELLOW" "Linking new zsh config file..."
-    if ! ln -svf "$GITPATH/zsh/.zshrc" "$ZSH_CONFIG_DIR/.zshrc"; then
-        print_colored "$RED" "Failed to create symbolic link for Zsh config"
+    print_colored "$YELLOW" "Stowing zsh config from $DOTFILES_DIR..."
+    if stow -t "$HOME" zsh; then
+        print_colored "$GREEN" "zsh config stowed successfully."
+    else
+        print_colored "$RED" "Failed to stow zsh config."
         exit 1
     fi
-
-    # Create ~/.zshenv to set ZDOTDIR if not already present
-    if [ ! -f "$ZSHENV" ]; then
-        print_colored "$YELLOW" "Creating .zshenv to set ZDOTDIR..."
-        echo 'export ZDOTDIR=$HOME/.config/zsh' > "$ZSHENV"
-        print_colored "$GREEN" ".zshenv created and configured"
-    else
-        print_colored "$YELLOW" ".zshenv already exists. Please ensure it sets ZDOTDIR if needed."
-    fi
-
-    print_colored "$GREEN" "Zsh configuration linked successfully."
 }
 
 # Main execution
@@ -512,7 +499,7 @@ install_yazi
 install_fd
 create_fastfetch_config
 link_config
-link_zsh
+stow_zsh
 
 if link_config; then
     print_colored "$GREEN" "Done!\nrestart your shell to see the changes."
