@@ -16,7 +16,7 @@
   ],
 
   "modules-center": [
-  "custom/notifications",
+    "custom/notifications",
     "hyprland/workspaces"
   ],
 
@@ -41,18 +41,18 @@
     "tooltip-format": "{:%A, %d %B %Y}",
     "interval": 60
   },
- 
- "custom/notifications": {
-  "format": "{}",
-  "return-type": "json",
-  "interval": 1,
-  "exec": "~/.config/waybar/scripts/swaync_status.sh",
-  "on-click": "swaync-client -t",
-  "on-click-right": "swaync-client -C",
-  "on-click-middle": "swaync-client -d",
-  "tooltip": false
-}
-,
+
+  "custom/notifications": {
+    "format": "{}",
+    "return-type": "json",
+    "interval": 1,
+    "exec": "~/.config/waybar/scripts/swaync_status.sh",
+    "on-click": "swaync-client -t",
+    "on-click-right": "swaync-client -C",
+    "on-click-middle": "swaync-client -d",
+    "tooltip": false
+  },
+
   "hyprland/workspaces": {
     "on-click": "activate",
     "disable-scroll": true,
@@ -94,22 +94,22 @@
     "on-scroll-down": "brightnessctl set 5%-"
   },
 
-"battery": {
-  "states": {
-    "good": 95,
-    "warning": 30,
-    "critical": 15
+  "battery": {
+    "states": {
+      "good": 95,
+      "warning": 30,
+      "critical": 15
+    },
+    "format": "{icon} {capacity}%",
+    "format-charging": " {capacity}%",
+    "format-plugged": " {capacity}%",
+    "format-alt": "{icon} {capacity}%",
+    "format-icons": [
+      "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂"
+    ],
+    "tooltip": true,
+    "on-update": "~/.config/waybar/scripts/battery_notify.sh"
   },
-  "format": "{icon} {capacity}%",
-  "format-charging": " {capacity}%",
-  "format-plugged": " {capacity}%",
-  "format-alt": "{icon} {capacity}%",
-  "format-icons": [
-    "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂"
-  ],
-  "tooltip": true,
-  "on-update": "~/.config/waybar/scripts/battery_notify.sh"
-},
 
   "network": {
     "format-wifi": "  {essid}",
@@ -118,7 +118,8 @@
     "tooltip-format": " {ifname} via {gwaddr}",
     "tooltip-format-wifi": " {essid} ({signalStrength}%)",
     "tooltip-format-ethernet": " {ifname} {ipaddr}/{cidr}",
-    "tooltip-format-disconnected": "Disconnected"
+    "tooltip-format-disconnected": "Disconnected",
+    "on-click": "nm-connection-editor"
   },
 
   "tray": {
