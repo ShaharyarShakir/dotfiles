@@ -76,6 +76,8 @@ fi
 # alias for exit
 alias :xa='exit'
 
+alias codium='flatpak run com.vscodium.codium'
+
 # git
 alias ga='git add .'
 alias gc='git commit -m'
@@ -104,6 +106,8 @@ alias dd='devpod delete'
 # kubectl / minikube
 alias k='kubectl'
 alias mk='minikube'
+alias t='task'
+alias tl='task --list-all'
 
 # bash
 alias vb='nvim ~/.bashrc'
@@ -137,10 +141,10 @@ fi
 
 # yazi / tmux / kill
 alias y="yazi"
-alias t='tmux'
-alias tn='tmux new -s '
-alias tl='tmux ls'
-alias ta='tmux attach -t '
+alias tm='tmux'
+alias tmn='tmux new -s '
+alias tml='tmux ls'
+alias tma='tmux attach -t '
 alias zj='zellij'
 
 
@@ -670,3 +674,6 @@ esac
 # Auto-Warpify
 [[ "$-" == *i* ]] && printf 'P$f{"hook": "SourcedRcFileForWarp", "value": { "shell": "bash", "uname": "Linux" }}œ' 
 . "$HOME/.cargo/env"
+
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.rvm/bin"
