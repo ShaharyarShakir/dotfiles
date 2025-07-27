@@ -13,6 +13,9 @@ stow .
 ln -s ~/.tmux.conf  ~/.config/tmux/.tmux.conf
 touch ~/.tmux.conf
 ln -s ~/.config/tmux/.tmux.conf  ~/.tmux.conf 
-# detect if the distro arch or not
 
-#	curl -fsSL https://code-server.dev/install.sh | sh
+# jetify devbox 
+curl -fsSL https://get.jetify.com/devbox | bash
+
+# detect if the distro arch or not
+#curl -fsSL https://code-server.dev/install.sh | sh
