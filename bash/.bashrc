@@ -95,6 +95,10 @@ alias fh='history | fzf'
 alias fo='find . -type f | fzf'
 alias vf='nvim $(fzf --preview "bat --color=always {}")'
 
+# docker, podman, nerdctl 
+alias doc='nerdctl'
+alias dock='podman'
+
 # devpod
 alias dp='devpod'
 alias dss='devpod ssh'
@@ -155,6 +159,7 @@ alias mkdir='mkdir -p'
 alias ps='ps auxf'
 alias less='less -R'
 alias cls='clear'
+alias c='clear'
 alias apt-get='sudo apt-get'
 alias multitail='multitail --no-repeat -c'
 alias freshclam='sudo freshclam'
@@ -673,7 +678,8 @@ esac
 
 # Auto-Warpify
 [[ "$-" == *i* ]] && printf 'P$f{"hook": "SourcedRcFileForWarp", "value": { "shell": "bash", "uname": "Linux" }}œ' 
-. "$HOME/.cargo/env"
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
+alias gh-create='gh repo create --private --source=. --remote=origin && git push -u --all && gh browse'
+eval "$(task --completion bash)"
