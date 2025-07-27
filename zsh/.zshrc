@@ -88,7 +88,10 @@ zinit snippet  OMZP::aws
 zinit snippet  OMZP::terraform
 zinit snippet  OMZP::kubectx
 zinit snippet  OMZP::command-not-found
-zinit snippet  OMZP::docker
+# Enable Devbox CLI autocomplete
+eval "$(devbox completion zsh)"
+
+
 
 # aliases
 alias ls='ls --color'
@@ -145,6 +148,11 @@ alias k='kubectl'
 alias kx='kubectl exec -it'
 alias kg='kubectl get'
 
+# github cli alias
+alias gh-create='gh repo create --private --source=. --remote=origin && git push -u --all && gh browse'
+alias gh-issue='gh issue create --web'
+alias gh-pr='gh pr create --web'
+
 # shell integrations
 eval "$(fzf --zsh)"
 eval "$(zoxide init --cmd cd zsh)"
@@ -181,3 +189,8 @@ export TERM=xterm-256color
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
 eval "$(~/.local/bin/mise activate zsh)"
+
+# Taskfile completion
+if command -v task >/dev/null 2>&1; then
+  eval "$(task --completion zsh)"
+fi
