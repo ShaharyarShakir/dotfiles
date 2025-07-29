@@ -188,9 +188,13 @@ export TERM=xterm-256color
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
-eval "$(~/.local/bin/mise activate zsh)"
+if command -v mise >/dev/null 2>&1; then
 
+eval "$(~/.local/bin/mise activate zsh)"
+fi
 # Taskfile completion
 if command -v task >/dev/null 2>&1; then
   eval "$(task --completion zsh)"
 fi
+
+typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
