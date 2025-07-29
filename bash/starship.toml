@@ -1,4 +1,3 @@
-
 "$schema" = 'https://starship.rs/config-schema.json'
 
 add_newline = true
@@ -71,7 +70,7 @@ zsh_indicator = ""
 [nix_shell]
 disabled = false
 impure_msg = "devbox"
-format = 'via [$symbol$state](bold purple) '
+format = ' via [$symbol$state](bold purple) '
 
 [sudo]
 disabled = false
