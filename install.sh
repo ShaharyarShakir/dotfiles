@@ -2,10 +2,12 @@
 
 # make a dir for config
 mkdir -p ~/.config 
+
 # install packages and source bash
 chmod +x bash/install.sh
 ./bash/install.sh
 source bash/.bashrc
+
 # stow for creating sublinks
 stow .
 
@@ -17,5 +19,3 @@ ln -s ~/.config/tmux/.tmux.conf  ~/.tmux.conf
 # jetify devbox 
 curl -fsSL https://get.jetify.com/devbox | bash
 
-# detect if the distro arch or not
-#curl -fsSL https://code-server.dev/install.sh | sh
