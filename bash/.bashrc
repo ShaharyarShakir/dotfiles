@@ -1,5 +1,6 @@
 # ~/.bashrc - Main shell config, sources additional modular files
 # # Run fastfetch only once per login session
+#set -x  # shows each command as it runs (for bash)
 # ble.sh
  FLAG_FILE="/tmp/fastfetch_ran_$USER"
 # Always register the trap
@@ -76,6 +77,10 @@ fi
 # alias for exit
 alias :xa='exit'
 
+# github cli 
+alias gh-create='gh repo create --private --source=. --remote=origin && git push -u --all && gh browse'
+
+#vs codium
 alias codium='flatpak run com.vscodium.codium'
 
 # git
@@ -96,16 +101,14 @@ alias fo='find . -type f | fzf'
 alias vf='nvim $(fzf --preview "bat --color=always {}")'
 
 # docker, podman, nerdctl 
-alias doc='nerdctl'
-alias dock='podman'
+# alias doc='nerdctl'
+# alias dock='podman'
 
 # devpod
 alias dp='devpod'
 alias dss='devpod ssh'
 alias dl='devpod ls'
 alias dd='devpod delete'
-
-
 
 # kubectl / minikube
 alias k='kubectl'
@@ -119,14 +122,12 @@ alias sb='source ~/.bashrc'
 alias cb='cd /d/BSCS/git-repos'
 
 # trash-cli
-
 if command -v trash-put &>/dev/null
 then
 alias rm='trash-put'
 else
 alias rm='rm -i'
 fi
-
 
 # Vim / Neovim
 if command -v nvim &> /dev/null; then
@@ -137,7 +138,6 @@ alias v.='nvim .'
 alias vi='nvim'
 alias svi='sudo vi'
 alias vis='nvim "+set si"'
-
 else
 export EDITOR=vim
 export VISUAL=vim
@@ -151,7 +151,6 @@ alias tml='tmux ls'
 alias tma='tmux attach -t '
 alias zj='zellij'
 
-
 # aliases to modified commands
 alias cp='cp -i'
 alias mv='mv -i'
@@ -160,7 +159,6 @@ alias ps='ps auxf'
 alias less='less -R'
 alias cls='clear'
 alias c='clear'
-alias apt-get='sudo apt-get'
 alias multitail='multitail --no-repeat -c'
 alias freshclam='sudo freshclam'
 
@@ -200,11 +198,10 @@ alias tree='tree -CAhF --dirsfirst'
 alias treed='tree -CAFd'
 alias mountedinfo='df -hT'
 
-# ---- Zoxide (better cd) ----
+# Zoxide (better cd) 
 alias cd="z "
 
 # alias for oldfiles
-
 alias nlof='list_oldfiles'
 
 # alias to cleanup unused docker containers, images, networks, and volumes
@@ -214,6 +211,10 @@ alias docker-clean=' \
   docker network prune -f ; \
   docker volume prune -f '
 
+# pnpm node package manager
+alias pn="pnpm"
+alias pnx="pnpm dlx"
+
 # neoVim Starter
 alias nvim-lazy="NVIM_APPNAME=LazyVim nvim"
 alias nvim-kick="NVIM_APPNAME=kickstart nvim"
@@ -222,18 +223,6 @@ alias nvim-astro="NVIM_APPNAME=AstroNvim nvim"
 alias nvim-astro="NVIM_APPNAME=neobean nvim"
 
 
-function nvims() {
-  items=("default" "kickstart" "LazyVim" "NvChad" "AstroNvim", "neobean")
-  config=$(printf "%s\n" "${items[@]}" | fzf --prompt="î˜« Neovim Config ï˜½ " --height=~50% --layout=reverse --border --exit-0)
-  if [[ -z $config ]]; then
-    echo "Nothing selected"
-    return 0
-  elif [[ $config == "default" ]]; then
-    config=""
-  fi
-  NVIM_APPNAME="$config nvim $@"
-}
-   bind -x '"\C-n": nvims'
 
 ################################################################
 ################## END #########################################
@@ -284,6 +273,19 @@ export SSH_AGENT_SOCK=$SSH_AUTH_SOCK
 ####################  END   #####################################
 #################################################################
 
+# Function to open Neovim with different configurations using fzf
+function nvims() {
+  items=("default" "kickstart" "LazyVim" "NvChad" "AstroNvim" "neobean")
+  config=$(printf "%s\n" "${items[@]}" | fzf --prompt="î˜« Neovim Config ï˜½ " --height=~50% --layout=reverse --border --exit-0)
+  if [[ -z $config ]]; then
+    echo "Nothing selected"
+    return 0
+  elif [[ $config == "default" ]]; then
+    config=""
+  fi
+  NVIM_APPNAME="$config nvim $@"
+}
+   bind -x '"\C-n": nvims'
 
 
 # Script to list recent files and open nvim using fzf
@@ -316,7 +318,7 @@ list_oldfiles() {
 }
 
 # binding the function to ctrl l
-bind -x '"\C-l": list_oldfiles'
+bind -x '"\C-o": list_oldfiles'
 
 # Function to extract various archive formats
 extract() {
@@ -585,20 +587,26 @@ _fzf_compgen_dir() {
   fd --type=d --hidden --exclude .git . "$1"
 }
 # --- setup fzf theme ---
-fg="#CBE0F0"
-bg="#011628"
-bg_highlight="#143652"
-purple="#B388FF"
-blue="#06BCE4"
-cyan="#2CF9ED"
+#fg="#CBE0F0"
+#bg="#011628"
+#bg_highlight="#143652"
+#purple="#B388FF"
+#blue="#06BCE4"
+#cyan="#2CF9ED"
 
-export FZF_DEFAULT_OPTS="--color=fg:${fg},bg:${bg},hl:${purple},fg+:${fg},bg+:${bg_highlight},hl+:${purple},info:${blue},prompt:${cyan},pointer:${cyan},marker:${cyan},spinner:${cyan},header:${cyan}"
+#export FZF_DEFAULT_OPTS="--color=fg:${fg},bg:${bg},hl:${purple},fg+:${fg},bg+:${bg_highlight},hl+:${purple},info:${blue},prompt:${cyan},pointer:${cyan},marker:${cyan},spinner:${cyan},header:${cyan}"
 
 # --- Setup fzf previews ----
 show_file_or_dir_preview="if [ -d {} ]; then eza --tree --color=always {} | head -200; else bat -n --color=always --line-range :500 {}; fi"
 
 export FZF_CTRL_T_OPTS="--preview '$show_file_or_dir_preview'"
 export FZF_ALT_C_OPTS="--preview 'eza --tree --color=always {} | head -200'"
+
+
+#################################################################################
+############################# END ###############################################
+#################################################################################
+
 
 # Advanced customization of fzf options via _fzf_comprun function
 # - The first argument to the function is the name of the command.
@@ -616,23 +624,12 @@ _fzf_comprun() {
 }
    bind -x '"\C-f": _fzf_comprun'
 
-# Enable fancy prompt using starship
-eval "$(starship init bash)"
-#`eval "$(zoxide init bash)" 
-# ---- FZF -----
-
-# Set up fzf key bindings and fuzzy completion
-eval "$(fzf --bash)"
-
-
-# ---- Zoxide (better cd) ----
-eval "$(zoxide init --cmd cd bash)"
 
 
 
-#######################################################
-# Set the ultimate amazing command prompt
-#######################################################
+###################################################################################
+################### Set the ultimate amazing command prompt #######################
+###################################################################################
 
 alias hug="hugo server -F --bind=10.0.0.97 --baseURL=http://10.0.0.97"
 
@@ -655,16 +652,6 @@ export PATH="/home/shaharyar/.rd/bin:$PATH"
 export MPD_HOST=~/.config/mpd/socket
 export MAVEN_OPTS="--enable-native-access=ALL-UNNAMED"
 
-# added homebrew config
-if command -v brew &> /dev/null; then 
-USER_HOME=$(eval echo ~$(whoami))
- echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >> "$USER_HOME/.bashrc"
- eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
- eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
- eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-fi
-alias pn="pnpm"
-alias pnx="pnpm dlx"
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 # export MANPAGER="less -R --use-color -Dd+r -Du+b"
 
@@ -674,12 +661,47 @@ case ":$PATH:" in
   *":$PNPM_HOME:"*) ;;
   *) export PATH="$PNPM_HOME:$PATH" ;;
 esac
-# pnpm end
-
-# Auto-Warpify
-[[ "$-" == *i* ]] && printf 'P$f{"hook": "SourcedRcFileForWarp", "value": { "shell": "bash", "uname": "Linux" }}œ' 
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
-alias gh-create='gh repo create --private --source=. --remote=origin && git push -u --all && gh browse'
+
+################################################################################
+#############################  END  ############################################
+################################################################################
+
+#################################################################################
+######################### SHELL Commands and Configurations #####################
+#################################################################################
+
+# added homebrew config for macos
+if command -v brew &> /dev/null; then 
+USER_HOME=$(eval echo ~$(whoami))
+ echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >> "$USER_HOME/.bashrc"
+ eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+ eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+ eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+fi
+
+# Enable fancy prompt using starship
+eval "$(starship init bash)"
+
+# Enable zoxide for better directory navigation
+eval "$(zoxide init bash)" 
+
+# Set up fzf key bindings and fuzzy completion
+eval "$(fzf --bash)"
+
+#Zoxide (better cd)
+eval "$(zoxide init --cmd cd bash)"
+
+# Taskfile completion for task command
+if command -v task >/dev/null 2>&1; then
 eval "$(task --completion bash)"
+fi
+
+# Devbox global shell environment
+eval "$(devbox global shellenv)"
+
+#################################################################################
+########################### END OF .bashrc ######################################
+#################################################################################
