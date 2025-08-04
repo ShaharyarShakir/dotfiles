@@ -79,6 +79,7 @@ alias :xa='exit'
 
 # github cli 
 alias gh-create='gh repo create --private --source=. --remote=origin && git push -u --all && gh browse'
+alias gh-createp='gh repo create --public --source=. --remote=origin && git push -u --all && gh browse'
 
 #vs codium
 alias codium='flatpak run com.vscodium.codium'
@@ -199,8 +200,8 @@ alias treed='tree -CAFd'
 alias mountedinfo='df -hT'
 
 # Zoxide (better cd) 
-alias cd="z "
-
+# alias cd="z "
+export _ZO_ECHO=1
 # alias for oldfiles
 alias nlof='list_oldfiles'
 
@@ -272,6 +273,42 @@ export SSH_AGENT_SOCK=$SSH_AUTH_SOCK
 #################################################################
 ####################  END   #####################################
 #################################################################
+
+
+# Function that uses fzf to choose a devbox command
+devbox_menu() {
+    local options=(
+        "devbox init"
+        "devbox add"
+        "devbox shell"
+    )
+
+    local selected
+    selected=$(printf "%s\n" "${options[@]}" | fzf --prompt="Devbox > " --height=10 --border)
+
+    case "$selected" in
+        "devbox init")
+            echo "Running: devbox init"
+            devbox init
+            ;;
+        "devbox add")
+            read -rp "Enter package name to add: " pkg
+            echo "Running: devbox add $pkg"
+            devbox add "$pkg"
+            ;;
+        "devbox shell")
+            echo "Running: devbox shell"
+            devbox shell
+            ;;
+        *)
+            echo "Cancelled or invalid selection."
+            ;;
+    esac
+}
+
+bind -x '"\C-g": devbox_menu'
+
+
 
 # Function to open Neovim with different configurations using fzf
 function nvims() {
@@ -511,14 +548,16 @@ mkdirg() {
 }
 
 # Automatically do an ls after each cd, z, or zoxide
-cd ()
-{
-	if [ -n "$1" ]; then
-		builtin cd "$@" && ls
-	else
-		builtin cd ~ && ls
-	fi
+__last_dir="$PWD"
+
+__auto_ls_on_cd() {
+    if [[ "$PWD" != "$__last_dir" ]]; then
+        __last_dir="$PWD"
+       # echo -e "\n📂 $(pwd)"
+        ls --color=auto -lah
+    fi
 }
+
 # GitHub Titus Additions
 
 gcom() {
@@ -685,15 +724,19 @@ fi
 # Enable fancy prompt using starship
 eval "$(starship init bash)"
 
-# Enable zoxide for better directory navigation
-eval "$(zoxide init bash)" 
-
 # Set up fzf key bindings and fuzzy completion
 eval "$(fzf --bash)"
 
 #Zoxide (better cd)
 eval "$(zoxide init --cmd cd bash)"
 
+
+# Hook it into PROMPT_COMMAND without overwriting it
+if [[ -z "$PROMPT_COMMAND" ]]; then
+    PROMPT_COMMAND="__auto_ls_on_cd"
+else
+    PROMPT_COMMAND="__auto_ls_on_cd; $PROMPT_COMMAND"
+fi
 # Taskfile completion for task command
 if command -v task >/dev/null 2>&1; then
 eval "$(task --completion bash)"
