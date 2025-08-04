@@ -44,14 +44,9 @@ zinit light zsh-users/zsh-completions
 zinit light zsh-users/zsh-autosuggestions
 zinit light Aloxaf/fzf-tab
 
-
-
-
 # load zsh-completions
 autoload -Uz compinit && compinit
 zinit cdreplay -q
-
-
 
 # keybinds
 bindkey -e
@@ -78,20 +73,35 @@ zstyle ':completion:*' menu no
 zstyle ':fzf-tab:completion:cd:*' fzf-preview 'ls --color $realpath' 
 zstyle ':fzf-tab:completion:__zoxide_z:*' fzf-preview 'ls --color $realpath'
 
-
-
 # Add in snippets
-zinit snippet  OMZP::git
-zinit snippet  OMZP::docker
-zinit snippet  OMZP::kubectl
-zinit snippet  OMZP::aws
-zinit snippet  OMZP::terraform
-zinit snippet  OMZP::kubectx
-zinit snippet  OMZP::command-not-found
+zinit snippet OMZP::git
+zinit snippet OMZP::docker
+zinit snippet OMZP::kubectl
+zinit snippet OMZP::command-not-found
+zinit snippet OMZP::aws
+zinit snippet OMZP::terraform
+zinit snippet OMZP::kubectx
+zinit snippet OMZP::npm
+zinit snippet OMZP::node
+zinit snippet OMZP::yarn
+zinit snippet OMZP::nvm
+zinit snippet OMZP::z
+zinit snippet OMZP::aliases
+zinit snippet OMZP::common-aliases
+zinit snippet OMZP::extract
+zinit snippet OMZP::colored-man-pages
+zinit snippet OMZP::history
+zinit snippet OMZP::sudo
+zinit snippet OMZP::gcloud
+zinit snippet OMZP::fzf
+zinit snippet OMZP::themes
+zinit snippet OMZP::python
+zinit snippet OMZP::pip
+zinit snippet OMZP::virtualenv
+zinit snippet OMZP::rails
+zinit snippet OMZP::composer
 # Enable Devbox CLI autocomplete
 eval "$(devbox completion zsh)"
-
-
 
 # aliases
 alias ls='ls --color'
@@ -156,6 +166,7 @@ alias gh-pr='gh pr create --web'
 # shell integrations
 eval "$(fzf --zsh)"
 eval "$(zoxide init --cmd cd zsh)"
+export _ZO_ECHO=1
 
 # cd into the old directory
 alias bd='cd "$OLDPWD"'
@@ -179,6 +190,9 @@ export TERM=xterm-256color
 # Taskfile
 alias t='task'
 alias tl='task --list-all'
+
+# lazygit
+alias lg='lazygit'
 
 # # To customize prompt, run `p10k configure` or edit ~/.config/zsh/.p10k.zsh.
 # [[ ! -f ~/.config/zsh/.p10k.zsh ]] || source ~/.config/zsh/.p10k.zshexport
