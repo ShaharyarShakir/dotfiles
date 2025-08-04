@@ -101,7 +101,9 @@ zinit snippet OMZP::virtualenv
 zinit snippet OMZP::rails
 zinit snippet OMZP::composer
 # Enable Devbox CLI autocomplete
+if command -v devbox &> /dev/null; then
 eval "$(devbox completion zsh)"
+fi
 
 # aliases
 alias ls='ls --color'
