@@ -216,4 +216,13 @@ if command -v task >/dev/null 2>&1; then
   eval "$(task --completion zsh)"
 fi
 
+# Add Homebrew to PATH if installed
+if command -v brew &> /dev/null; then 
+USER_HOME=$(eval echo ~$(whoami))
+ echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >> "$USER_HOME/.bashrc"
+ eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+ eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+ eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+fi
+# Enable instant prompt for Powerlevel10k
 typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
