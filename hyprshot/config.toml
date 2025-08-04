@@ -1,0 +1,7 @@
+mode = "region"
+output_path = "~/Pictures/Screenshots"
+copy_to_clipboard = true
+flash = true
+border_size = 2
+border_color = "#00ff00"
+filename = "screenshot-%Y%m%d-%H%M%S.png"
