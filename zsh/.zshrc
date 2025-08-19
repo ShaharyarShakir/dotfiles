@@ -1,16 +1,11 @@
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.config/zsh/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
-
-### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
-export PATH="/home/shaharyar/.rd/bin:$PATH"
-### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)
-alias vi='nvim'
-export MAVEN_OPTS="--enable-native-access=ALL-UNNAMED"
-# eval "$(starship init zsh)"
+#if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+#   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+# fi
+# alias vi='nvim'
+# export MAVEN_OPTS="--enable-native-access=ALL-UNNAMED"
 
 ### Added by Zinit's installer
 if [[ ! -f $HOME/.local/share/zinit/zinit.git/zinit.zsh ]]; then
@@ -36,7 +31,7 @@ zinit light-mode for \
 ### End of Zinit's installer chunk
 
 # Add in powerlevel10k theme
-zinit ice depth=1; zinit light romkatv/powerlevel10k
+# zinit ice depth=1; zinit light romkatv/powerlevel10k
 
 # zsh installed Plugins
 zinit light zsh-users/zsh-syntax-highlighting
@@ -70,7 +65,7 @@ setopt hist_find_no_dups
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
 zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
 zstyle ':completion:*' menu no
-zstyle ':fzf-tab:completion:cd:*' fzf-preview 'ls --color $realpath' 
+zstyle ':fzf-tab:completion:cd:*' fzf-preview  'ls --color $realpath'
 zstyle ':fzf-tab:completion:__zoxide_z:*' fzf-preview 'ls --color $realpath'
 
 # Add in snippets
@@ -183,6 +178,11 @@ else
 fi
 unset GREP_OPTIONS
 
+# Function to create a directory and change into it
+mkdirg() {
+  mkdir -p "$1" && cd "$1"
+}
+
 # Set default editor to Neovim
 export EDITOR=nvim
 export VISUAL=nvim
@@ -200,10 +200,10 @@ alias lg='lazygit'
 # [[ ! -f ~/.config/zsh/.p10k.zsh ]] || source ~/.config/zsh/.p10k.zshexport
 
 # To customize prompt, run `p10k configure` or edit ~/.config/zsh/.p10k.zsh.
-[[ ! -f ~/.config/zsh/.p10k.zsh ]] || source ~/.config/zsh/.p10k.zsh
+# [[ ! -f ~/.config/zsh/.p10k.zsh ]] || source ~/.config/zsh/.p10k.zsh
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+# [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
@@ -215,14 +215,21 @@ fi
 if command -v task >/dev/null 2>&1; then
   eval "$(task --completion zsh)"
 fi
+# starship
+export STARSHIP_CONFIG="$HOME/.config/starship_zsh.toml"
+eval "$(starship init zsh)"
 
 # Add Homebrew to PATH if installed
 if command -v brew &> /dev/null; then 
 USER_HOME=$(eval echo ~$(whoami))
  echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >> "$USER_HOME/.bashrc"
- eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
- eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
- eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 fi
 # Enable instant prompt for Powerlevel10k
 typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
+export BUILDKIT_HOST=unix:///run/user/1000/buildkit/buildkitd.sock
+
+### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
+export PATH="/home/shaharyar/.rd/bin:$PATH"
+### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)
+export STARSHIP_CONFIG="/home/shaharyar/.config/starship_zsh.toml"
+export PATH="$HOME/.local/bin:$PATH"
