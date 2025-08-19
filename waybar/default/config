@@ -94,32 +94,22 @@
     "on-scroll-down": "brightnessctl set 5%-"
   },
 
- 
-"battery": {
-  "states": {
-    "good": 95,
-    "warning": 30,
-    "critical": 15
+  "battery": {
+    "states": {
+      "good": 95,
+      "warning": 30,
+      "critical": 15
+    },
+    "format": "{icon} {capacity}%",
+    "format-charging": "󰂄 {capacity}%",
+    "format-plugged": " {capacity}%",
+    "format-alt": "{icon} {capacity}%",
+    "format-icons": [
+      "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂"
+    ],
+    "tooltip": true,
+    "on-update": "~/.config/waybar/scripts/battery_notify.sh"
   },
-  "format": "{icon} {capacity}%",
-  "format-charging": "󰂄 {capacity}%",
-  "format-plugged": "󰚥 {capacity}%",
-  "format-alt": "{icon} {capacity}%",
-  "format-icons": [
-    "󰁺",
-    "󰁻",
-    "󰁼",
-    "󰁽",
-    "󰁾",
-    "󰁿",
-    "󰂀",
-    "󰂁",
-    "󰂂",
-    "󰂃"
-  ],
-  "tooltip": true,
-  "on-update": "~/.config/waybar/scripts/battery_notify.sh"
-},
 
   "network": {
     "format-wifi": "  {essid}",

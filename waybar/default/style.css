@@ -45,7 +45,7 @@ window#waybar {
   font-size: 15px;
   color: #ffffff;
   /* white icon color */
-  background-color: rgba(10, 20, 40, 0.7);
+  background-color: transparent;
   border-radius: 10px;
   padding: 6px 12px;
   margin: 4px 6px;
