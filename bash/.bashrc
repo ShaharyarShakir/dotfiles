@@ -21,16 +21,6 @@ print_logo
 #         figlet -f small  -w 120 "Shaharyar Shakir" | lolcat
   touch "$FLAG_FILE"  # Create the flag file to prevent re-running
 fi
-# if command -v fastfetch &> /dev/null; then
-#     # Only run fastfetch if we're in an interactive shell
-#     if [[ $- == *i* ]]; then
-#         fastfetch
-#         figlet -w 120 "Shaharyar Shakir" | lolcat
-
-#     fi
-# fi
-
-# If not running interactively, exit
 case $- in
     *i*) ;;
       *) return;;
@@ -101,9 +91,6 @@ alias fh='history | fzf'
 alias fo='find . -type f | fzf'
 alias vf='nvim $(fzf --preview "bat --color=always {}")'
 
-# docker, podman, nerdctl 
-# alias doc='nerdctl'
-# alias dock='podman'
 
 # devpod
 alias dp='devpod'
@@ -114,6 +101,12 @@ alias dd='devpod delete'
 # kubectl / minikube
 alias k='kubectl'
 alias mk='minikube'
+
+# kubectx / kubens
+alias kx='kubectx'
+alias kn='kubens'
+
+# Taskfile
 alias t='task'
 alias tl='task --list-all'
 
@@ -134,7 +127,6 @@ fi
 if command -v nvim &> /dev/null; then
 alias vim='nvim'
 alias v='nvim'
-alias vi='nvim'
 alias v.='nvim .'
 alias vi='nvim'
 alias svi='sudo vi'
@@ -164,7 +156,6 @@ alias multitail='multitail --no-repeat -c'
 alias freshclam='sudo freshclam'
 
 # posting - an http client to view data can also use httpie, curlie, kulala.nvim
-
 alias pos='posting'
 
 # Change directory aliases
@@ -313,14 +304,16 @@ bind -x '"\C-g": devbox_menu'
 # Function to open Neovim with different configurations using fzf
 function nvims() {
   items=("default" "kickstart" "LazyVim" "NvChad" "AstroNvim" "neobean")
-  config=$(printf "%s\n" "${items[@]}" | fzf --prompt="î˜« Neovim Config ï˜½ " --height=~50% --layout=reverse --border --exit-0)
+  config=$(printf "%s\n" "${items[@]}" | fzf --prompt=" Neovim Config  " --height=~50% --layout=reverse --border --exit-0)
+
   if [[ -z $config ]]; then
     echo "Nothing selected"
     return 0
   elif [[ $config == "default" ]]; then
-    config=""
+    NVIM_APPNAME="" nvim "$@"
+  else
+    NVIM_APPNAME="$config" nvim "$@"
   fi
-  NVIM_APPNAME="$config nvim $@"
 }
    bind -x '"\C-n": nvims'
 
@@ -361,21 +354,26 @@ bind -x '"\C-o": list_oldfiles'
 extract() {
     if [ -f "$1" ]; then
         case "$1" in
-            *.tar.bz2) tar xjf "$1" ;;
-            *.tar.gz) tar xzf "$1" ;;
-            *.bz2) bunzip2 "$1" ;;
-            *.rar) unrar x "$1" ;;
-            *.gz) gunzip "$1" ;;
-            *.tar) tar xf "$1" ;;
-            *.tbz2) tar xjf "$1" ;;
-            *.tgz) tar xzf "$1" ;;
-            *.zip) unzip "$1" ;;
-            *.Z) uncompress "$1" ;;
-            *.7z) 7z x "$1" ;;
+            *.tar.bz2|*.tbz2)   tar xjf "$1" ;;
+            *.tar.gz|*.tgz)    tar xzf "$1" ;;
+            *.tar.xz|*.txz)    tar xJf "$1" ;;
+            *.tar.lzma)        tar --lzma -xf "$1" ;;
+            *.tar)             tar xf "$1" ;;
+            *.bz2)             bunzip2 "$1" ;;
+            *.gz)              gunzip "$1" ;;
+            *.xz)              unxz "$1" ;;
+            *.lzma)            unlzma "$1" ;;
+            *.zip)             unzip "$1" ;;
+            *.7z)              7z x "$1" ;;
+            *.rar)             unrar x "$1" ;;
+            *.Z)               uncompress "$1" ;;
+            *.deb)             ar x "$1" ;;
+            *.rpm)             rpm2cpio "$1" | cpio -idmv ;;
+            *.iso)             7z x "$1" ;;  # needs p7zip
             *) echo "'$1' cannot be extracted via extract()" ;;
         esac
     else
-        echo "'$1' is not a valid file"
+        echo " '$1' is not a valid file"
     fi
 }
 
@@ -684,10 +682,6 @@ export TERM=xterm-256color
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
-### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
-export PATH="/home/shaharyar/.rd/bin:$PATH"
-### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)
 export MPD_HOST=~/.config/mpd/socket
 export MAVEN_OPTS="--enable-native-access=ALL-UNNAMED"
 
@@ -713,15 +707,14 @@ export PATH="$PATH:$HOME/.rvm/bin"
 #################################################################################
 
 # added homebrew config for macos
-if command -v brew &> /dev/null; then 
-USER_HOME=$(eval echo ~$(whoami))
- echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >> "$USER_HOME/.bashrc"
- eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
- eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
- eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+if command -v brew &> /dev/null; then
+
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 fi
 
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 # Enable fancy prompt using starship
+export STARSHIP_CONFIG="$HOME/.config/starship_bash.toml"
 eval "$(starship init bash)"
 
 # Set up fzf key bindings and fuzzy completion
@@ -745,6 +738,32 @@ fi
 # Devbox global shell environment
 eval "$(devbox global shellenv)"
 
+# buildkit configuration
+export BUILDKIT_HOST=unix:///run/user/1000/buildkit/buildkitd.sock
+
 #################################################################################
 ########################### END OF .bashrc ######################################
 #################################################################################
+export STARSHIP_CONFIG="/home/shaharyar/.config/starship_bash.toml"
+export PATH="$HOME/.local/bin:$PATH"
+
+### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
+export PATH="/home/shaharyar/.rd/bin:$PATH"
+### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)
+export STARSHIP_CONFIG="/home/shaharyar/.config/starship_bash.toml"
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
