@@ -1,6 +1,5 @@
 #!/bin/bash
 
-sh -e
 
 # Print the logo
 print_logo() {
@@ -430,60 +429,83 @@ create_fastfetch_config() {
 	fi
 }
 
+
 link_config() {
-	USER_HOME=$(getent passwd "${SUDO_USER:-$USER}" | cut -d: -f6)
-	OLD_BASHRC="$USER_HOME/.bashrc"
-	BASH_PROFILE="$USER_HOME/.bash_profile"
+    USER_HOME=$(getent passwd "${SUDO_USER:-$USER}" | cut -d: -f6)
+    OLD_BASHRC="$USER_HOME/.bashrc"
+    BASH_PROFILE="$USER_HOME/.bash_profile"
+    STARSHIP_BASH="$USER_HOME/.config/starship_bash.toml"
 
-	if [ -e "$OLD_BASHRC" ]; then
-		print_colored "$YELLOW" "Moving old bash config file to $USER_HOME/.bashrc.bak"
-		if ! mv "$OLD_BASHRC" "$USER_HOME/.bashrc.bak"; then
-			print_colored "$RED" "Can't move the old bash config file!"
-			exit 1
-		fi
-	fi
+    # Backup old bashrc
+    if [ -e "$OLD_BASHRC" ]; then
+        print_colored "$YELLOW" "Moving old bash config to $OLD_BASHRC.bak"
+        mv "$OLD_BASHRC" "$OLD_BASHRC.bak" || { print_colored "$RED" "Can't move .bashrc!"; exit 1; }
+    fi
 
-	print_colored "$YELLOW" "Linking new bash config file..."
-	if ! ln -svf "$GITPATH/.bashrc" "$USER_HOME/.bashrc" || ! ln -svf "$GITPATH/starship.toml" "$USER_HOME/.config/starship.toml"; then
-		print_colored "$RED" "Failed to create symbolic links"
-		exit 1
-	fi
+    # Link new bashrc
+    print_colored "$YELLOW" "Linking new bash config..."
+    ln -svf "$GITPATH/.bashrc" "$OLD_BASHRC"
 
-	# Create .bash_profile if it doesn't exist
-	if [ ! -f "$BASH_PROFILE" ]; then
-		print_colored "$YELLOW" "Creating .bash_profile..."
-		echo "[ -f ~/.bashrc ] && . ~/.bashrc" >"$BASH_PROFILE"
-		print_colored "$GREEN" ".bash_profile created and configured to source .bashrc"
-	else
-		print_colored "$YELLOW" ".bash_profile already exists. Please ensure it sources .bashrc if needed."
-	fi
+    # Link Starship Bash config
+    if [ -f "$GITPATH/starship_bash.toml" ]; then
+        mkdir -p "$USER_HOME/.config"
+        ln -svf "$GITPATH/starship_bash.toml" "$STARSHIP_BASH"
+        echo "export STARSHIP_CONFIG=\"$STARSHIP_BASH\"" >> "$OLD_BASHRC"
+    fi
+
+    # Create .bash_profile if missing
+    if [ ! -f "$BASH_PROFILE" ]; then
+        print_colored "$YELLOW" "Creating .bash_profile..."
+        echo "[ -f ~/.bashrc ] && . ~/.bashrc" > "$BASH_PROFILE"
+    fi
 }
-
-# link config for zsh
 
 stow_zsh() {
-	DOTFILES_DIR="$HOME/.config/dotfiles"
-	ZSHRC_PATH="$HOME/.zshrc"
+    DOTFILES_DIR="$HOME/dotfiles"
+    ZSHRC_PATH="$HOME/.zshrc"
+    STARSHIP_SOURCE="$DOTFILES_DIR/zsh/starship_zsh.toml"
+    STARSHIP_TARGET="$HOME/.config/starship_zsh.toml"
 
-	if [ -e "$ZSHRC_PATH" ] || [ -L "$ZSHRC_PATH" ]; then
-		print_colored "$YELLOW" "Backing up existing .zshrc to .zshrc.bak"
-		mv -v "$ZSHRC_PATH" "$ZSHRC_PATH.bak"
-	fi
+    # Backup existing .zshrc
+    if [ -e "$ZSHRC_PATH" ] || [ -L "$ZSHRC_PATH" ]; then
+        print_colored "$YELLOW" "Backing up existing .zshrc to .zshrc.bak"
+        mv -v "$ZSHRC_PATH" "$ZSHRC_PATH.bak"
+    fi
 
-	cd "$DOTFILES_DIR" || {
-		print_colored "$RED" "Failed to enter $DOTFILES_DIR"
-		exit 1
-	}
 
-	print_colored "$YELLOW" "Stowing zsh config from $DOTFILES_DIR..."
-	if stow -t "$HOME" zsh; then
-		print_colored "$GREEN" "zsh config stowed successfully."
-	else
-		print_colored "$RED" "Failed to stow zsh config."
-		exit 1
-	fi
+    # Enter dotfiles directory
+    cd "$DOTFILES_DIR" || { print_colored "$RED" "Failed to enter $DOTFILES_DIR"; exit 1; }
+
+    # Stow zsh config
+    print_colored "$YELLOW" "Stowing zsh config..."
+    if stow -t "$HOME" zsh; then
+        print_colored "$GREEN" "Zsh config stowed successfully."
+    else
+        print_colored "$RED" "Failed to stow zsh config."
+        exit 1
+    fi
+
+    # Link Starship Zsh config
+    if [ -f "$STARSHIP_SOURCE" ]; then
+        # Backup old config if exists
+        if [ -f "$STARSHIP_TARGET" ] || [ -L "$STARSHIP_TARGET" ]; then
+            print_colored "$YELLOW" "Backing up existing Starship config to starship_zsh.toml.bak"
+            mv -v "$STARSHIP_TARGET" "$STARSHIP_TARGET.bak"
+        fi
+
+        # Link new Starship config
+        ln -svf "$STARSHIP_SOURCE" "$STARSHIP_TARGET"
+
+        # Add STARSHIP_CONFIG to .zshrc if not already present
+        if ! grep -q "STARSHIP_CONFIG" "$ZSHRC_PATH"; then
+            echo "export STARSHIP_CONFIG=\"$STARSHIP_TARGET\"" >> "$ZSHRC_PATH"
+        fi
+
+        print_colored "$GREEN" "Starship config for Zsh linked and configured."
+    else
+        print_colored "$YELLOW" "No Starship Zsh config found at $STARSHIP_SOURCE, skipping."
+    fi
 }
-
 # Main execution
 # setup_directories
 check_environment
