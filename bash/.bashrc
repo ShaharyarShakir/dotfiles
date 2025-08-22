@@ -65,7 +65,7 @@ alias lls='ls -l'                 # List
 fi
 
 # nixos alias
-alias nrs='sudo nixos-rebuild switch '
+alias nrs='sudo nixos-rebuild switch --flake ~/dotfiles/nixos#nixos'
 # alias for exit
 alias :xa='exit'
 
@@ -731,7 +731,7 @@ else
     PROMPT_COMMAND="__auto_ls_on_cd; $PROMPT_COMMAND"
 fi
 # Taskfile completion for task command
-if command -v task >/dev/null 2>&1; then
+if command -v task >/dev/null; then
 eval "$(task --completion bash)"
 fi
 
