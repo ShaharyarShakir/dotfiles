@@ -155,6 +155,8 @@
     vscode
     vlc
     zed-editor
+    lazygit
+    tmux
     kdePackages.sddm
       ];
   # Some programs need SUID wrappers, can be configured further or are
