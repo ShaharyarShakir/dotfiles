@@ -64,6 +64,8 @@ alias las='ls -A'                 # Hidden Files
 alias lls='ls -l'                 # List
 fi
 
+# nixos alias
+alias nrs='sudo nixos-rebuild switch '
 # alias for exit
 alias :xa='exit'
 
@@ -708,11 +710,9 @@ export PATH="$PATH:$HOME/.rvm/bin"
 
 # added homebrew config for macos
 if command -v brew &> /dev/null; then
-
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 fi
 
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 # Enable fancy prompt using starship
 export STARSHIP_CONFIG="$HOME/.config/starship_bash.toml"
 eval "$(starship init bash)"
@@ -750,20 +750,5 @@ export PATH="$HOME/.local/bin:$PATH"
 ### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
 export PATH="/home/shaharyar/.rd/bin:$PATH"
 ### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)
-export STARSHIP_CONFIG="/home/shaharyar/.config/starship_bash.toml"
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+
+

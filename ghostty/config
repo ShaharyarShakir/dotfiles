@@ -1,6 +1,6 @@
 # By default Reload config with shft + cmd + , 
 
-command = "/bin/zsh --login -i && source ~/.zshrc"
+command = "/usr/bin/env zsh --login -i && source ~/.zshrc"
 config-file = themes/rosepine
 background = #000000
 background-opacity = 0.75

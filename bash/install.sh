@@ -1,4 +1,5 @@
-#!/bin/bash
+# #!/bin/bash
+#! /run/current-system/sw/bin/bash
 
 
 # Print the logo

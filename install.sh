@@ -1,4 +1,5 @@
-#!/usr/bin/bash
+# #!/usr/bin/bash
+#! /run/current-system/sw/bin/bash
 
 # make a dir for config
 mkdir -p ~/.config 

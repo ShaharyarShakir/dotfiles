@@ -20,20 +20,13 @@ return {
 
 		mason_tool_installer.setup({
 			ensure_installed = {
-				-- "prettier",
-				-- "stylua",
-				-- "eslint_d",
-				--				"clang-format",
-				-- "mypy",
-				-- "ruff",
-				-- "goimports",
-				-- "gofumpt",
-				-- "black",
-				 "shellcheck",
-				-- "shfmt",
-				--				"google-java-format",
+				"prettier",
+				"stylua",
+				"eslint_d",
+				"ruff",
+				"shellcheck",
 				"yamlfix",
-				"hadolint"
+				"hadolint",
 			},
 		})
 
