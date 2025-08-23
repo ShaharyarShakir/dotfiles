@@ -74,7 +74,7 @@
 
  # Enable the X11 windowing system.
 # X11
-  services.xserver.enable = true;
+  services.xserver.enable = false;
 
    services.displayManager.sddm = {
       enable = false; # Enable SDDM.
@@ -87,11 +87,26 @@
       wayland.enable = true;
       theme = "sddm-astronaut"; 
     };
- 
+   # docker service
+   virtualisation.docker.enable = false;
    # Desktop Environment
-  services.desktopManager.gnome.enable = true;
-  service.displayManager.gonome.enable = true;
+  services.desktopManager.gnome.enable = false;
+  services.displayManager.gdm.enable = true;
   services.xserver.desktopManager.plasma5.enable = false;
+# Hyprland 
+programs.hyprland = {
+    enable = true;
+    xwayland.enable = true;
+};
+  xdg.portal.enable = true;
+  xdg.portal.extraPortals = with pkgs; [
+  xdg-desktop-portal-wlr
+  ];
+
+environment.variables = {
+  XDG_SESSION_TYPE = "wayland";
+  XDG_CURRENT_DESKTOP = "Hyprland";
+};
 
   # Configure keymap in X11
   services.xserver.xkb = {
@@ -100,7 +115,7 @@
   };
 
   # Enable CUPS to print documents.
-  services.printing.enable = true;
+  services.printing.enable = false;
 
   # Enable sound with pipewire.
   services.pulseaudio.enable = false;
@@ -143,6 +158,7 @@
   environment.systemPackages = with pkgs; [
     vim 
     wget
+    trash-cli
     devbox	
     brave
     google-chrome
@@ -159,11 +175,22 @@
     yazi
     vscode
     vlc
-    distrobox
-    podman
     lazygit
     tmux
-    copyq
+    zed-editor
+    swappy
+    wl-clipboard
+    cliphist
+    distrobox
+    podman
+    waybar
+    hyprpaper
+    hyprshot
+    hypridle
+    pyprland
+    wlogout
+    rofi-wayland
+    wofi
       ];
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
