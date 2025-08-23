@@ -18,5 +18,8 @@ touch ~/.tmux.conf
 ln -s ~/.config/tmux/.tmux.conf  ~/.tmux.conf 
 
 # jetify devbox 
+ if command -v devbox >dev/null; then
+	echo "devbox is already installed"
+else
 curl -fsSL https://get.jetify.com/devbox | bash
-
+ fi
