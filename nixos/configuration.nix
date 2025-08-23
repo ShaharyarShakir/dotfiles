@@ -76,16 +76,21 @@
 # X11
   services.xserver.enable = true;
 
-  services.displayManager.sddm = {
-    enable = true;
-    theme = "sddm-astronaut-theme";
-    settings = {
-      Theme = { Current = "sddm-astronaut-theme"; };
+   services.displayManager.sddm = {
+      enable = false; # Enable SDDM.
+      package = pkgs.kdePackages.sddm;
+      extraPackages = with pkgs; [
+        sddm-astronaut
+        kdePackages.qtsvg
+        kdePackages.qtmultimedia
+      ];
+      wayland.enable = true;
+      theme = "sddm-astronaut"; 
     };
-    wayland.enable = true;
-  };
-  # Desktop Environment
-  services.xserver.desktopManager.gnome.enable = true;
+ 
+   # Desktop Environment
+  services.desktopManager.gnome.enable = true;
+  service.displayManager.gonome.enable = true;
   services.xserver.desktopManager.plasma5.enable = false;
 
   # Configure keymap in X11
@@ -154,10 +159,11 @@
     yazi
     vscode
     vlc
-    zed-editor
+    distrobox
+    podman
     lazygit
     tmux
-    kdePackages.sddm
+    copyq
       ];
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
@@ -166,6 +172,7 @@
   #   enable = true;
   #   enableSSHSupport = true;
   # };
+ boot.kernelModules = [ "overlay" ];
 
   # List services that you want to enable:
 
