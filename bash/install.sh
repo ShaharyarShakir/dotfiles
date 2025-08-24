@@ -1,7 +1,5 @@
-# #!/bin/bash
-#! /run/current-system/sw/bin/bash
-
-
+#!/usr/bin/env bash
+ export PATH=/run/current-system/sw/bin:$PATH
 # Print the logo
 print_logo() {
 	cat <<"EOF"
@@ -132,7 +130,8 @@ install_dependencies() {
 		"${SUDO_CMD} ${PACKAGER} -v ${DEPENDENCIES}"
 		;;
 	nix-env)
-		"${SUDO_CMD} ${PACKAGER} -iA nixos.bash nixos.bash-completion nixos.gnutar nixos.neovim nixos.bat nixos.tree nixos.multitail nixos.fastfetch nixos.pkgs.starship nixos.trash-clii"
+               "nix-env -iA nixpkgs.trash-cli nixpkgs.bash"
+
 		;;
 	dnf)
 		${SUDO_CMD} ${PACKAGER} install -y ${DEPENDENCIES}
@@ -270,7 +269,7 @@ install_neovim() {
 			${SUDO_CMD} ${PACKAGER} -Sy neovim
 			;;
 		nix-env)
-			${SUDO_CMD} nix-env -iA nixpkgs.neovim
+			 nix-env -iA nixpkgs.neovim
 			;;
 		*)
 			print_colored "$RED" "Unsupported or unknown package manager: $PACKAGER"
@@ -309,7 +308,7 @@ install_figlet_and_lolcat() {
 			${SUDO_CMD} ${PACKAGER} -Sy figlet lolcat
 			;;
 		nix-env)
-			${SUDO_CMD} nix-env -iA nixpkgs.figlet nixpkgs.lolcat
+			 nix-env -iA nixpkgs.figlet nixpkgs.lolcat
 			;;
 		*)
 			print_colored "$RED" "Unsupported or unknown package manager: $PACKAGER"
@@ -509,8 +508,8 @@ stow_zsh() {
 }
 # Main execution
 # setup_directories
-check_environment
-install_dependencies
+#check_environment
+#install_dependencies
 install_starship_and_fzf
 install_zoxide
 install_neovim
