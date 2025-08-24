@@ -90,12 +90,12 @@
    # docker service
    virtualisation.docker.enable = false;
    # Desktop Environment
-  services.desktopManager.gnome.enable = false;
+  services.desktopManager.gnome.enable = true;
   services.displayManager.gdm.enable = true;
   services.xserver.desktopManager.plasma5.enable = false;
 # Hyprland 
 programs.hyprland = {
-    enable = true;
+    enable = false;
     xwayland.enable = true;
 };
   xdg.portal.enable = true;
@@ -152,17 +152,12 @@ environment.variables = {
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
- services.udisks2.enable = true;
-  security.polkit.enable = true;
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     vim 
     wget
-     gvfs
-    gvfs-smb
-    gnome.gnome-disk-utility
     trash-cli
     devbox	
     brave
