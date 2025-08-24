@@ -169,6 +169,7 @@ environment.variables = {
     bat
     fzf
     ripgrep
+    syncthing
     fd 
     eza
     git
