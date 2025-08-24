@@ -4,10 +4,12 @@
 # ble.sh
  FLAG_FILE="/tmp/fastfetch_ran_$USER"
 # Always register the trap
-trap "rm -f '$FLAG_FILE'" EXIT
+trap "\rm -f '$FLAG_FILE'" EXIT
 
  if [[ ! -f "$FLAG_FILE" ]]; then
-    fastfetch  # Run Fastfetch
+    fastfetch
+    # Run Fastfetch
+    
     print_logo(){    cat << "EOF"  
 ██████╗ ███████╗██╗   ██╗ ██████╗██████╗  █████╗ ███████╗████████╗
 ██╔══██╗██╔════╝██║   ██║██╔════╝██╔══██╗██╔══██╗██╔════╝╚══██╔══╝
