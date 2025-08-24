@@ -1,4 +1,3 @@
-
 -- lua/config/diagnostics.lua
 
 vim.diagnostic.config({
