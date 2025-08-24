@@ -152,12 +152,17 @@ environment.variables = {
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
+ services.udisks2.enable = true;
+  security.polkit.enable = true;
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     vim 
     wget
+     gvfs
+    gvfs-smb
+    gnome.gnome-disk-utility
     trash-cli
     devbox	
     brave
