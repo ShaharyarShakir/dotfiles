@@ -171,6 +171,7 @@ environment.variables = {
     ripgrep
     syncthing
     fd 
+    rustdesk
     eza
     git
     yazi
@@ -183,6 +184,7 @@ environment.variables = {
     wl-clipboard
     cliphist
     distrobox
+    nautilus
     podman
     waybar
     hyprpaper
