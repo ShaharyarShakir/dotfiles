@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
- export PATH=/run/current-system/sw/bin:$PATH
 # Print the logo
 print_logo() {
 	cat <<"EOF"
@@ -118,7 +117,7 @@ install_dependencies() {
 		install_pacman_dependencies
 		;;
 	nala)
-		"${SUDO_CMD} ${PACKAGER} install -y ${DEPENDENCIES}"
+	${SUDO_CMD} ${PACKAGER} install -y ${DEPENDENCIES}
 		;;
 	apk)
 		"${SUDO_CMD} ${PACKAGER} add --no-cache ${DEPENDENCIES}"
@@ -507,16 +506,16 @@ stow_zsh() {
     fi
 }
 # Main execution
-# setup_directories
-#check_environment
-#install_dependencies
+#setup_directories
+check_environment
+install_dependencies
 install_starship_and_fzf
 install_zoxide
 install_neovim
 # install_figlet_and_lolcat
 install_kitty
 install_eza
-install_yazi
+#install_yazi
 install_fd
 create_fastfetch_config
 link_config

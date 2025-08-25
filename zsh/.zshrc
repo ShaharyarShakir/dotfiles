@@ -6,7 +6,31 @@
 # fi
 # alias vi='nvim'
 # export MAVEN_OPTS="--enable-native-access=ALL-UNNAMED"
+FLAG_FILE="/tmp/fastfetch_ran_$USER"
+# Always register the trap
+trap "\rm -f '$FLAG_FILE'" EXIT
 
+ if [[ ! -f "$FLAG_FILE" ]]; then
+    fastfetch
+    # Run Fastfetch
+    
+    print_logo(){    cat << "EOF"  
+██████╗ ███████╗██╗   ██╗ ██████╗██████╗  █████╗ ███████╗████████╗
+██╔══██╗██╔════╝██║   ██║██╔════╝██╔══██╗██╔══██╗██╔════╝╚══██╔══╝
+██║  ██║█████╗  ██║   ██║██║     ██████╔╝███████║█████╗     ██║   
+██║  ██║██╔══╝  ╚██╗ ██╔╝██║     ██╔══██╗██╔══██║██╔══╝     ██║   
+██████╔╝███████╗ ╚████╔╝ ╚██████╗██║  ██║██║  ██║██║        ██║   
+╚═════╝ ╚══════╝  ╚═══╝   ╚═════╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝        ╚═╝                                                                   
+EOF
+}
+print_logo
+#         figlet -f small  -w 120 "Shaharyar Shakir" | lolcat
+  touch "$FLAG_FILE"  # Create the flag file to prevent re-running
+fi
+case $- in
+    *i*) ;;
+      *) return;;
+esac
 ### Added by Zinit's installer
 if [[ ! -f $HOME/.local/share/zinit/zinit.git/zinit.zsh ]]; then
     print -P "%F{33} %F{220}Installing %F{33}ZDHARMA-CONTINUUM%F{220} Initiative Plugin Manager (%F{33}zdharma-continuum/zinit%F{220})…%f"
@@ -233,3 +257,6 @@ export PATH="/home/shaharyar/.rd/bin:$PATH"
 ### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)
 export STARSHIP_CONFIG="/home/shaharyar/.config/starship_zsh.toml"
 export PATH="$HOME/.local/bin:$PATH"
+
+## HomeBrew 
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"

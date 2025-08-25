@@ -717,7 +717,7 @@ export PATH="$PATH:$HOME/.rvm/bin"
 if command -v brew &> /dev/null; then
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 fi
-
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 # Enable fancy prompt using starship
 export STARSHIP_CONFIG="$HOME/.config/starship_bash.toml"
 eval "$(starship init bash)"
@@ -757,3 +757,7 @@ export PATH="/home/shaharyar/.rd/bin:$PATH"
 ### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)
 
 
+export STARSHIP_CONFIG="/home/shaharyar/.config/starship_bash.toml"
+export STARSHIP_CONFIG="/home/shaharyar/.config/starship_bash.toml"
+export STARSHIP_CONFIG="/home/shaharyar/.config/starship_bash.toml"
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
