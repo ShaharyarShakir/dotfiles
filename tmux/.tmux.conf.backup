@@ -1,0 +1,189 @@
+##### BASIC SETTINGS #####
+set -g default-terminal "tmux-256color"
+set-option -ga terminal-overrides ",xterm-256color:Tc"
+set -g mouse on
+set -g base-index 1
+set -g pane-base-index 1
+set -g renumber-windows on
+set-option -g display-time 1000
+set-window-option -g mode-keys vi
+
+##### KEY BINDINGS #####
+
+# Reload config
+unbind r
+bind r source-file ~/.config/tmux/.tmux.conf \; display-message "Config reloaded!"
+
+
+# Splits
+unbind %
+bind | split-window -h
+unbind '"'
+bind - split-window -v
+
+# Resize panes
+bind -r j resize-pane -D 5
+bind -r k resize-pane -U 5
+bind -r l resize-pane -R 5
+bind -r h resize-pane -L 5
+
+# Toggle zoom
+bind -r m resize-pane -Z
+
+# Copy mode (vi-style)
+bind-key -T copy-mode-vi 'v' send -X begin-selection
+bind-key -T copy-mode-vi 'y' send -X copy-selection
+unbind -T copy-mode-vi MouseDragEnd1Pane
+
+# Shift Alt vim keys to switch windows
+bind -n M-H previous-window
+bind -n M-L next-window
+
+##### Display Popups ##### 
+
+bind C-y display-popup \
+  -d "#{pane_current_path}" \
+  -w 80% \
+  -h 80% \
+  -E "lazygit"
+bind C-n display-popup -E 'bash -i -c "read -p \"Session name: \" name; tmux new-session -d -s \$name && tmux switch-client -t \$name"'
+bind C-j display-popup -E "tmux list-sessions | sed -E 's/:.*$//' | grep -v \"^$(tmux display-message -p '#S')\$\" | fzf --reverse | xargs tmux switch-client -t"
+bind C-p display-popup -E "ipython"
+bind C-f display-popup \
+  -w 80% \
+  -h 80% \
+  -E 'rmpc'
+bind C-u display-popup \
+  -d "#{pane_current_path}" \
+  -w 90% \
+  -h 90% \
+  -E "yazi"
+bind C-z display-popup \
+  -w 80% \
+  -h 80% \
+  -E 'nvim ~/.bashrc'
+bind C-g display-popup -E "bash -i ~/.tmux/scripts/chat-popup.sh"
+bind C-t display-popup \
+  -d "#{pane_current_path}" \
+  -w 75% \
+  -h 75% \
+  -E "zsh"
+
+
+bind C-h display-popup -w 90% -h 80% \
+  -E 'bash -l -c "compgen -c | grep -E '\''^[a-zA-Z0-9_.-]+$'\'' | sort -u | fzf --preview '\''man {} 2>/dev/null | col -bx | head -100'\'' --preview-window=right:70% | xargs -r man"'
+
+
+bind C-? display-menu -T "#[align=centre]Tmux Help" -x C -y C \
+  "Switch to previous window (Alt-H)" h "" \
+  "Switch to next window (Alt-L)" l "" \
+  "Open Ranger (C-r)" r "" \
+  "Open LazyGit (C-y)" y "" \
+  "Open Zsh Popup (C-t)" t "" \
+  "Edit .zshrc (C-z)" z ""
+
+
+##### Display Menu ##### 
+
+bind d display-menu -T "#[align=centre]Dotfiles" -x C -y C \
+  ".bashrc"            z  "display-popup -E 'nvim ~/.bashrc'" \
+  ".tmux.conf"        t  "display-popup -E 'nvim ~/.tmux.conf'" \
+  ".sketchybarrc"     s  "display-popup -d "~/.config/sketchybar" -E 'nvim ~/.config/sketchybar/sketchybarrc'" \
+  "Exit"              q  ""
+
+
+##### STATUS BAR #####
+set -g status-position top
+set -g status-left-length 100
+set -g status-right-length 100
+set -g status-style "bg=#{@thm_bg}"
+set -g status-justify "absolute-centre"
+
+# Status Left
+# set -g status-left ""
+# set -ga status-left "#{?client_prefix,#{#[bg=#{@thm_red},fg=#{@thm_bg},bold]  #S },#{#[bg=#{@thm_bg},fg=#{@thm_green}]  #S }}"
+# set -ga status-left "#[bg=#{@thm_bg},fg=#{@thm_overlay_0}]│"
+# set -ga status-left "#[bg=#{@thm_bg},fg=#{@thm_blue}]  #{=/-32/...:#{s|$USER|~|:#{b:pane_current_path}}} "
+# set -ga status-left "#[bg=#{@thm_bg},fg=#{@thm_overlay_0}]#{?window_zoomed_flag,│,}"
+# set -ga status-left "#[bg=#{@thm_bg},fg=#{@thm_yellow}]#{?window_zoomed_flag,  zoom ,}"
+
+# Status Right
+# set -g status-right ""
+# set -ga status-right "#{?#{e|>=:10,#{battery_percentage}},#{#[bg=#{@thm_red},fg=#{@thm_bg}]},#{#[bg=#{@thm_bg},fg=#{@thm_pink}]}} #{battery_icon} #{battery_percentage} "
+# set -ga status-right "#[bg=#{@thm_bg},fg=#{@thm_overlay_0}]│"
+# set -ga status-right "#[bg=#{@thm_bg}]#{?#{==:#{online_status},ok},#[fg=#{@thm_mauve}] 󰖩 on ,#[fg=#{@thm_red},bold]#[reverse] 󰖪 off }"
+# set -ga status-right "#[bg=#{@thm_bg},fg=#{@thm_overlay_0}]│"
+# set -ga status-right "#[bg=#{@thm_bg},fg=#{@thm_blue}] 󰭦 %Y-%m-%d 󰅐 %H:%M "
+#
+##### WINDOW AND PANE STYLING #####
+setw -g automatic-rename on
+set -g automatic-rename-format "#{pane_current_command}"
+
+# Window style
+set -g window-status-format " #I#{?#{!=:#{window_name},Window},: #W,} "
+set -g window-status-style "bg=#{@thm_bg},fg=#{@thm_rosewater}"
+set -g window-status-last-style "bg=#{@thm_bg},fg=#{@thm_peach}"
+set -g window-status-activity-style "bg=#{@thm_red},fg=#{@thm_bg}"
+set -g window-status-bell-style "bg=#{@thm_red},fg=#{@thm_bg},bold"
+set -gF window-status-separator "#[bg=#{@thm_bg},fg=#{@thm_overlay_0}]│"
+set -g window-status-current-format " #I#{?#{!=:#{window_name},Window},: #W,} "
+set -g window-status-current-style "bg=#{@thm_red},fg=#{@thm_bg},bold,reverse"
+# Pane borders
+setw -g pane-border-status top
+setw -g pane-border-format ""
+setw -g pane-border-lines single
+setw -g pane-border-style "bg=#{@thm_bg},fg=#{@thm_surface_0}"
+setw -g pane-active-border-style "bg=#{@thm_bg},fg=#{@thm_yellow},bold"
+
+##### PLUGINS #####
+set -g @plugin 'tmux-plugins/tpm'
+set -g @plugin 'christoomey/vim-tmux-navigator'
+# set -g @plugin 'tmux-plugins/tmux-resurrect'
+# set -g @plugin 'tmux-plugins/tmux-continuum'
+set -g @plugin 'omerxx/tmux-sessionx'
+set -g @plugin 'omerxx/tmux-floax'
+
+# Plugin configs
+set -g @resurrect-capture-pane-contents 'on'
+set -g @continuum-restore 'on'
+set -g @floax-width '80%'
+set -g @floax-height '80%'
+set -g @floax-border-color 'magenta'
+set -g @floax-text-color 'blue'
+set -g @floax-bind 'p'
+set -g @floax-exit-bind 'x'
+set -g @floax-change-path 'true'
+set -g @sessionx-bind-zo-new-window 'ctrl-y'
+set -g @sessionx-auto-accept 'off'
+set -g @sessionx-custom-paths '~/dotfiles'
+set -g @sessionx-bind 'o'
+set -g @sessionx-x-path '~/dotfiles'
+set -g @sessionx-window-height '85%'
+set -g @sessionx-window-width '75%'
+set -g @sessionx-zoxide-mode 'on'
+set -g @sessionx-custom-paths-subdirectories 'false'
+set -g @sessionx-filter-current 'false'
+
+##### THEME OPTIONS (e.g., Catppuccin or Gruvbox) #####
+#set -g @catppuccin_flavor "mocha"
+#set -g @catppuccin_status_background "blue"
+#set -g @catppuccin_window_status_style "none"
+#set -g @catppuccin_pane_status_enabled "off"
+#set -g @catppuccin_pane_border_status "off"
+# set -g @tmux-gruvbox 'dark'
+
+##### INIT TPM (must be last) #####
+if "test ! -d ~/.tmux/plugins/tpm" \
+  "run 'git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm && ~/.tmux/plugins/tpm/bin/install_plugins'"
+run '~/.tmux/plugins/tpm/tpm'
+
+# Start login shell so .bashrc/.zshrc are sourced
+set-option -g default-command "${SHELL} -l"
+# Gruvbox Colors
+set -g window-status-format " #I: #W "
+set -g window-status-style "bg=colour235,fg=colour245"
+
+# Active window highlighted
+set -g window-status-current-format " #I: #W "
+set -g window-status-current-style "bg=colour214,fg=colour16,bold"
+
