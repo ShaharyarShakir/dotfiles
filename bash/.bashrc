@@ -66,6 +66,9 @@ alias las='ls -A'                 # Hidden Files
 alias lls='ls -l'                 # List
 fi
 
+# fastfetch
+alias ff='fastfetch'
+
 # nixos alias
 alias nrs='sudo nixos-rebuild switch --flake ~/dotfiles/nixos#nixos'
 # alias for exit
