@@ -3,7 +3,7 @@ return {
 	event = "InsertEnter",
 	config = function()
 		require("copilot").setup({
-			panel = { enabled = false }, -- panel disabled
+			panel = { enabled = true }, -- panel disabled
 			suggestion = {
 				enabled = true, -- enable inline suggestions
 				auto_trigger = true, -- trigger automatically
