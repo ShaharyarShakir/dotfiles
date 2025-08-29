@@ -1,9 +1,9 @@
 #!/bin/bash
 set -e
-if ! pacman -Q tmux &>/dev/null; then
-  echo "tmux is not installed."
-  exit 1
-fi
+#if ! pacman -Q tmux &>/dev/null; then
+ # echo "tmux is not installed."
+  #exit 1
+#fi
 
 TPM_DIR="$HOME/.tmux/plugins/tpm"
 
