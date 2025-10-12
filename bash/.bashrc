@@ -69,8 +69,12 @@ fi
 # fastfetch
 alias ff='fastfetch'
 
+# IntelliJ-IDEA-Community
+alias idea="flatpak run com.jetbrains.IntelliJ-IDEA-Community"
+
 # nixos alias
 alias nrs='sudo nixos-rebuild switch --flake ~/dotfiles/nixos#nixos'
+
 # alias for exit
 alias :xa='exit'
 
@@ -129,6 +133,9 @@ alias rm='trash-put'
 else
 alias rm='rm -i'
 fi
+
+# project manager
+bind -x '"\C-p":"~/dotfiles/scripts/tmux-project.sh"'
 
 # Vim / Neovim
 if command -v nvim &> /dev/null; then
