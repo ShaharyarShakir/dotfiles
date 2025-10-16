@@ -1,199 +1,94 @@
 return {
-	"neovim/nvim-lspconfig",
-	event = { "BufReadPre", "BufNewFile" },
-	dependencies = {
-		"hrsh7th/cmp-nvim-lsp", -- Autocompletion
-		{ "antosha417/nvim-lsp-file-operations", config = true },
-		{ "folke/neodev.nvim",                   opts = {} },
-	},
-	config = function()
-		local lspconfig = require("lspconfig")
-		local cmp_nvim_lsp = require("cmp_nvim_lsp")
-		local capabilities = cmp_nvim_lsp.default_capabilities()
+  "neovim/nvim-lspconfig",
+  event = { "BufReadPre", "BufNewFile" },
+  dependencies = {
+    "hrsh7th/cmp-nvim-lsp",
+    { "antosha417/nvim-lsp-file-operations", config = true },
+    { "folke/neodev.nvim", opts = {} },
+    "williamboman/mason.nvim",
+    "williamboman/mason-lspconfig.nvim",
+  },
 
-		-- Keymaps
-		vim.api.nvim_create_autocmd("LspAttach", {
-			group = vim.api.nvim_create_augroup("UserLspConfig", {}),
-			callback = function(ev)
-				local opts = { buffer = ev.buf, silent = true }
+  config = function()
+    local capabilities = require("cmp_nvim_lsp").default_capabilities()
+    local util = require("lspconfig.util")
 
-				opts.desc = "Show LSP references"
-				vim.keymap.set("n", "gR", "<cmd>Telescope lsp_references<CR>", opts)
+    -- ======================
+    -- Diagnostics signs
+    -- ======================
+    local signs = {
+      [vim.diagnostic.severity.ERROR] = "",
+      [vim.diagnostic.severity.WARN]  = "",
+      [vim.diagnostic.severity.HINT]  = "󰠠",
+      [vim.diagnostic.severity.INFO]  = "",
+    }
+    vim.diagnostic.config({
+      signs = { text = signs },
+      virtual_text = true,
+      underline = true,
+      update_in_insert = false,
+    })
 
-				opts.desc = "Go to declaration"
-				vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
+    -- ======================
+    -- LSP Keymaps
+    -- ======================
+    vim.api.nvim_create_autocmd("LspAttach", {
+      group = vim.api.nvim_create_augroup("UserLspConfig", {}),
+      callback = function(ev)
+        local opts = { buffer = ev.buf, silent = true }
+        local map = vim.keymap.set
 
-				opts.desc = "Show LSP definitions"
-				vim.keymap.set("n", "gd", "<cmd>Telescope lsp_definitions<CR>", opts)
+        map("n", "gR", "<cmd>Telescope lsp_references<CR>", { desc = "LSP references", buffer = ev.buf })
+        map("n", "gD", vim.lsp.buf.declaration, { desc = "Go to declaration", buffer = ev.buf })
+        map("n", "gd", "<cmd>Telescope lsp_definitions<CR>", { desc = "LSP definitions", buffer = ev.buf })
+        map("n", "gi", "<cmd>Telescope lsp_implementations<CR>", { desc = "LSP implementations", buffer = ev.buf })
+        map("n", "gt", "<cmd>Telescope lsp_type_definitions<CR>", { desc = "LSP type definitions", buffer = ev.buf })
+        map({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, { desc = "Code actions", buffer = ev.buf })
+        map("n", "<leader>rn", vim.lsp.buf.rename, { desc = "Rename symbol", buffer = ev.buf })
+        map("n", "<leader>D", "<cmd>Telescope diagnostics bufnr=0<CR>", { desc = "Buffer diagnostics", buffer = ev.buf })
+        map("n", "<leader>d", vim.diagnostic.open_float, { desc = "Line diagnostics", buffer = ev.buf })
+        map("n", "K", vim.lsp.buf.hover, { desc = "Hover", buffer = ev.buf })
+        map("i", "<C-h>", vim.lsp.buf.signature_help, { desc = "Signature help", buffer = ev.buf })
+        map("n", "<leader>rs", ":LspRestart<CR>", { desc = "Restart LSP", buffer = ev.buf })
+      end,
+    })
 
-				opts.desc = "Show LSP implementations"
-				vim.keymap.set("n", "gi", "<cmd>Telescope lsp_implementations<CR>", opts)
+    -- ======================
+    -- LSP server configs
+    -- ======================
+    local servers = {
+      ts_ls = { root_dir = util.root_pattern("package.json", "tsconfig.json", ".git") },
+      lua_ls = {
+        settings = {
+          Lua = {
+            diagnostics = { globals = { "vim" } },
+            workspace = {
+              library = {
+                [vim.fn.expand("$VIMRUNTIME/lua")] = true,
+                [vim.fn.stdpath("config") .. "/lua"] = true,
+              },
+            },
+          },
+        },
+      },
+      tailwindcss = { root_dir = util.root_pattern("tailwind.config.js", "tailwind.config.ts", "postcss.config.js", "package.json", ".git") },
+      terraformls = { root_dir = util.root_pattern("main.tf", ".git") },
+      svelte = {},
+      graphql = {},
+      html = {},
+      cssls = {},
+      bashls = {},
+      pyright = {},
+      emmet_ls = {},
+    }
 
-				opts.desc = "Show LSP type definitions"
-				vim.keymap.set("n", "gt", "<cmd>Telescope lsp_type_definitions<CR>", opts)
-
-				opts.desc = "See available code actions"
-				vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, opts)
-
-				opts.desc = "Smart rename"
-				vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
-
-				opts.desc = "Show buffer diagnostics"
-				vim.keymap.set("n", "<leader>D", "<cmd>Telescope diagnostics bufnr=0<CR>", opts)
-
-				opts.desc = "Show line diagnostics"
-				vim.keymap.set("n", "<leader>d", vim.diagnostic.open_float, opts)
-
-				opts.desc = "Previous diagnostic"
-				vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, opts)
-
-				opts.desc = "Next diagnostic"
-				vim.keymap.set("n", "]d", vim.diagnostic.goto_next, opts)
-
-				opts.desc = "Hover documentation"
-				vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
-
-				opts.desc = "Signature help"
-				vim.keymap.set("i", "<C-h>", vim.lsp.buf.signature_help, opts)
-
-				opts.desc = "Restart LSP"
-				vim.keymap.set("n", "<leader>rs", ":LspRestart<CR>", opts)
-			end,
-		})
-
-		-- Diagnostics
-		local signs = {
-			[vim.diagnostic.severity.ERROR] = "",
-			[vim.diagnostic.severity.WARN] = "",
-			[vim.diagnostic.severity.HINT] = "󰠠",
-			[vim.diagnostic.severity.INFO] = "",
-		}
-
-		vim.diagnostic.config({
-			signs = { text = signs },
-			virtual_text = true,
-			underline = true,
-			update_in_insert = false,
-		})
-
-		-- LSP servers
-		local servers = {
-			ts_ls = {
-				cmd = { "typescript-language-server", "--stdio" },
-				root_dir = function(fname)
-					local util = require("lspconfig.util")
-					return util.root_pattern("package.json", "tsconfig.json", ".git")(fname) or
-					vim.fn.getcwd()
-				end,
-			},
-
-			gopls = {
-				filetypes = { "go", "gomod", "gowork", "gotmpl" },
-				settings = {
-					gopls = {
-						completeUnimported = true,
-					},
-				},
-			},
-			bashls = {
-				filetypes = { "bash", "sh", "zsh" },
-				settings = {
-					bash = {
-						globPattern = "*.sh",
-						enableShellCheck = true,
-					},
-				},
-			},
-			pyright = {
-				filetypes = { "python" },
-			},
-			lua_ls = {
-				settings = {
-					Lua = {
-						diagnostics = {
-							globals = { "vim" },
-						},
-						completion = {
-							callSnippet = "Replace",
-						},
-						workspace = {
-							library = {
-								[vim.fn.expand("$VIMRUNTIME/lua")] = true,
-								[vim.fn.stdpath("config") .. "/lua"] = true,
-							},
-						},
-					},
-				},
-			},
-			terraformls = {
-				filetypes = { "terraform", "tf" },
-				root_dir = require("lspconfig.util").root_pattern("main.tf", ".git"),
-			},
-			html = {},
-			cssls = {},
-			tailwindcss = {
-				filetypes = {
-					"html",
-					"css",
-					"scss",
-					"javascript",
-					"javascriptreact",
-					"typescript",
-					"typescriptreact",
-					"svelte",
-				},
-				root_dir = require("lspconfig.util").root_pattern(
-					"tailwind.config.js",
-					"tailwind.config.ts",
-					"postcss.config.js",
-					"package.json",
-					".git"
-				),
-				settings = {
-					tailwindCSS = {
-						classAttributes = { "class", "className", "ngClass" },
-						experimental = {
-							classRegex = {
-								{ "class(?:Name)?\\s*=\\s*[\"']([^\"']*)[\"']" },
-							},
-						},
-					},
-				},
-			},
-			emmet_ls = {
-				filetypes = {
-					"html",
-					"typescriptreact",
-					"javascriptreact",
-					"css",
-					"sass",
-					"scss",
-					"less",
-					"svelte",
-				},
-			},
-			volar = {},
-
-			svelte = {
-				on_attach = function(client, bufnr)
-					vim.api.nvim_create_autocmd("BufWritePost", {
-						pattern = { "*.js", "*.ts" },
-						callback = function(ctx)
-							client.notify("$/onDidChangeTsOrJsFile", { uri = ctx.match })
-						end,
-					})
-				end,
-			},
-
-			graphql = {
-				filetypes = { "graphql", "gql", "svelte", "typescriptreact", "javascriptreact" },
-			},
-		}
-
-		-- Setup all servers
-		for server, config in pairs(servers) do
-			config.capabilities = capabilities
-			lspconfig[server].setup(config)
-		end
-	end,
+    -- ======================
+    -- Enable all servers
+    -- ======================
+    for name, cfg in pairs(servers) do
+      cfg.capabilities = capabilities
+      vim.lsp.config(name, cfg)   -- define/override server config
+      vim.lsp.enable(name)        -- activate server
+    end
+  end,
 }
