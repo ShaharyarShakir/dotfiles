@@ -20,7 +20,7 @@
   "theme": {
     "mode": "system",
     "light": "Gruvbox Dark Soft",
-    "dark": "Gruvbox Dark"
+    "dark": "Gruvbox Dark Hard"
   },
   "terminal": {
     "shell": {
