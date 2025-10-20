@@ -132,6 +132,9 @@ alias v='nvim'
 alias y='yazi'
 alias lg='lazygit'
 
+#vs codium
+# alias codium='flatpak run com.vscodium.codium'
+
 # alias for ls/eza
 if command -v eza &> /dev/null; then
 alias ls='eza --icons -lah --group-directories-first --git'
@@ -189,6 +192,22 @@ eval "$(fzf --zsh)"
 eval "$(zoxide init --cmd cd zsh)"
 export _ZO_ECHO=1
 
+
+# --- Automatically run ls after cd/z/zoxide in zsh ---
+__last_dir="$PWD"
+
+__auto_ls_on_cd() {
+    if [[ "$PWD" != "$__last_dir" ]]; then
+        __last_dir="$PWD"
+        echo -e "\n📂 $(pwd)"
+        ls --color=auto -lah
+    fi
+}
+
+# Use zsh's built-in chpwd hook
+autoload -Uz add-zsh-hook
+add-zsh-hook chpwd __auto_ls_on_cd
+
 # cd into the old directory
 alias bd='cd "$OLDPWD"'
 
@@ -229,7 +248,7 @@ alias lg='lazygit'
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 # [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+
 export PATH="$PATH:$HOME/.rvm/bin"
 if command -v mise >/dev/null 2>&1; then
 
@@ -244,19 +263,23 @@ export STARSHIP_CONFIG="$HOME/.config/starship_zsh.toml"
 eval "$(starship init zsh)"
 
 # Add Homebrew to PATH if installed
-if command -v brew &> /dev/null; then 
-USER_HOME=$(eval echo ~$(whoami))
- echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >> "$USER_HOME/.bashrc"
+if [[ -f "/home/linuxbrew/.linuxbrew/bin/brew" ]]; then
+  eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 fi
 # Enable instant prompt for Powerlevel10k
 typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
 export BUILDKIT_HOST=unix:///run/user/1000/buildkit/buildkitd.sock
+export STARSHIP_CONFIG="/home/shaharyar/.config/starship_zsh.toml"
+export PATH="$HOME/.local/bin:$PATH"
+export SHELL=$(which zsh)
+
+export PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"
+export PATH="/home/linuxbrew/.linuxbrew/sbin:$PATH"
 
 ### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
 export PATH="/home/shaharyar/.rd/bin:$PATH"
 ### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)
-export STARSHIP_CONFIG="/home/shaharyar/.config/starship_zsh.toml"
-export PATH="$HOME/.local/bin:$PATH"
 
-## HomeBrew 
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+
+# Load Angular CLI autocompletion.
+source <(ng completion script)
