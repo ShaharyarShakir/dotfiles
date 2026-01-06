@@ -17,10 +17,9 @@ return {
 				"lua_ls",
 				"graphql",
 				"emmet_language_server",
-				"prismals",
 				"markdown_oxide",
 				"yamlls",
-				"terraformls",
+				"gopls",
 			},
 		})
 	end,
