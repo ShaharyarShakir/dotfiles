@@ -1,0 +1,35 @@
+#!/bin/bash
+
+# Simple Docker engine start/stop script
+
+if [ "$EUID" -ne 0 ]; then
+    SUDO='sudo'
+else
+    SUDO=''
+fi
+
+case "$1" in
+    start)
+        echo "Starting Docker..."
+        $SUDO systemctl start docker
+        echo "Docker started."
+        ;;
+    stop)
+        echo "Stopping Docker..."
+        $SUDO systemctl stop docker
+        echo "Docker stopped."
+        ;;
+    restart)
+        echo "Restarting Docker..."
+        $SUDO systemctl restart docker
+        echo "Docker restarted."
+        ;;
+    status)
+        echo "Docker status:"
+        $SUDO systemctl status docker --no-pager
+        ;;
+    *)
+        echo "Usage: dockerctl {start|stop|restart|status}"
+        exit 1
+        ;;
+esac
