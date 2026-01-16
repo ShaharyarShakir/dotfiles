@@ -1,5 +1,11 @@
 # ~/.bashrc - Main shell config, sources additional modular files
-# # Run fastfetch only once per login session
+function y() {
+	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+	command yazi "$@" --cwd-file="$tmp"
+	IFS= read -r -d '' cwd < "$tmp"
+	[ "$cwd" != "$PWD" ] && [ -d "$cwd" ] && builtin cd -- "$cwd"
+	rm -f -- "$tmp"
+}# # Run fastfetch only once per login session
 #set -x  # shows each command as it runs (for bash)
 # ble.sh
  FLAG_FILE="/tmp/fastfetch_ran_$USER"
@@ -755,7 +761,13 @@ eval "$(devbox global shellenv)"
 
 # buildkit configuration
 export BUILDKIT_HOST=unix:///run/user/1000/buildkit/buildkitd.sock
-
+function y() {
+	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+	command yazi "$@" --cwd-file="$tmp"
+	IFS= read -r -d '' cwd < "$tmp"
+	[ "$cwd" != "$PWD" ] && [ -d "$cwd" ] && builtin cd -- "$cwd"
+	rm -f -- "$tmp"
+}
 #################################################################################
 ########################### END OF .bashrc ######################################
 #################################################################################
