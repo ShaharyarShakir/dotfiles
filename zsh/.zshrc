@@ -291,3 +291,28 @@ function y() {
 if command -v node >/dev/null 2>&1; then
 source <(ng completion script)
 fi
+
+# mise
+if command -v mise >/dev/null 2>&1; then
+eval "$(mise activate zsh)"
+fi
+
+# fnm
+if command -v fnm >/dev/null 2>&1; then
+export PATH="$HOME/.fnm:$PATH"
+eval "$(fnm env)"
+fi
+
+# >>> conda initialize >>>
+__conda_setup="$('/home/shaharyar/miniforge3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/home/shaharyar/miniforge3/etc/profile.d/conda.sh" ]; then
+        . "/home/shaharyar/miniforge3/etc/profile.d/conda.sh"
+    else
+        export PATH="/home/shaharyar/miniforge3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
