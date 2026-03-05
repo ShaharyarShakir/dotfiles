@@ -43,7 +43,7 @@ return {
 			end,
 		},
 
-		-- 🖼️ Optional image pasting
+		-- Optional image pasting
 		{
 			"HakonHarnes/img-clip.nvim",
 			event = "VeryLazy",
