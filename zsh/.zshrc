@@ -316,3 +316,13 @@ else
 fi
 unset __conda_setup
 # <<< conda initialize <<<
+# ANDROID SDK
+export ANDROID_HOME="$HOME/Android"
+export ANDROID_SDK_ROOT="$ANDROID_HOME"
+export PATH="$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/platform-tools:$PATH"
+export JAVA_HOME=$(mise where java)
+
+export PATH="$PATH:$HOME/.puro/bin" # Added by Puro
+export PATH="$PATH:$HOME/.puro/shared/pub_cache/bin" # Added by Puro
+export PATH="$PATH:$HOME/.puro/envs/default/flutter/bin" # Added by Puro
+export PURO_ROOT="/home/shaharyar/.puro" # Added by Puro
