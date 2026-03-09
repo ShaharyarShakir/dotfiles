@@ -6,6 +6,12 @@
 # fi
 # alias vi='nvim'
 # export MAVEN_OPTS="--enable-native-access=ALL-UNNAMED"
+
+## homebrew 
+export PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"
+export PATH="/home/linuxbrew/.linuxbrew/sbin:$PATH"
+
+
 FLAG_FILE="/tmp/fastfetch_ran_$USER"
 # Always register the trap
 trap "\rm -f '$FLAG_FILE'" EXIT
