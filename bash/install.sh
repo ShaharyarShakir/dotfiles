@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+ #!/usr/bin/env bash
 # Print the logo
 print_logo() {
 	cat <<"EOF"
@@ -52,7 +52,7 @@ command_exists() {
 }
 
 check_environment() {
-	REQUIREMENTS='curl groups sudo'
+	REQUIREMENTS='curl groups sudo wget'
 	for req in $REQUIREMENTS; do
 		if ! command_exists "$req"; then
 			print_colored "$RED" "To run me, you need: $REQUIREMENTS"
