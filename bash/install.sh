@@ -123,7 +123,7 @@ install_from_brewfile() {
 	fi
 
 	print_colored "$YELLOW" "Installing packages from Brewfile..."
-	brew bundle --file="$BREWFILE"
+	brew bundle --file="$BREWFILE" --verbose
 	print_colored "$GREEN" "All Brewfile packages installed!"
 }
 
