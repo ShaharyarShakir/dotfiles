@@ -2,86 +2,125 @@ tap "gromgit/brewtils"
 tap "libsql/sqld"
 tap "localstack/tap"
 tap "tursodatabase/tap"
+# Portable Foreign Function Interface library
 brew "libffi"
+# General-purpose lossless data-compression library
 brew "zlib"
+# Cryptography and SSL/TLS Toolkit
 brew "openssl@3"
+# Official Amazon AWS command-line interface
 brew "awscli"
-brew "bat"
-brew "gcc"
-brew "btop"
-brew "chafa"
-brew "csvlens"
-brew "direnv"
-brew "distrobox"
-brew "docker"
-brew "eza"
-brew "fastfetch"
-brew "fd"
-brew "fzf"
-brew "gh"
-brew "gitui"
-brew "glow"
-brew "just"
-brew "k9s"
-brew "kind"
-brew "kubernetes-cli"
-brew "lazydocker"
-brew "lazygit"
-brew "lazyssh"
-brew "libpq"
+# YAML Parser
 brew "libyaml"
+# Thin wrapper around the `aws` command-line interface for use with LocalStack
+brew "awscli-local"
+# Clone of cat(1) with syntax highlighting and Git integration
+brew "bat"
+# GNU compiler collection
+brew "gcc"
+# Resource monitor. C++ version and continuation of bashtop and bpytop
+brew "btop"
+# Versatile and fast Unicode/ASCII/ANSI graphics renderer
+brew "chafa"
+# Command-line csv viewer
+brew "csvlens"
+# Load/unload environment variables based on $PWD
+brew "direnv"
+# Use any Linux distribution inside your terminal
+brew "distrobox"
+# Pack, ship and run any application as a lightweight container
+brew "docker"
+# Modern, maintained replacement for ls
+brew "eza"
+# Like neofetch, but much faster because written mostly in C
+brew "fastfetch"
+# Simple, fast and user-friendly alternative to find
+brew "fd"
+# Command-line fuzzy finder written in Go
+brew "fzf"
+# GitHub command-line tool
+brew "gh"
+# Syntax-highlighting pager for git and diff output
+brew "git-delta"
+# Blazing fast terminal-ui for git written in rust
+brew "gitui"
+# Render markdown on the CLI
+brew "glow"
+# Handy way to save and run project-specific commands
+brew "just"
+# Kubernetes CLI To Manage Your Clusters In Style!
+brew "k9s"
+# Run local Kubernetes cluster in Docker
+brew "kind"
+# Generates Ktor projects through the command-line interface
+brew "ktor"
+# Kubernetes command-line interface
+brew "kubernetes-cli"
+# Lazier way to manage everything docker
+brew "lazydocker"
+# Simple terminal UI for git commands
+brew "lazygit"
+# Terminal-based SSH manager
+brew "lazyssh"
+# Postgres C API library
+brew "libpq"
+# Tail multiple files in one terminal simultaneously
 brew "multitail"
+# Ambitious Vim-fork focused on extensibility and agility
 brew "neovim"
-brew "ollama"
+# Create, run, and share large language models (LLMs)
+brew "ollama", restart_service: :changed
+# Search tool like grep and The Silver Searcher
 brew "ripgrep"
+# AI coding agent, built for the terminal
 brew "opencode"
+# CLI for Postgres with auto-completion and syntax highlighting
 brew "pgcli"
+# PDF rendering library (based on the xpdf-3.0 code base)
 brew "poppler"
+# PostgreSQL extension adding HyperLogLog data structures as a native data type
 brew "postgresql-hll"
+# Object-relational database system
 brew "postgresql@18", restart_service: :changed, link: true
+# Command-line YAML and XML processor that wraps jq
 brew "python-yq"
+# Software environment for statistical computing
 brew "r"
+# Develop and deploy code with zero configuration
+brew "railway"
+# Database management TUI for PostgreSQL/MySQL/SQLite
 brew "rainfrog"
+# Display and control your Android device
 brew "scrcpy"
+# Cross-shell prompt for astronauts
 brew "starship"
+# Organize software neatly under a single directory tree (e.g. /usr/local)
+brew "stow"
+# General purpose fuzzy finder TUI
 brew "television"
+# Programmatically correct mistyped console commands
+brew "thefuck"
+# Simplified and community-driven man pages
 brew "tldr"
+# Terminal multiplexer
 brew "tmux"
+# Command-line interface to the freedesktop.org trashcan
 brew "trash-cli"
+# Display directories as trees (with optional color/HTML output)
 brew "tree"
+# Vulnerability scanner for container images, file systems, and Git repos
 brew "trivy"
+# Watch files and take action when they change
 brew "watchman"
+# Blazing fast terminal file manager written in Rust, based on async I/O
 brew "yazi"
+# Pluggable terminal workspace, with terminal multiplexer as the base feature
 brew "zellij"
+# Shell extension to navigate your filesystem faster
 brew "zoxide"
+# Interactive TUI for Homebrew
 brew "gromgit/brewtils/taproom"
+# Localstack cli packaged using pyinstaller
 brew "localstack/tap/localstack-cli"
 brew "tursodatabase/tap/turso"
 cask "font-symbols-only-nerd-font"
-vscode "aamer.json-to-nestjs-dto"
-vscode "alarm.pkl-viewer"
-vscode "amazonwebservices.amazon-q-vscode"
-vscode "aquasecurityofficial.trivy-vulnerability-scanner"
-vscode "batisteo.vscode-django"
-vscode "bradlc.vscode-tailwindcss"
-vscode "christian-kohler.path-intellisense"
-vscode "dart-code.flutter"
-vscode "donebd.rest-client-api"
-vscode "github.copilot-chat"
-vscode "golang.go"
-vscode "haseeb-raza.terminal-faah"
-vscode "lakefs.lakefs-dvc"
-vscode "marimo-team.vscode-marimo"
-vscode "mechatroner.rainbow-csv"
-vscode "ms-python.debugpy"
-vscode "ms-python.python"
-vscode "ms-python.vscode-pylance"
-vscode "ms-python.vscode-python-envs"
-vscode "ms-toolsai.jupyter"
-vscode "ms-toolsai.jupyter-keymap"
-vscode "ms-toolsai.jupyter-renderers"
-vscode "ms-toolsai.vscode-jupyter-cell-tags"
-vscode "ms-toolsai.vscode-jupyter-slideshow"
-vscode "ms-vscode.vscode-typescript-next"
-vscode "sclu1034.justfile"
-vscode "skellock.just"
