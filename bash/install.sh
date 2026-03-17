@@ -337,7 +337,7 @@ create_fastfetch_config
 
 if link_config && stow_zsh; then
 	print_colored "$GREEN" "Done!\nRestart your shell to see the changes."
-	exec bash --login
+	exec zsh --login
 else
 	print_colored "$RED" "Something went wrong!"
 fi
