@@ -13,9 +13,9 @@ source bash/.bashrc
 stow .
 
 # link tmux in the config with home dir
-ln -s ~/.tmux.conf  ~/.config/tmux/.tmux.conf
-touch ~/.tmux.conf
-ln -s ~/.config/tmux/.tmux.conf  ~/.tmux.conf 
+# ln -s ~/.tmux.conf  ~/.config/tmux/.tmux.conf
+# touch ~/.tmux.conf
+# ln -s ~/.config/tmux/.tmux.conf  ~/.tmux.conf 
 
 # jetify devbox 
  if command -v devbox >/dev/null; then
@@ -23,3 +23,6 @@ ln -s ~/.config/tmux/.tmux.conf  ~/.tmux.conf
 else
 curl -fsSL https://get.jetify.com/devbox | bash
  fi
+
+ rm ~/.gitconfig
+ cp .gitconfig ~/.gitconfig
