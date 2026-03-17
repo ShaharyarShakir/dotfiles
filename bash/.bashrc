@@ -1,13 +1,17 @@
 # ~/.bashrc - Main shell config, sources additional modular files
+
 function y() {
 	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
 	command yazi "$@" --cwd-file="$tmp"
 	IFS= read -r -d '' cwd < "$tmp"
 	[ "$cwd" != "$PWD" ] && [ -d "$cwd" ] && builtin cd -- "$cwd"
 	rm -f -- "$tmp"
-}# # Run fastfetch only once per login session
+}
+
+# # Run fastfetch only once per login session
 #set -x  # shows each command as it runs (for bash)
 # ble.sh
+
  FLAG_FILE="/tmp/fastfetch_ran_$USER"
 # Always register the trap
 trap "\rm -f '$FLAG_FILE'" EXIT
@@ -783,3 +787,6 @@ export STARSHIP_CONFIG="/home/shaharyar/.config/starship_bash.toml"
 export STARSHIP_CONFIG="/home/shaharyar/.config/starship_bash.toml"
 export STARSHIP_CONFIG="/home/shaharyar/.config/starship_bash.toml"
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+export STARSHIP_CONFIG="/home/shaharyar/.config/starship_bash.toml"
+export STARSHIP_CONFIG="/home/shaharyar/.config/starship_bash.toml"
+export STARSHIP_CONFIG="/home/shaharyar/.config/starship_bash.toml"
