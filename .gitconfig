@@ -1,8 +1,15 @@
+[user]
+	name = ShaharyarShakir
+	email = shakirshaharyar125@gmail.com
+
 [init]
   defaultBranch = main
 
 [core]
   editor = nvim 
+  pager = delta
 
-  [pull]
+[pull]
   rebase = true
+
+
