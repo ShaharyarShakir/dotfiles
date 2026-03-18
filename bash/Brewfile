@@ -1,7 +1,5 @@
 tap "gromgit/brewtils"
 tap "libsql/sqld"
-tap "localstack/tap"
-tap "tursodatabase/tap"
 # Portable Foreign Function Interface library
 brew "libffi"
 # General-purpose lossless data-compression library
@@ -121,6 +119,4 @@ brew "zoxide"
 # Interactive TUI for Homebrew
 brew "gromgit/brewtils/taproom"
 # Localstack cli packaged using pyinstaller
-brew "localstack/tap/localstack-cli"
-brew "tursodatabase/tap/turso"
 cask "font-symbols-only-nerd-font"
