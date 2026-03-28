@@ -325,9 +325,11 @@ unset __conda_setup
 
 
 # ANDROID SDK
-export ANDROID_HOME="$HOME/Android"
-export ANDROID_SDK_ROOT="$ANDROID_HOME"
-export PATH="$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/platform-tools:$PATH"
+export ANDROID_HOME=$HOME/Android
+export ANDROID_SDK_ROOT=$HOME/Android
+export PATH=$PATH:$ANDROID_HOME/platform-tools
+export PATH=$PATH:$ANDROID_HOME/emulator
+export PATH=$PATH:$ANDROID_HOME/cmdline-tools/latest/bin
 
 # java
 if command -v mise >/dev/null 2>&1; then
