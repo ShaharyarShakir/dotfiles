@@ -1,0 +1,9 @@
+fzf
+zoxide
+ripgrep
+lazygit
+eza
+bat
+tmux
+neovim
+yazi
