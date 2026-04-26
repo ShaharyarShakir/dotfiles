@@ -6,7 +6,7 @@
 # fi
 # alias vi='nvim'
 # export MAVEN_OPTS="--enable-native-access=ALL-UNNAMED"
-
+export PATH="/usr/bin:$PATH"
 ## homebrew 
 export PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"
 export PATH="/home/linuxbrew/.linuxbrew/sbin:$PATH"
@@ -108,7 +108,7 @@ zinit snippet OMZP::terraform
 zinit snippet OMZP::kubectx
 zinit snippet OMZP::npm
 zinit snippet OMZP::node
-zinit snippet OMZP::yarn
+# zinit snippet OMZP::yarn
 zinit snippet OMZP::nvm
 zinit snippet OMZP::z
 zinit snippet OMZP::aliases
@@ -236,7 +236,6 @@ mkdirg() {
 export EDITOR=nvim
 export VISUAL=nvim
 export YAZI_EDITOR="nvim"
-export TERM=xterm-256color
 
 # Taskfile
 alias t='task'
@@ -294,7 +293,7 @@ function y() {
 }
 
 # Load Angular CLI autocompletion.
-if command -v node >/dev/null 2>&1; then
+if command -v bun >/dev/null 2>&1; then
 source <(ng completion script)
 fi
 
@@ -307,6 +306,8 @@ fi
 if command -v fnm >/dev/null 2>&1; then
 export PATH="$HOME/.fnm:$PATH"
 eval "$(fnm env)"
+
+source "/home/shaharyar/.local/share/fnm"/fnm.sh
 fi
 
 # >>> conda initialize >>>
@@ -340,10 +341,34 @@ fi
 
 # load warp integrations
 eval "$(direnv hook zsh)"
-eval "$(mise activate zsh)"
 
 # Puro Flutter Manager
 export PATH="$PATH:$HOME/.puro/bin" # Added by Puro
 export PATH="$PATH:$HOME/.puro/shared/pub_cache/bin" # Added by Puro
 export PATH="$PATH:$HOME/.puro/envs/default/flutter/bin" # Added by Puro
 export PURO_ROOT="/home/shaharyar/.puro" # Added by Puro
+
+
+
+# >>> mamba initialize >>>
+# !! Contents within this block are managed by 'micromamba shell init' !!
+export MAMBA_EXE='/home/shaharyar/01__git-repos/Coding-Practice/.pixi/envs/default/bin/micromamba';
+export MAMBA_ROOT_PREFIX='/home/shaharyar/.local/share/mamba';
+__mamba_setup="$("$MAMBA_EXE" shell hook --shell zsh --root-prefix "$MAMBA_ROOT_PREFIX" 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__mamba_setup"
+else
+    alias micromamba="$MAMBA_EXE"  # Fallback on help from micromamba activate
+fi
+unset __mamba_setup
+# <<< mamba initialize <<<
+export PATH="$HOME/.local/share/solana/install/active_release/bin:$PATH"
+
+# bun completions
+[ -s "/home/shaharyar/.bun/_bun" ] && source "/home/shaharyar/.bun/_bun"
+
+# Auto-Warpify
+[[ "$-" == *i* ]] && printf 'P$f{"hook": "SourcedRcFileForWarp", "value": { "shell": "zsh", "uname": "Linux" }}œ' 
+
+# Added by LocalStack installer
+source $HOME/.localstack/localstack_setup.sh
