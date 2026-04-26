@@ -794,3 +794,7 @@ export STARSHIP_CONFIG="/home/shaharyar/.config/starship_bash.toml"
 export STARSHIP_CONFIG="/home/shaharyar/.config/starship_bash.toml"
 
 . "$HOME/.turso/env"
+export STARSHIP_CONFIG="/home/shaharyar/.config/starship_bash.toml"
+export STARSHIP_CONFIG="/home/shaharyar/.config/starship_bash.toml"
+export STARSHIP_CONFIG="/home/shaharyar/.config/starship_bash.toml"
+export STARSHIP_CONFIG="/home/shaharyar/.config/starship_bash.toml"
