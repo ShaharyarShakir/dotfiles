@@ -2,7 +2,7 @@
 
 add_newline = false
 
-format = "$python $character$directory $git_branch "
+format = "$conda$python $character$directory $git_branch "
 
 [character]
 success_symbol = "[➜](bold green)"
@@ -70,6 +70,12 @@ disabled = false
 style = "bold purple"
 impure_msg = "devbox"
 format = '\([$state]($style)\)'
+
+[conda]
+symbol = ""
+format = "([($environment)](dimmed green) )"
+truncation_length = 1
+ignore_base = false
 
 [sudo]
 disabled = false
