@@ -311,14 +311,15 @@ source "/home/shaharyar/.local/share/fnm"/fnm.sh
 fi
 
 # >>> conda initialize >>>
-__conda_setup="$('/home/shaharyar/miniforge3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/home/shaharyar/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
 if [ $? -eq 0 ]; then
     eval "$__conda_setup"
 else
-    if [ -f "/home/shaharyar/miniforge3/etc/profile.d/conda.sh" ]; then
-        . "/home/shaharyar/miniforge3/etc/profile.d/conda.sh"
+    if [ -f "/home/shaharyar/miniconda3/etc/profile.d/conda.sh" ]; then
+        . "/home/shaharyar/miniconda3/etc/profile.d/conda.sh"
     else
-        export PATH="/home/shaharyar/miniforge3/bin:$PATH"
+        export PATH="/home/shaharyar/miniconda3/bin:$PATH"
     fi
 fi
 unset __conda_setup
@@ -368,7 +369,7 @@ export PATH="$HOME/.local/share/solana/install/active_release/bin:$PATH"
 [ -s "/home/shaharyar/.bun/_bun" ] && source "/home/shaharyar/.bun/_bun"
 
 # Auto-Warpify
-[[ "$-" == *i* ]] && printf 'P$f{"hook": "SourcedRcFileForWarp", "value": { "shell": "zsh", "uname": "Linux" }}œ' 
+[[ "$-" == *i* ]] && printf 'P$f{"hook": "SourcedRcFileForWarp", "value": { "shell": "zsh", "uname": "Linux" }}ï¿½' 
 
 # Added by LocalStack installer
 source $HOME/.localstack/localstack_setup.sh
