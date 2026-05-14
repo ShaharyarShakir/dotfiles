@@ -134,7 +134,7 @@ install_from_brewfile() {
 install_arch_dependencies() {
 	PACKAGER="pacman"
 
-	DEPENDENCIES='bash zsh bash-completion tar bat tree multitail fastfetch wget unzip fontconfig trash-cli make tmux starship fzf zoxide eza neovim figlet lolcat fd ripgrep yazi stow docker distrobox lazygit btop'
+	DEPENDENCIES='bash zsh bash-completion tar bat tree multitail fastfetch wget unzip fontconfig trash-cli make tmux starship fzf zoxide eza neovim figlet lolcat fd ripgrep yazi stow docker distrobox lazygit btop direnv ttf-jetbrains-mono-git visual-studio-code-bin warp-terminal-bin cursor-bin'
 
 	if ! command_exists yay && ! command_exists paru; then
 		print_colored "$YELLOW" "Installing yay as AUR helper..."
@@ -331,7 +331,7 @@ else
 	install_from_brewfile
 fi
 
-install_font
+ install_font
 install_fzf_git
 create_fastfetch_config
 
