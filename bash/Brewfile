@@ -120,3 +120,4 @@ brew "zoxide"
 brew "gromgit/brewtils/taproom"
 # Localstack cli packaged using pyinstaller
 cask "font-symbols-only-nerd-font"
+cask "font-jetbrains-mono"
