@@ -373,3 +373,4 @@ export PATH="$HOME/.local/share/solana/install/active_release/bin:$PATH"
 
 # Added by LocalStack installer
 source $HOME/.localstack/localstack_setup.sh
+export PATH="$HOME/.local/share/gem/ruby/3.4.0/bin:$PATH"
