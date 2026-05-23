@@ -18,6 +18,8 @@ window#waybar {
 #network,
 #custom-rofi,
 #battery,
+#bluetooth,
+#custom-power,
 #tray {
   padding: 6px 12px;
   margin: 4px 8px;
