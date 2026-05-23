@@ -24,9 +24,11 @@
     "tray",
     "battery",
     "custom/volume",
+    "bluetooth",
     "pulseaudio#microphone",
     "backlight",
-    "network"
+    "network",
+    "custom/power"
   ],
 
   "custom/rofi": {
@@ -75,7 +77,15 @@
     "on-scroll-down": "wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%-",
     "tooltip": true
   },
-
+"bluetooth": {
+  "format": "",
+  "format-disabled": "󰂲",
+  "format-connected": " {device_alias}",
+  "tooltip-format": "{controller_alias}\t{controller_address}",
+  "tooltip-format-connected": "{device_enumerate}",
+  "tooltip-format-enumerate-connected": " {device_alias}",
+  "on-click": "blueman-manager"
+},
   "pulseaudio#microphone": {
     "format": "{format_source}",
     "format-source": "",
@@ -121,9 +131,13 @@
     "tooltip-format-disconnected": "Disconnected",
     "on-click": "nm-connection-editor"
   },
-
+"custom/power": {
+  "format": "",
+  "tooltip": false,
+  "on-click": "wlogout"
+},
   "tray": {
-    "icon-size": 12,
+    "icon-size": 10,
     "spacing": 10
   }
 }
