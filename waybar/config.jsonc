@@ -1,0 +1,194 @@
+{
+  "layer": "top",
+  "position": "top",
+  "mod": "dock",
+  "exclusive": true,
+  "passthrough": false,
+  "gtk-layer-shell": true,
+  "height": 32,
+  "width": "1280",
+  "margin-right": 5,
+  "margin-left": 5,
+  "modules-left": [
+    "custom/rofi",
+    "clock"
+  ],
+  "modules-center": [
+    "custom/notifications",
+    "hyprland/workspaces"
+  ],
+  "modules-right": [
+    "group/volume",
+    "tray",
+    "battery",
+    "custom/volume",
+    "bluetooth",
+    // "pulseaudio#microphone",
+    // "backlight",
+    "network",
+    "cpu",
+    "memory",
+    "custom/power"
+  ],
+  "custom/rofi": {
+    "format": "",
+    "on-click": "rofi -theme ~/.config/rofi/theme/onedark_mini.rasi -show drun",
+    "tooltip": false
+  },
+  // "clock": {
+  //   "format": " {:%I:%M %p}",
+  //   "tooltip": true,
+  //   "tooltip-format": "{:%A, %d %B %Y}",
+  //   "interval": 60
+  // },
+  "custom/notifications": {
+    "format": "{}",
+    "return-type": "json",
+    "interval": 1,
+    "exec": "~/.config/waybar/scripts/swaync_status.sh",
+    "on-click": "swaync-client -t",
+    "on-click-right": "swaync-client -C",
+    "on-click-middle": "swaync-client -d",
+    "tooltip": false
+  },
+  "hyprland/workspaces": {
+    "on-click": "activate",
+    "disable-scroll": true,
+    "all-outputs": true,
+    "show-special": false,
+    "format": "{id}",
+    "format-icons": {
+      "active": "{id}",
+      "default": ""
+    }
+  },
+  // "custom/volume": {
+  //   "format": "{}",
+  //   "exec": "~/.config/waybar/scripts/volume.sh",
+  //   "interval": 1,
+  //   "return-type": "text",
+  //   "on-click": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
+  //   "on-scroll-up": "wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+",
+  //   "on-scroll-down": "wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%-",
+  //   "tooltip": true
+  // },
+  "bluetooth": {
+    "format": "",
+    "format-disabled": "", // an empty format will hide the module
+    "format-connected": " {num_connections}",
+    "tooltip-format": "{controller_alias}\t{controller_address}",
+    "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{device_enumerate}",
+    "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
+    "on-click": "exec ghostty --title=bluetui -e bluetui"
+  },
+  "pulseaudio": {
+    "format": "{volume}% {icon}",
+    "format-muted": "",
+    "format-icons": {
+      "default": [
+        "",
+        ""
+      ]
+    },
+    "scroll-step": 1,
+    "ignored-sinks": [
+      "Easy Effects Sink"
+    ],
+    "on-click": "pavucontrol"
+  },
+  "pulseaudio/slider": {
+    "min": 0,
+    "max": 100,
+    "orientation": "horizontal"
+  },
+  "group/volume": {
+    "orientation": "horizontal",
+    "modules": [
+      "pulseaudio",
+      "pulseaudio/slider"
+    ]
+  },
+  // "pulseaudio#microphone": {
+  //   "format": "{format_source}",
+  //   "format-source": "",
+  //   "format-source-muted": "",
+  //   "on-click": "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle",
+  //   "on-scroll-up": "wpctl set-volume -l 1 @DEFAULT_AUDIO_SOURCE@ 5%+",
+  //   "on-scroll-down": "wpctl set-volume -l 1 @DEFAULT_AUDIO_SOURCE@ 5%-",
+  //   "tooltip": true,
+  //   "tooltip-format": " at {volume}%"
+  // },
+  // "backlight": {
+  //   "device": "intel_backlight",
+  //   "format": "󰃞 {percent}%",
+  //   "on-scroll-up": "brightnessctl set +5%",
+  //   "on-scroll-down": "brightnessctl set 5%-"
+  // },
+  "battery": {
+    "states": {
+      "good": 95,
+      "warning": 30,
+      "critical": 15
+    },
+    "format": "{icon} {capacity}%",
+    "format-charging": "󰂄 {capacity}%",
+    "format-plugged": " {capacity}%",
+    "format-alt": "{icon} {capacity}%",
+    "format-icons": [
+      "󰁺",
+      "󰁻",
+      "󰁼",
+      "󰁽",
+      "󰁾",
+      "󰁿",
+      "󰂀",
+      "󰂁",
+      "󰂂"
+    ],
+    "tooltip": true,
+    "on-update": "~/.config/waybar/scripts/battery_notify.sh"
+  },
+  "cpu": {
+    "interval": 10,
+    "format": " {}%",
+    "max-length": 10,
+    "on-click": "exec ghostty --title=btop -e btop"
+  },
+  "memory": {
+    "interval": 30,
+    "format": " {percentage}%",
+    "tooltip-format": "{used:0.1f}G/{total:0.1f}G used",
+    "on-click": "exec ghostty --title=htop -e htop"
+  },
+  "network": {
+    "format": "",
+    "format-wifi": "",
+    "format-ethernet": "",
+    "format-disconnected": "󰤭", //An empty format will hide the module.
+    "tooltip-format": "{ifname} via {gwaddr} 󰊗",
+    "tooltip-format-wifi": "{essid} ({signalStrength}%) ",
+    "tooltip-format-ethernet": "{ifname} ",
+    "tooltip-format-disconnected": "󰖪",
+    "max-length": 50,
+    "on-click": "exec nmrs"
+  },
+  "clock": {
+    "format": "󰥔 {:%a, %d. %b %I:%M %p}",
+    "tooltip-format": "<tt><small>{calendar}</small></tt>",
+    "calendar": {
+      "format": {
+        "today": "<span color='#75f1fa'><b>{}</b></span>"
+      }
+    },
+    "on-click": "exec chromium --app=https://calendar.google.com"
+  },
+  "custom/power": {
+    "format": "",
+    "tooltip": false,
+    "on-click": "wlogout"
+  },
+  "tray": {
+    "icon-size": 10,
+    "spacing": 10
+  }
+}
