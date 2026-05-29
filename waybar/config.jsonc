@@ -11,23 +11,25 @@
   "margin-left": 5,
   "modules-left": [
     "custom/rofi",
-    "clock"
+    "clock",
+    "group/media"
   ],
   "modules-center": [
     "custom/notifications",
     "hyprland/workspaces"
   ],
   "modules-right": [
-    "group/volume",
     "tray",
+    "group/volume",   
     "battery",
-    "custom/volume",
+    "cpu",
+    "memory",
+    // "custom/volume",
     "bluetooth",
     // "pulseaudio#microphone",
     // "backlight",
     "network",
-    "cpu",
-    "memory",
+   
     "custom/power"
   ],
   "custom/rofi": {
@@ -190,5 +192,31 @@
   "tray": {
     "icon-size": 10,
     "spacing": 10
-  }
+  },
+  "group/media": {
+      "orientation": "horizontal",
+      "modules": [
+        "custom/media-animation",
+        // "custom/media-now-playing",
+        "custom/media-time"
+      ]
+    },
+    "custom/media-now-playing": {
+      "exec": "~/.config/waybar/custom_modules/media/media-now-playing.sh",
+      "escape": true,
+      "tooltip": false,
+      "on-click": "playerctl play-pause",
+      "on-click-middle": "playerctl previous",
+      "on-click-right": "playerctl next",
+    },
+    "custom/media-animation": {
+      "exec": "~/.config/waybar/custom_modules/media/media-animation.sh",
+      "tooltip": false,
+    },
+    "custom/media-time": {
+      "exec": "~/.config/waybar/custom_modules/media/media-time.sh",
+      "escape": true,
+      "interval": 1,
+      "tooltip": false,
+    }
 }
