@@ -19,7 +19,11 @@
   "session": {
     "trust_all_worktrees": true
   },
-  "icon_theme": "Symbols Icon Theme",
+  "icon_theme": {
+    "mode": "dark",
+    "light": "Symbols Icon Theme",
+    "dark": "Symbols Icon Theme"
+  },
   "formatter": "prettier",
   "base_keymap": "VSCode",
   "ui_font_size": 22,
@@ -42,7 +46,11 @@
   },
 
   "buffer_font_size": 20,
-  "theme": "Vercel Dark",
+  "theme": {
+    "mode": "dark",
+    "light": "One Light",
+    "dark": "Ayu Dark"
+  },
   "terminal": {
     "shell": {
       "program": "zsh",
