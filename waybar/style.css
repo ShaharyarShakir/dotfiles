@@ -138,3 +138,22 @@ tooltip {
 tooltip label {
   color: white;
 }
+
+#media {
+  color: #42ff9f;
+  margin: 7px 0px 7px 80px;
+}
+
+#custom-media-animation {
+  font-size: 13px;
+  margin-right: 10px;
+}
+
+#custom-media-now-playing {
+  margin-right: 10px;
+}
+
+#custom-media-time {
+  color: @dark-5;
+  font-size: 10px;
+}
