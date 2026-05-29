@@ -1,3 +1,10 @@
+@define-color highlight rgba(117, 241, 250, 1);
+@define-color dark-9 rgba(24, 24, 27, 1);
+@define-color dark-8 rgba(39, 39, 42, 1);
+@define-color dark-7 rgba(63, 63, 70, 1);
+@define-color dark-6 rgba(82, 82, 91, 1);
+@define-color dark-5 rgba(113, 113, 122, 1);
+
 * {
   font-family: "jetbrainsmono nerd font";
   font-size: 18px;
@@ -19,6 +26,8 @@ window#waybar {
 #custom-rofi,
 #battery,
 #bluetooth,
+#cpu,
+#memory,
 #custom-power,
 #tray {
   padding: 6px 12px;
@@ -74,18 +83,58 @@ window#waybar {
 }
 
 #battery {
-  color: #ffffff; /* default */
+  color: #ffffff;
+  /* default */
   padding: 6px 12px;
   margin: 4px 6px;
   border-radius: 10px;
 }
 
 #battery.warning {
-  color: #fab387; /* peach for warning */
+  color: #fab387;
+  /* peach for warning */
 }
 
 #battery.critical {
-  color: #f38ba8; /* red for critical */
+  color: #f38ba8;
+  /* red for critical */
   font-weight: bold;
 }
 
+#pulseaudio-slider {
+  padding: 0px;
+  margin: 0px;
+  margin-left: 8px;
+}
+
+#pulseaudio-slider slider {
+  all: unset;
+  min-height: 0;
+  min-width: 0;
+  opacity: 0;
+  background-image: none;
+  border: none;
+  box-shadow: none;
+}
+
+#pulseaudio-slider trough {
+  min-height: 8px;
+  min-width: 75px;
+  border-radius: 5px;
+  background: @dark-7;
+}
+
+#pulseaudio-slider highlight {
+  min-width: 10px;
+  border-radius: 5px;
+  background: @highlight;
+}
+
+tooltip {
+  background: @dark-9;
+  border-radius: 5px;
+}
+
+tooltip label {
+  color: white;
+}
