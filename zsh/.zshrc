@@ -382,3 +382,21 @@ case ":$PATH:" in
   *) export PATH="$PNPM_HOME/bin:$PATH" ;;
 esac
 # pnpm end
+
+# Turso
+export PATH="$PATH:/home/shaharyar/.turso"
+
+eval $(floci env)
+export PATH=$PATH:$(go env GOPATH)/bin
+
+## [Completion]
+## Completion scripts setup. Remove the following line to uninstall
+[[ -f /home/shaharyar/.dart-cli-completion/zsh-config.zsh ]] && . /home/shaharyar/.dart-cli-completion/zsh-config.zsh || true
+## [/Completion]
+
+export PATH="$HOME/.cargo/bin:$PATH"
+export PATH="$HOME/.avm/bin:$PATH"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
