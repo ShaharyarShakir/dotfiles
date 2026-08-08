@@ -10,7 +10,7 @@ export PATH="/usr/bin:$PATH"
 ## homebrew 
 export PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"
 export PATH="/home/linuxbrew/.linuxbrew/sbin:$PATH"
-
+eval "$(/home/shaharyar/.local/bin/mise activate zsh)" # added by https://mise.run/zsh
 
 FLAG_FILE="/tmp/fastfetch_ran_$USER"
 # Always register the trap
@@ -400,3 +400,8 @@ export PATH="$HOME/.avm/bin:$PATH"
 # bun
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
+
+# Auto-Warpify
+[[ "$-" == *i* ]] && printf 'P$f{"hook": "SourcedRcFileForWarp", "value": { "shell": "zsh", "uname": "Linux" }}\' 
+
+
