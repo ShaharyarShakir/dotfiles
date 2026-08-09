@@ -42,8 +42,6 @@ brew "gh"
 brew "git-delta"
 # Blazing fast terminal-ui for git written in rust
 brew "gitui"
-# Render markdown on the CLI
-brew "glow"
 # Handy way to save and run project-specific commands
 brew "just"
 # Kubernetes CLI To Manage Your Clusters In Style!
@@ -72,22 +70,10 @@ brew "ollama", restart_service: :changed
 brew "ripgrep"
 # AI coding agent, built for the terminal
 brew "opencode"
-# CLI for Postgres with auto-completion and syntax highlighting
-brew "pgcli"
-# PDF rendering library (based on the xpdf-3.0 code base)
-brew "poppler"
-# PostgreSQL extension adding HyperLogLog data structures as a native data type
-brew "postgresql-hll"
-# Object-relational database system
-brew "postgresql@18", restart_service: :changed, link: true
 # Command-line YAML and XML processor that wraps jq
 brew "python-yq"
 # Software environment for statistical computing
 brew "r"
-# Develop and deploy code with zero configuration
-brew "railway"
-# Database management TUI for PostgreSQL/MySQL/SQLite
-brew "rainfrog"
 # Display and control your Android device
 brew "scrcpy"
 # Cross-shell prompt for astronauts
@@ -110,14 +96,6 @@ brew "tree"
 brew "trivy"
 # Watch files and take action when they change
 brew "watchman"
-# Blazing fast terminal file manager written in Rust, based on async I/O
-brew "yazi"
-# Pluggable terminal workspace, with terminal multiplexer as the base feature
-brew "zellij"
-# Shell extension to navigate your filesystem faster
-brew "zoxide"
 # Interactive TUI for Homebrew
 brew "gromgit/brewtils/taproom"
-# Localstack cli packaged using pyinstaller
-cask "font-symbols-only-nerd-font"
 cask "font-jetbrains-mono"
