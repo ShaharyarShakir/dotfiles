@@ -804,4 +804,4 @@ export STARSHIP_CONFIG="/home/shaharyar/.config/starship_bash.toml"
 export STARSHIP_CONFIG="/home/shaharyar/.config/starship_bash.toml"
 . "$HOME/.cargo/env"
 
-export PATH="/home/shaharyar/.local/stm32cube/bin:$PATH"
+export PATH="/home/shaharyar/.local/stm32cube/bin:$PATH"export STARSHIP_CONFIG="/home/shaharyarshakir/.config/starship_bash.toml"
