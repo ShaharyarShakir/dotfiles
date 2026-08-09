@@ -10,7 +10,7 @@ chmod +x bash/install.sh
 source bash/.bashrc
 
 # stow for creating sublinks
-stow .
+stow --adopt .
 
 # link tmux in the config with home dir
 # ln -s ~/.tmux.conf  ~/.config/tmux/.tmux.conf
