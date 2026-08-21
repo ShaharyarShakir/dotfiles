@@ -10,7 +10,6 @@ export PATH="/usr/bin:$PATH"
 ## homebrew 
 export PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"
 export PATH="/home/linuxbrew/.linuxbrew/sbin:$PATH"
-eval "$(/home/shaharyar/.local/bin/mise activate zsh)" # added by https://mise.run/zsh
 
 FLAG_FILE="/tmp/fastfetch_ran_$USER"
 # Always register the trap
@@ -255,10 +254,6 @@ alias lg='lazygit'
 
 
 export PATH="$PATH:$HOME/.rvm/bin"
-if command -v mise >/dev/null 2>&1; then
-
-eval "$(~/.local/bin/mise activate zsh)"
-fi
 # Taskfile completion
 if command -v task >/dev/null 2>&1; then
   eval "$(task --completion zsh)"
@@ -297,10 +292,6 @@ if command -v bun >/dev/null 2>&1; then
 source <(ng completion script)
 fi
 
-# mise
-if command -v mise >/dev/null 2>&1; then
-eval "$(mise activate zsh)"
-fi
 
 # fnm
 if command -v fnm >/dev/null 2>&1; then
@@ -405,3 +396,6 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 [[ "$-" == *i* ]] && printf 'P$f{"hook": "SourcedRcFileForWarp", "value": { "shell": "zsh", "uname": "Linux" }}\' 
 
 
+eval "$(mise activate zsh)"
+export ZEPHYR_TOOLCHAIN_HOME=/home/shaharyarshakir/Downloads/zephyr-sdk-0.17.0
+export ZEPHYR_SDK_INSTALL_DIR=~/zephyr-sdk-0.17.0

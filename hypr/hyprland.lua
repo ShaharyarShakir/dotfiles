@@ -136,6 +136,21 @@ hl.bind(mainMod .. " + B", hl.dsp.exec_cmd(browser))
 hl.bind(mainMod .. " + space", hl.dsp.exec_cmd(menu))
 hl.bind(secondMod .. " + space", hl.dsp.exec_cmd(runner))
 
+
+local ohw = "/home/shaharyarshakir/.local/bin/ohw"
+
+hl.bind(
+    mainMod .. " + V",
+    hl.dsp.exec_cmd(ohw .. " toggle"),
+    { description = "Dictation: toggle" }
+)
+
+hl.bind(
+    mainMod .. " + SHIFT + V",
+    hl.dsp.exec_cmd(ohw .. " cancel"),
+    { description = "Dictation: cancel" }
+)
+
 -- layoutmsg -> layout dispatcher (dwindle-only, same as example config)
 hl.bind(mainMod .. " + P", hl.dsp.window.pseudo())
 hl.bind(mainMod .. " + J", hl.dsp.layout("togglesplit"))
