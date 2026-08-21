@@ -7,6 +7,12 @@
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
+  "edit_predictions": {
+    "provider": "zed",
+    "ollama": {
+      "model": "qwen2.5-coder:7b-base"
+    }
+  },
   "buffer_font_family": "JetBrainsMono Nerd Font",
   "buffer_font_weight": 450.0,
   "agent": {
