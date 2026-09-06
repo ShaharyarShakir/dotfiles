@@ -8,38 +8,41 @@
 ------------------
 
 hl.monitor({
-    output   = "eDP-1",
-    mode     = "preferred",
-    position = "auto",
-    scale    = 1,
+	output = "eDP-1",
+	mode = "preferred",
+	position = "auto",
+	scale = 1,
 })
 
 ---------------------
 ---- MY PROGRAMS ----
 ---------------------
 
-local terminal     = "kitty"
-local terminalWarp  = "warp-terminal"
-local fileManager   = "nautilus"
-local menu          = "rofi -show drun -show-icons"
-local runner        = "rofi -show run"
-local browser       = "brave-origin-nightly"
+local terminal = "kitty"
+local terminalWarp = "warp-terminal"
+local fileManager = "nautilus"
+local menu = "rofi -show drun -show-icons"
+local runner = "rofi -show run"
+local browser = "brave-browser"
 
 -------------------
 ---- AUTOSTART ----
 -------------------
 
 hl.on("hyprland.start", function()
-    hl.exec_cmd("hyprpaper & swaync & hypridle & pypr")
-    hl.exec_cmd("wl-paste --watch cliphist store &")
-    hl.exec_cmd("nm-applet --indicator")
-    hl.exec_cmd("gsettings set org.gnome.desktop.interface color-scheme prefer-dark")
-    hl.exec_cmd("gsettings set org.gnome.desktop.interface gtk-theme Adwaita-dark")
-    hl.exec_cmd("/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1")
-    hl.exec_cmd("gnome-keyring-daemon --start --components=secrets")
-    hl.exec_cmd("qs -c noctalia-shell")
-end)
+	-- Portal / D-Bus session fix: must run first
+	hl.exec_cmd("dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP XDG_SESSION_TYPE")
+	hl.exec_cmd("systemctl --user start hyprland-session.target")
 
+	hl.exec_cmd("hyprpaper & swaync & hypridle & pypr")
+	hl.exec_cmd("wl-paste --watch cliphist store &")
+	hl.exec_cmd("nm-applet --indicator")
+	hl.exec_cmd("gsettings set org.gnome.desktop.interface color-scheme prefer-dark")
+	hl.exec_cmd("gsettings set org.gnome.desktop.interface gtk-theme Adwaita-dark")
+	hl.exec_cmd("/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1")
+	hl.exec_cmd("gnome-keyring-daemon --start --components=secrets")
+	hl.exec_cmd("qs -c noctalia-shell")
+end)
 -------------------------------
 ---- ENVIRONMENT VARIABLES ----
 -------------------------------
@@ -54,77 +57,77 @@ hl.env("QT_STYLE_OVERRIDE", "kvantum")
 -----------------------
 
 hl.config({
-    general = {
-        gaps_in = 5,
-        gaps_out = 10,
-        border_size = 1,
-        col = {
-            active_border   = { colors = { "rgba(33ccffee)", "rgba(00ff99ee)" }, angle = 45 },
-            inactive_border = "rgba(595959aa)",
-        },
-        resize_on_border = false,
-        allow_tearing = false,
-        layout = "dwindle",
-    },
+	general = {
+		gaps_in = 5,
+		gaps_out = 10,
+		border_size = 1,
+		col = {
+			active_border = { colors = { "rgba(33ccffee)", "rgba(00ff99ee)" }, angle = 45 },
+			inactive_border = "rgba(595959aa)",
+		},
+		resize_on_border = false,
+		allow_tearing = false,
+		layout = "dwindle",
+	},
 
-    decoration = {
-        rounding = 10,
-        rounding_power = 2,
-        active_opacity = 1.0,
-        inactive_opacity = 1.0,
+	decoration = {
+		rounding = 10,
+		rounding_power = 2,
+		active_opacity = 1.0,
+		inactive_opacity = 1.0,
 
-        shadow = {
-            enabled = false,
-            range = 4,
-            render_power = 3,
-            color = 0xee1a1a1a, -- was rgba(1a1a1aee); color is now a hex int, not a string
-        },
+		shadow = {
+			enabled = false,
+			range = 4,
+			render_power = 3,
+			color = 0xee1a1a1a, -- was rgba(1a1a1aee); color is now a hex int, not a string
+		},
 
-        blur = {
-            enabled = false,
-            size = 3,
-            passes = 1,
-            vibrancy = 0.1696,
-        },
-    },
+		blur = {
+			enabled = false,
+			size = 3,
+			passes = 1,
+			vibrancy = 0.1696,
+		},
+	},
 
-    animations = {
-        enabled = false,
-    },
+	animations = {
+		enabled = false,
+	},
 
-    dwindle = {
-        preserve_split = true,
-    },
+	dwindle = {
+		preserve_split = true,
+	},
 
-    master = {
-        new_status = "master",
-    },
+	master = {
+		new_status = "master",
+	},
 
-    misc = {
-        force_default_wallpaper = -1,
-        disable_hyprland_logo = false,
-    },
+	misc = {
+		force_default_wallpaper = -1,
+		disable_hyprland_logo = false,
+	},
 
-    input = {
-        kb_layout = "us",
-        follow_mouse = 1,
-        sensitivity = 0,
-        touchpad = {
-            natural_scroll = false,
-        },
-    },
+	input = {
+		kb_layout = "us",
+		follow_mouse = 1,
+		sensitivity = 0,
+		touchpad = {
+			natural_scroll = false,
+		},
+	},
 })
 
 hl.device({
-    name = "epic-mouse-v1",
-    sensitivity = -0.5,
+	name = "epic-mouse-v1",
+	sensitivity = -0.5,
 })
 
 ---------------------
 ---- KEYBINDINGS ----
 ---------------------
 
-local mainMod   = "SUPER"
+local mainMod = "SUPER"
 local secondMod = "SUPER + ALT"
 
 -- Launch programs
@@ -136,20 +139,11 @@ hl.bind(mainMod .. " + B", hl.dsp.exec_cmd(browser))
 hl.bind(mainMod .. " + space", hl.dsp.exec_cmd(menu))
 hl.bind(secondMod .. " + space", hl.dsp.exec_cmd(runner))
 
-
 local ohw = "/home/shaharyarshakir/.local/bin/ohw"
 
-hl.bind(
-    mainMod .. " + V",
-    hl.dsp.exec_cmd(ohw .. " toggle"),
-    { description = "Dictation: toggle" }
-)
+hl.bind(mainMod .. " + V", hl.dsp.exec_cmd(ohw .. " toggle"), { description = "Dictation: toggle" })
 
-hl.bind(
-    mainMod .. " + SHIFT + V",
-    hl.dsp.exec_cmd(ohw .. " cancel"),
-    { description = "Dictation: cancel" }
-)
+hl.bind(mainMod .. " + SHIFT + V", hl.dsp.exec_cmd(ohw .. " cancel"), { description = "Dictation: cancel" })
 
 -- layoutmsg -> layout dispatcher (dwindle-only, same as example config)
 hl.bind(mainMod .. " + P", hl.dsp.window.pseudo())
@@ -177,9 +171,9 @@ hl.bind(mainMod .. " + l", hl.dsp.focus({ direction = "down" }))
 
 -- Switch workspaces / move window to workspace
 for i = 1, 10 do
-    local key = i % 10 -- 10 maps to key 0
-    hl.bind(mainMod .. " + " .. key, hl.dsp.focus({ workspace = i }))
-    hl.bind(mainMod .. " + SHIFT + " .. key, hl.dsp.window.move({ workspace = i }))
+	local key = i % 10 -- 10 maps to key 0
+	hl.bind(mainMod .. " + " .. key, hl.dsp.focus({ workspace = i }))
+	hl.bind(mainMod .. " + SHIFT + " .. key, hl.dsp.window.move({ workspace = i }))
 end
 
 -- Special workspace (scratchpad)
