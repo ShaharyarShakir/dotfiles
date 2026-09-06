@@ -399,3 +399,4 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 eval "$(mise activate zsh)"
 export ZEPHYR_TOOLCHAIN_HOME=/home/shaharyarshakir/Downloads/zephyr-sdk-0.17.0
 export ZEPHYR_SDK_INSTALL_DIR=~/zephyr-sdk-0.17.0
+export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
