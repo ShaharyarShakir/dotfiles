@@ -33,7 +33,7 @@ hl.on("hyprland.start", function()
 	-- Portal / D-Bus session fix: must run first
 	hl.exec_cmd("dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP XDG_SESSION_TYPE")
 	hl.exec_cmd("systemctl --user start hyprland-session.target")
-
+	hl.exec_cmd("/usr/libexec/xfce-polkit")
 	hl.exec_cmd("hyprpaper & swaync & hypridle & pypr")
 	hl.exec_cmd("wl-paste --watch cliphist store &")
 	hl.exec_cmd("nm-applet --indicator")
@@ -203,7 +203,7 @@ hl.bind(mainMod .. " + left", hl.dsp.window.resize({ x = -10, y = 0 }))
 hl.bind(mainMod .. " + right", hl.dsp.window.resize({ x = 10, y = 0 }))
 hl.bind(mainMod .. " + up", hl.dsp.window.resize({ x = 0, y = -20 }))
 hl.bind(mainMod .. " + down", hl.dsp.window.resize({ x = 0, y = 20 }))
-
+hl.bind(mainMod .. " + D", hl.dsp.exec_cmd("wayscriber --daemon-toggle"), { locked = true })
 -- Media keys
 hl.bind("XF86AudioNext", hl.dsp.exec_cmd("playerctl next"), { locked = true })
 hl.bind("XF86AudioPause", hl.dsp.exec_cmd("playerctl play-pause"), { locked = true })
