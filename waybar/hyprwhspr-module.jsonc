@@ -1,0 +1,12 @@
+{
+  "custom/hyprwhspr": {
+    "format": "{}",
+    "exec": "/home/shaharyarshakir/hyprwhspr/config/hyprland/hyprwhspr-tray.sh status",
+    "interval": 1,
+    "return-type": "json",
+    "exec-on-event": true,
+    "on-click": "/home/shaharyarshakir/hyprwhspr/config/hyprland/hyprwhspr-tray.sh record",
+    "on-click-right": "/home/shaharyarshakir/hyprwhspr/config/hyprland/hyprwhspr-tray.sh restart",
+    "tooltip": true
+  }
+}
