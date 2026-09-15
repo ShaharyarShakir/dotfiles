@@ -805,3 +805,9 @@ export STARSHIP_CONFIG="/home/shaharyar/.config/starship_bash.toml"
 . "$HOME/.cargo/env"
 
 export PATH="/home/shaharyar/.local/stm32cube/bin:$PATH"export STARSHIP_CONFIG="/home/shaharyarshakir/.config/starship_bash.toml"
+
+
+# Added by Antigravity CLI installer
+export PATH="/home/shaharyarshakir/.local/bin:$PATH"
+
+if command -v wt >/dev/null 2>&1; then eval "$(command wt config shell init bash)"; fi

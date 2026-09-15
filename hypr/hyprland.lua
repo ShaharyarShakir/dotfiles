@@ -138,13 +138,18 @@ hl.bind(mainMod .. " + E", hl.dsp.exec_cmd(fileManager))
 hl.bind(mainMod .. " + B", hl.dsp.exec_cmd(browser))
 hl.bind(mainMod .. " + space", hl.dsp.exec_cmd(menu))
 hl.bind(secondMod .. " + space", hl.dsp.exec_cmd(runner))
-
 local ohw = "/home/shaharyarshakir/.local/bin/ohw"
+hl.bind(mainMod .. " + W", hl.dsp.exec_cmd("whisrs toggle"), {
+	description = "Whisrs: toggle dictation",
+})
+-- Dictation / Voxtype
+hl.bind(mainMod .. " + V", hl.dsp.exec_cmd("voxtype record-toggle"), {
+	description = "Voxtype: toggle recording",
+})
 
-hl.bind(mainMod .. " + V", hl.dsp.exec_cmd(ohw .. " toggle"), { description = "Dictation: toggle" })
-
-hl.bind(mainMod .. " + SHIFT + V", hl.dsp.exec_cmd(ohw .. " cancel"), { description = "Dictation: cancel" })
-
+hl.bind(mainMod .. " + SHIFT + V", hl.dsp.exec_cmd("voxtype record cancel"), {
+	description = "Voxtype: cancel recording",
+})
 -- layoutmsg -> layout dispatcher (dwindle-only, same as example config)
 hl.bind(mainMod .. " + P", hl.dsp.window.pseudo())
 hl.bind(mainMod .. " + J", hl.dsp.layout("togglesplit"))
