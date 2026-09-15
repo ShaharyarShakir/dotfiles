@@ -741,7 +741,7 @@
     },
     "wallpaper": {
         "automationEnabled": true,
-        "directory": "/home/shaharyarshakir/dotfiles/backgrounds",
+        "directory": "/home/shaharyarshakir/Pictures/Wallpapers",
         "enableMultiMonitorDirectories": false,
         "enabled": true,
         "favorites": [
