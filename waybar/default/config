@@ -1,3 +1,4 @@
+
 {
   "layer": "top",
   "position": "top",
@@ -25,6 +26,7 @@
     "battery",
     "custom/volume",
     "pulseaudio#microphone",
+    "custom/voxtype",
     "backlight",
     "network"
   ],
@@ -87,6 +89,14 @@
     "tooltip-format": " at {volume}%"
   },
 
+  "custom/voxtype": {
+    "exec": "voxtype status --follow --format json",
+    "return-type": "json",
+    "format": "{}",
+    "tooltip": true,
+    "on-click": "systemctl --user restart voxtype"
+  },
+
   "backlight": {
     "device": "intel_backlight",
     "format": "󰃞 {percent}%",
@@ -127,4 +137,3 @@
     "spacing": 10
   }
 }
-
