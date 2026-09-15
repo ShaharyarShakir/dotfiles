@@ -400,3 +400,10 @@ eval "$(mise activate zsh)"
 export ZEPHYR_TOOLCHAIN_HOME=/home/shaharyarshakir/Downloads/zephyr-sdk-0.17.0
 export ZEPHYR_SDK_INSTALL_DIR=~/zephyr-sdk-0.17.0
 export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
+
+
+# Added by Antigravity CLI installer
+export PATH="/home/shaharyarshakir/.local/bin:$PATH"
+export OMNIROUTE_API_KEY="sk-6f434b84f146a5fe-6bb8f5-7871a4dc"
+
+if command -v wt >/dev/null 2>&1; then eval "$(command wt config shell init zsh)"; fi
