@@ -226,3 +226,6 @@ hl.bind("XF86AudioPrev", hl.dsp.exec_cmd("playerctl previous"), { locked = true 
 -- Once converted (e.g. to hyprland-gui.lua / theme.lua in the same dir):
 -- require("hyprland-gui")
 -- require("theme")
+
+-- For Noctalia Color templates
+require("noctalia").apply_theme()
