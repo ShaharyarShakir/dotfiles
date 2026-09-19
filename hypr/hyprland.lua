@@ -23,7 +23,7 @@ local terminalWarp = "warp-terminal"
 local fileManager = "nautilus"
 local menu = "rofi -show drun -show-icons"
 local runner = "rofi -show run"
-local browser = "brave-browser"
+local browser = "brave"
 
 -------------------
 ---- AUTOSTART ----

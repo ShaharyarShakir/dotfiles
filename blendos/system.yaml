@@ -21,7 +21,7 @@ packages:
 
 aur-packages:
     - "visual-studio-code-bin"
-    - "brave-origin-nightly-bin"
+    - "brave-bin"
     - "tree"
     - "zip"
     - "unzip"
@@ -31,6 +31,7 @@ aur-packages:
     - "cursor-bin"
     - "ttf-jetbrains-mono"
     - "ripgrep"
+    - "btop"
     - "quickshell"
     - "fd"
     - "trash-cli"
