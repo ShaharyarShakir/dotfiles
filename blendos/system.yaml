@@ -32,6 +32,7 @@ aur-packages:
     - "ttf-jetbrains-mono"
     - "ripgrep"
     - "btop"
+    - 'whisrs-bin'
     - "quickshell"
     - "fd"
     - "trash-cli"
@@ -47,6 +48,7 @@ aur-packages:
     - "zoxide"
     - "wofi"
     - "cliphist"
+    - "devpod"
     - "noctalia-git"
     - "neovim"
     - "fastfetch"
