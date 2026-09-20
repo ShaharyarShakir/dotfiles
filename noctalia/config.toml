@@ -1,0 +1,112 @@
+[bar]
+order = [ "default" ]
+
+[bar.default]
+auto_hide = false
+background_opacity = 0.0
+border = "outline"
+border_width = 0.0
+
+capsule = true
+capsule_fill = "surface_variant"
+capsule_group = []
+capsule_opacity = 0.70
+capsule_padding = 6.0
+capsule_thickness = 0.76
+
+start = [ "clock" ]
+center = [ "workspaces" ]
+
+end = [
+    "tray",
+    "notifications",
+    "network",
+    "volume",
+    "brightness",
+    "battery",
+    "screenshot",
+    "wallpaper"
+]
+
+font_family = "JetBrains Mono Bold"
+font_scale = 2.5
+font_weight = 800
+hover_highlight = true
+
+layer = "top"
+position = "top"
+thickness = 50
+
+margin_edge = 5
+margin_ends = 5
+margin_opposite_edge = 0
+
+padding = 8
+panel_overlap = 1
+
+radius = 12
+radius_bottom_left = 12
+radius_bottom_right = 12
+radius_top_left = 12
+radius_top_right = 12
+
+reserve_space = true
+scale = 1.0
+shadow = true
+show_on_workspace_switch = true
+smart_auto_hide = false
+widget_spacing = 6
+
+concave_edge_corners = true
+contact_shadow = false
+enabled = true
+
+    [bar.default.dead_zone]
+
+[calendar]
+enabled = true
+event_date_format = "%A %e %B"
+event_time_format = "%H:%M"
+refresh_minutes = 15
+
+[shell.screenshot]
+annotate = false
+close_on_copy = true
+close_on_save = true
+confirm_region = true
+copy_to_clipboard = true
+directory = ""
+filename_pattern = ""
+freeze_screen = true
+pipe_command = ""
+pipe_to_command = false
+remember_last_region = true
+save_to_file = true
+show_cursor = true
+skip_annotate_on_copy_save = false
+
+[wallpaper]
+enabled = true
+directory = "/home/shaharyar/dotfiles/backgrounds"
+directory_dark = ""
+directory_light = ""
+edge_smoothness = 0.3
+fill_color = ""
+fill_mode = "crop"
+per_monitor_directories = false
+transition = [ "fade", "wipe", "disc", "stripes", "zoom", "honeycomb" ]
+transition_duration = 1500.0
+transition_on_startup = false
+
+
+[widget.network]
+show_label = false
+
+[widget.volume]
+show_label = false
+
+[widget.brightness]
+show_label = false
+
+[widget.battery]
+show_label = false
