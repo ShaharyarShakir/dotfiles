@@ -228,4 +228,4 @@ hl.bind("XF86AudioPrev", hl.dsp.exec_cmd("playerctl previous"), { locked = true 
 -- require("theme")
 
 -- For Noctalia Color templates
-require("noctalia").apply_theme()
+-- require("noctalia").apply_theme()
