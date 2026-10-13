@@ -202,14 +202,20 @@ hl.bind("XF86AudioMicMute", hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SOURC
 hl.bind("XF86MonBrightnessUp", hl.dsp.exec_cmd("brightnessctl s 10%+"), { locked = true })
 hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd("brightnessctl s 10%-"), { locked = true })
 
+
 -- Resize active window with arrow keys
--- window.resize() takes x/y directly (pixel delta), not a nested table —
--- confirmed by the runtime error: "Expected positions (x & y) or keep_aspect_ratio"
-hl.bind(mainMod .. " + left", hl.dsp.window.resize({ x = -10, y = 0 }))
-hl.bind(mainMod .. " + right", hl.dsp.window.resize({ x = 10, y = 0 }))
-hl.bind(mainMod .. " + up", hl.dsp.window.resize({ x = 0, y = -20 }))
-hl.bind(mainMod .. " + down", hl.dsp.window.resize({ x = 0, y = 20 }))
-hl.bind(mainMod .. " + D", hl.dsp.exec_cmd("wayscriber --daemon-toggle"), { locked = true })
+hl.bind(mainMod .. " + left",
+    hl.dsp.window.resize({ x = -50, y = 0, relative = true }))
+
+hl.bind(mainMod .. " + right",
+    hl.dsp.window.resize({ x = 50, y = 0, relative = true }))
+
+hl.bind(mainMod .. " + up",
+    hl.dsp.window.resize({ x = 0, y = -50, relative = true }))
+
+hl.bind(mainMod .. " + down",
+    hl.dsp.window.resize({ x = 0, y = 50, relative = true }))
+
 -- Media keys
 hl.bind("XF86AudioNext", hl.dsp.exec_cmd("playerctl next"), { locked = true })
 hl.bind("XF86AudioPause", hl.dsp.exec_cmd("playerctl play-pause"), { locked = true })
