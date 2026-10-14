@@ -160,7 +160,7 @@ hl.bind("SHIFT + PRINT", hl.dsp.exec_cmd("hyprshot -m region"))
 hl.bind(mainMod .. " + O", hl.dsp.exec_cmd("wlogout"))
 hl.bind(mainMod .. " + T", hl.dsp.exec_cmd("~/dotfiles/waybar/scripts/launch.sh"))
 hl.bind(mainMod .. " + A", hl.dsp.exec_cmd("pypr toggle term"))
-hl.bind(mainMod .. " + Y", hl.dsp.exec_cmd("sh -c 'cliphist list | wofi --dmenu | cliphist decode | wl-copy'"))
+hl.bind(mainMod .. " + Y", hl.dsp.exec_cmd("cliphist list | rofi -dmenu -p 'Clipboard' | cliphist decode | wl-copy"))
 
 -- close vs force-close: hl.dsp.window.close() is graceful (was killactive),
 -- hl.dsp.window.kill() force-kills (was forcekillactive)
