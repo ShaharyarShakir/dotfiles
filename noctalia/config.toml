@@ -66,7 +66,7 @@ enabled = true
 [calendar]
 enabled = true
 event_date_format = "%A %e %B"
-event_time_format = "%H:%M"
+event_time_format = "%I:%M %p"
 refresh_minutes = 15
 
 [shell.screenshot]
@@ -110,3 +110,7 @@ show_label = false
 
 [widget.battery]
 show_label = false
+
+[widget.clock]
+format = "{:%-I:%M %p}"
+tooltip_format = "{:%A, %B %d, %Y}"
