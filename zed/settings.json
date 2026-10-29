@@ -7,6 +7,33 @@
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
+  "outline_panel": {
+    "dock": "left"
+  },
+  "ssh_connections": [
+    {
+      "host": "lima-canonical-dev",
+      "args": [],
+      "projects": [
+        {
+          "paths": [
+            "/home/shaharyar/01__git_repos"
+          ]
+        },
+        {
+          "paths": [
+            "/home/shaharyar/01__git_repos/linux_kernel__driver_dev"
+          ]
+        }
+      ]
+    },
+    {
+      "host": "lima-canonical-dev",
+      "args": [],
+      "projects": []
+    }
+  ],
+  "disable_ai": true,
   "edit_predictions": {
     "provider": "zed",
     "ollama": {
