@@ -7,57 +7,88 @@
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
+  "agent_servers": {
+    "antigravity-acp": {
+      "type": "registry"
+    }
+  },
+  "cli_default_open_behavior": "existing_window",
+  "telemetry": {
+    "diagnostics": false,
+    "metrics": false,
+  },
   "outline_panel": {
-    "dock": "left"
+    "dock": "left",
   },
   "ssh_connections": [
     {
-      "host": "lima-canonical-dev",
+      "host": "hub",
       "args": [],
       "projects": [
         {
           "paths": [
-            "/home/shaharyar/01__git_repos"
-          ]
+            "/mnt/host/01__git_repos/200-projects/06__full-stack/todo-app",
+          ],
         },
-        {
-          "paths": [
-            "/home/shaharyar/01__git_repos/linux_kernel__driver_dev"
-          ]
-        }
-      ]
+      ],
     },
     {
-      "host": "lima-canonical-dev",
+      "host": "hub",
       "args": [],
-      "projects": []
-    }
+      "projects": [],
+    },
+    {
+      "host": "hub",
+      "args": [],
+      "projects": [],
+    },
+    {
+      "host": "hub",
+      "args": [],
+      "projects": [],
+    },
   ],
-  "disable_ai": true,
+  "disable_ai": false,
   "edit_predictions": {
     "provider": "zed",
     "ollama": {
-      "model": "qwen2.5-coder:7b-base"
-    }
+      "model": "qwen2.5-coder:7b-base",
+    },
   },
-  "buffer_font_family": "JetBrainsMono Nerd Font",
+  "buffer_font_family": ".ZedMono",
   "buffer_font_weight": 450.0,
   "agent": {
+    "default_profile": "ask",
+    "thinking_display": "always_collapsed",
+    "play_sound_when_agent_done": "always",
+    "tool_permissions": {
+      "tools": {
+        "fetch": {
+          "default": "allow"
+        },
+        "search_web": {
+          "default": "allow"
+        },
+        "terminal": {
+          "default": "allow",
+        },
+      },
+    },
     "default_model": {
-      "provider": "ollama",
-      "model": "deepseek-coder:1.3b",
-      "enable_thinking": false
+      "provider": "openrouter",
+      "model": "openrouter/free",
+      "enable_thinking": true,
     },
     "favorite_models": [],
-    "model_parameters": []
+    "model_parameters": [],
   },
   "session": {
-    "trust_all_worktrees": true
+    "trust_all_worktrees": true,
   },
   "icon_theme": {
     "mode": "dark",
     "light": "Symbols Icon Theme",
-    "dark": "Symbols Icon Theme"
+    "dark": "Symbols Icon Theme",
   },
   "formatter": "prettier",
   "base_keymap": "VSCode",
@@ -84,7 +115,7 @@
   "theme": {
     "mode": "dark",
     "light": "One Light",
-    "dark": "Ayu Dark"
+    "dark": "Syntax",
   },
   "terminal": {
     "shell": {
