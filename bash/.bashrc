@@ -1,4 +1,3 @@
-# ~/.bashrc - Main shell config, sources additional modular files
 
 function y() {
 	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
@@ -227,16 +226,6 @@ alias docker-clean=' \
   docker network prune -f ; \
   docker volume prune -f '
 
-# pnpm node package manager
-alias pn="pnpm"
-alias pnx="pnpm dlx"
-
-# neoVim Starter
-alias nvim-lazy="NVIM_APPNAME=LazyVim nvim"
-alias nvim-kick="NVIM_APPNAME=kickstart nvim"
-alias nvim-chad="NVIM_APPNAME=NvChad nvim"
-alias nvim-astro="NVIM_APPNAME=AstroNvim nvim"
-alias nvim-astro="NVIM_APPNAME=neobean nvim"
 
 
 
@@ -290,56 +279,9 @@ export SSH_AGENT_SOCK=$SSH_AUTH_SOCK
 #################################################################
 
 
-# Function that uses fzf to choose a devbox command
-devbox_menu() {
-    local options=(
-        "devbox init"
-        "devbox add"
-        "devbox shell"
-    )
-
-    local selected
-    selected=$(printf "%s\n" "${options[@]}" | fzf --prompt="Devbox > " --height=10 --border)
-
-    case "$selected" in
-        "devbox init")
-            echo "Running: devbox init"
-            devbox init
-            ;;
-        "devbox add")
-            read -rp "Enter package name to add: " pkg
-            echo "Running: devbox add $pkg"
-            devbox add "$pkg"
-            ;;
-        "devbox shell")
-            echo "Running: devbox shell"
-            devbox shell
-            ;;
-        *)
-            echo "Cancelled or invalid selection."
-            ;;
-    esac
-}
-
-bind -x '"\C-g": devbox_menu'
 
 
 
-# Function to open Neovim with different configurations using fzf
-function nvims() {
-  items=("default" "kickstart" "LazyVim" "NvChad" "AstroNvim" "neobean")
-  config=$(printf "%s\n" "${items[@]}" | fzf --prompt=" Neovim Config  " --height=~50% --layout=reverse --border --exit-0)
-
-  if [[ -z $config ]]; then
-    echo "Nothing selected"
-    return 0
-  elif [[ $config == "default" ]]; then
-    NVIM_APPNAME="" nvim "$@"
-  else
-    NVIM_APPNAME="$config" nvim "$@"
-  fi
-}
-   bind -x '"\C-n": nvims'
 
 
 # Script to list recent files and open nvim using fzf
@@ -401,65 +343,6 @@ extract() {
     fi
 }
 
-distribution () {
-    local dtype="unknown"  # Default to unknown
-
-    # Use /etc/os-release for modern distro identification
-    if [ -r /etc/os-release ]; then
-        source /etc/os-release
-        case $ID in
-            fedora|rhel|centos)
-                dtype="redhat"
-                ;;
-            sles|opensuse*)
-                dtype="suse"
-                ;;
-           	nixos)
-	     dtype="nixos"	
-	         ;;
-            ubuntu|debian)
-                dtype="debian"
-                ;;
-            gentoo)
-                dtype="gentoo"
-                ;;
-            arch|manjaro)
-                dtype="arch"
-                ;;
-            slackware)
-                dtype="slackware"
-                ;;
-            *)
-                # Check ID_LIKE only if dtype is still unknown
-                if [ -n "$ID_LIKE" ]; then
-                    case $ID_LIKE in
-                        *fedora*|*rhel*|*centos*)
-                            dtype="redhat"
-                            ;;
-                        *sles*|*opensuse*)
-                            dtype="suse"
-                            ;;
-                        *ubuntu*|*debian*)
-                            dtype="debian"
-                            ;;
-                        *gentoo*)
-                            dtype="gentoo"
-                            ;;
-                        *arch*)
-                            dtype="arch"
-                            ;;
-                        *slackware*)
-                            dtype="slackware"
-                            ;;
-                    esac
-                fi
-
-                # If ID or ID_LIKE is not recognized, keep dtype as unknown
-                ;;
-        esac
-    fi
-
-    echo $dtype
 }
 
 # bat/cat alias
@@ -472,80 +355,6 @@ if command -v bat &> /dev/null || command -v batcat &> /dev/null; then
     fi
 fi
 
-# Show the current version of the operating system
-ver() {
-    local dtype
-    dtype=$(distribution)
-
-    case $dtype in
-        "redhat")
-            if [ -s /etc/redhat-release ]; then
-                cat /etc/redhat-release
-            else
-                cat /etc/issue
-            fi
-            uname -a
-            ;;
-        "suse")
-            cat /etc/SuSE-release
-            ;;
-        "debian")
-            lsb_release -a
-            ;;
-        "gentoo")
-            cat /etc/gentoo-release
-            ;;
-        "arch")
-            cat /etc/os-release
-            ;;
-        "slackware")
-            cat /etc/slackware-version
-            ;;
-        *)
-            if [ -s /etc/issue ]; then
-                cat /etc/issue
-            else
-                echo "Error: Unknown distribution"
-                exit 1
-            fi
-            ;;
-    esac
-}
-
-# Automatically install the needed support files for this .bashrc file
-install_bashrc_support() {
-	local dtype
-	dtype=$(distribution)
-
-	case $dtype in
-		"redhat")
-			sudo yum install multitail tree zoxide trash-cli fzf bash-completion fastfetch
-			;;
-		"suse")
-			sudo zypper install multitail tree zoxide trash-cli fzf bash-completion fastfetch
-			;;
-		"debian")
-			sudo apt-get install multitail tree zoxide trash-cli fzf bash-completion
-			# Fetch the latest fastfetch release URL for linux-amd64 deb file
-			FASTFETCH_URL=$(curl -s https://api.github.com/repos/fastfetch-cli/fastfetch/releases/latest | grep "browser_download_url.*linux-amd64.deb" | cut -d '"' -f 4)
-
-			# Download the latest fastfetch deb file
-			curl -sL $FASTFETCH_URL -o /tmp/fastfetch_latest_amd64.deb
-
-			# Install the downloaded deb file using apt-get
-			sudo apt-get install /tmp/fastfetch_latest_amd64.deb
-			;;
-		"arch")
-			sudo paru multitail tree zoxide trash-cli fzf bash-completion fastfetch
-			;;
-		"slackware")
-			echo "No install support for Slackware"
-			;;
-		*)
-			echo "Unknown distribution"
-			;;
-	esac
-}
 
 
 # Enable history settings
@@ -632,8 +441,6 @@ export PATH="$HOME/.local/bin:$HOME/bin:$PATH"
 export BAT_THEME="tokyonight_night"
 export MANPAGER="sh -c 'col -bx | bat --paging=always -l man'"
 
-# for atuin commadline history
-  export ATUIN_NOBIND=true
 
 # fzf integration (if installed)
 export FZF_DEFAULT_OPTS="--height 40% --layout=reverse --border"
@@ -722,8 +529,6 @@ case ":$PATH:" in
   *) export PATH="$PNPM_HOME:$PATH" ;;
 esac
 
-# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-export PATH="$PATH:$HOME/.rvm/bin"
 
 ################################################################################
 #############################  END  ############################################
@@ -739,8 +544,6 @@ eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 fi
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 # Enable fancy prompt using starship
-export STARSHIP_CONFIG="$HOME/.config/starship_bash.toml"
-eval "$(starship init bash)"
 
 # Set up fzf key bindings and fuzzy completion
 eval "$(fzf --bash)"
@@ -755,59 +558,18 @@ if [[ -z "$PROMPT_COMMAND" ]]; then
 else
     PROMPT_COMMAND="__auto_ls_on_cd; $PROMPT_COMMAND"
 fi
-# Taskfile completion for task command
-if command -v task >/dev/null; then
-eval "$(task --completion bash)"
 fi
 
-# Devbox global shell environment
-eval "$(devbox global shellenv)"
 
-# buildkit configuration
-export BUILDKIT_HOST=unix:///run/user/1000/buildkit/buildkitd.sock
-function y() {
-	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
-	command yazi "$@" --cwd-file="$tmp"
-	IFS= read -r -d '' cwd < "$tmp"
-	[ "$cwd" != "$PWD" ] && [ -d "$cwd" ] && builtin cd -- "$cwd"
-	rm -f -- "$tmp"
-}
 #################################################################################
 ########################### END OF .bashrc ######################################
 #################################################################################
-export STARSHIP_CONFIG="/home/shaharyar/.config/starship_bash.toml"
-export PATH="$HOME/.local/bin:$PATH"
-
-### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
-export PATH="/home/shaharyar/.rd/bin:$PATH"
-### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)
-
-
-export STARSHIP_CONFIG="/home/shaharyar/.config/starship_bash.toml"
-export STARSHIP_CONFIG="/home/shaharyar/.config/starship_bash.toml"
-export STARSHIP_CONFIG="/home/shaharyar/.config/starship_bash.toml"
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-export STARSHIP_CONFIG="/home/shaharyar/.config/starship_bash.toml"
-export STARSHIP_CONFIG="/home/shaharyar/.config/starship_bash.toml"
-export STARSHIP_CONFIG="/home/shaharyar/.config/starship_bash.toml"
-export STARSHIP_CONFIG="/home/shaharyar/.config/starship_bash.toml"
-export STARSHIP_CONFIG="/home/shaharyar/.config/starship_bash.toml"
-
-. "$HOME/.turso/env"
-export STARSHIP_CONFIG="/home/shaharyar/.config/starship_bash.toml"
-export STARSHIP_CONFIG="/home/shaharyar/.config/starship_bash.toml"
-export STARSHIP_CONFIG="/home/shaharyar/.config/starship_bash.toml"
-export STARSHIP_CONFIG="/home/shaharyar/.config/starship_bash.toml"
-export STARSHIP_CONFIG="/home/shaharyar/.config/starship_bash.toml"
-export STARSHIP_CONFIG="/home/shaharyar/.config/starship_bash.toml"
-export STARSHIP_CONFIG="/home/shaharyar/.config/starship_bash.toml"
-export STARSHIP_CONFIG="/home/shaharyar/.config/starship_bash.toml"
-. "$HOME/.cargo/env"
-
-export PATH="/home/shaharyar/.local/stm32cube/bin:$PATH"export STARSHIP_CONFIG="/home/shaharyarshakir/.config/starship_bash.toml"
-
-
-# Added by Antigravity CLI installer
-export PATH="/home/shaharyarshakir/.local/bin:$PATH"
-
 if command -v wt >/dev/null 2>&1; then eval "$(command wt config shell init bash)"; fi
+# Ubuntu-style terminal prompt
+if [ "$EUID" -eq 0 ]; then
+    PS1='\[\033[01;31m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]# '
+else
+    PS1='\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+fi
+
+export TERM=xterm-256color

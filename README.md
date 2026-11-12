@@ -44,6 +44,7 @@ Personal dotfiles and system configurations managed with **GNU Stow**, tailored 
 ├── zsh/                 # Zsh configuration and Starship prompt setup
 ├── .stowrc              # GNU Stow target & ignore rules
 ├── install.sh           # Automated installation script
+├── Makefile             # Common install, stow and maintenance shortcuts
 └── config.yaml          # Global environment settings
 ```
 
@@ -74,6 +75,21 @@ stow --adopt .
 
 # Or link specific configurations individually
 stow -t ~/.config nvim kitty hypr waybar yazi ghostty tmux
+```
+
+### 4. Make Shortcuts
+The included `Makefile` wraps the most common operations. Run `make` (or `make help`) to list every target.
+
+```bash
+make install        # Bootstrap dependencies, link dotfiles and install devbox
+make stow           # Symlink all packages (stow .)
+make restow         # Refresh all symlinks
+make unstow         # Remove all managed symlinks
+make stow-nvim      # Link a single package (works for any package in `make list`)
+make update         # Pull the latest changes and restow
+make check          # Verify stow, shell syntax and link conflicts
+make nixos          # Rebuild NixOS from nixos/ (NIX_HOST=nixos by default)
+make blendos        # Sync the BlendOS declarative system config
 ```
 
 ---
