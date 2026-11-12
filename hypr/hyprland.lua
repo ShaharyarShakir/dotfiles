@@ -1,8 +1,3 @@
--- Converted from hyprland.conf (hyprlang) to hyprland.lua
--- Hyprland 0.55+ Lua config — see https://wiki.hypr.land/Configuring/Start/
--- Save this as ~/.config/hypr/hyprland.lua (Hyprland reads .lua over .conf
--- if both exist, but only checks once at startup — restart, don't just reload)
-
 ------------------
 ---- MONITORS ----
 ------------------
@@ -41,8 +36,8 @@ hl.on("hyprland.start", function()
 	hl.exec_cmd("gsettings set org.gnome.desktop.interface gtk-theme Adwaita-dark")
 	hl.exec_cmd("/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1")
 	hl.exec_cmd("gnome-keyring-daemon --start --components=secrets")
-    hl.exec_cmd("noctalia")
-
+  hl.exec_cmd("noctalia")
+  hl.exec_cmd("wvkbd-mobintl --hidden")
 end)
 -------------------------------
 ---- ENVIRONMENT VARIABLES ----
@@ -131,6 +126,20 @@ hl.device({
 local mainMod = "SUPER"
 local secondMod = "SUPER + ALT"
 
+local touchpad_name = "elan-touchpad"
+local touchpad_enabled = true
+
+local function toggle_touchpad()
+	touchpad_enabled = not touchpad_enabled
+
+	hl.device({
+		name = touchpad_name,
+		enabled = touchpad_enabled,
+	})
+
+	print("Touchpad: " .. (touchpad_enabled and "ENABLED" or "DISABLED"))
+end
+
 -- Launch programs
 hl.bind(mainMod .. " + R", hl.dsp.exec_cmd("hyprvoice toggle"))
 hl.bind(mainMod .. " + I", hl.dsp.exec_cmd(terminal))
@@ -139,6 +148,7 @@ hl.bind(mainMod .. " + E", hl.dsp.exec_cmd(fileManager))
 hl.bind(mainMod .. " + B", hl.dsp.exec_cmd(browser))
 hl.bind(mainMod .. " + space", hl.dsp.exec_cmd(menu))
 hl.bind(secondMod .. " + space", hl.dsp.exec_cmd(runner))
+hl.bind(mainMod .. " + K", hl.dsp.exec_cmd("pkill -SIGRTMIN -x wvkbd-mobintl"))
 local ohw = "/home/shaharyarshakir/.local/bin/ohw"
 hl.bind(mainMod .. " + W", hl.dsp.exec_cmd("whisrs toggle"), {
 	description = "Whisrs: toggle dictation",
@@ -161,6 +171,7 @@ hl.bind(mainMod .. " + O", hl.dsp.exec_cmd("wlogout"))
 hl.bind(mainMod .. " + T", hl.dsp.exec_cmd("~/dotfiles/waybar/scripts/launch.sh"))
 hl.bind(mainMod .. " + A", hl.dsp.exec_cmd("pypr toggle term"))
 hl.bind(mainMod .. " + Y", hl.dsp.exec_cmd("cliphist list | rofi -dmenu -p 'Clipboard' | cliphist decode | wl-copy"))
+hl.bind(mainMod .. " + F9", toggle_touchpad)
 
 -- close vs force-close: hl.dsp.window.close() is graceful (was killactive),
 -- hl.dsp.window.kill() force-kills (was forcekillactive)
