@@ -148,7 +148,7 @@ hl.bind(mainMod .. " + E", hl.dsp.exec_cmd(fileManager))
 hl.bind(mainMod .. " + B", hl.dsp.exec_cmd(browser))
 hl.bind(mainMod .. " + space", hl.dsp.exec_cmd(menu))
 hl.bind(secondMod .. " + space", hl.dsp.exec_cmd(runner))
-hl.bind(mainMod .. " + K", hl.dsp.exec_cmd("pkill -SIGRTMIN -x wvkbd-mobintl"))
+hl.bind(mainMod .. " + K", hl.dsp.exec_cmd("pkill -x wvkbd-mobintl || wvkbd-mobintl --hidden"))
 local ohw = "/home/shaharyarshakir/.local/bin/ohw"
 hl.bind(mainMod .. " + W", hl.dsp.exec_cmd("whisrs toggle"), {
 	description = "Whisrs: toggle dictation",
